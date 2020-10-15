@@ -1,0 +1,24 @@
+server:
+  port: 8087
+
+spring:
+  datasource:
+    username: root
+    password: Password01!
+    url: jdbc:mysql://192.168.31.145:3306/dap_db_dev?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=GMT%2B8
+    #url: jdbc:mysql://localhost:3306/dap_db_dev?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=GMT%2B8
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis-plus:
+  #开启sql  日志
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.yechtech.dac.user.domain,com.yechtech.dac.job.domain,com.yechtech.dac.system.domain,
+  global-config:
+    banner: false
+
+dap:
+  url: http://192.168.31.101/api/
+
+

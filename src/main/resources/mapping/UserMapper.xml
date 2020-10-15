@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yechtech.dac.user.dao.UserMapper">
+
+        <!-- 通用查询映射结果 -->
+        <resultMap id="BaseResultMap" type="com.yechtech.dac.user.domain.User">
+                    <id column="id" property="id" />
+                    <result column="full_name" property="fullName" />
+                    <result column="username" property="username" />
+                    <result column="email" property="email" />
+                    <result column="department" property="department" />
+                    <result column="create_time" property="createTime" />
+                    <result column="modify_time" property="modifyTime" />
+                    <result column="tableau_id" property="tableauId" />
+                    <result column="uid" property="uid" />
+                    <result column="status" property="status" />
+                    <result column="belong_store" property="belongStore" />
+                    <result column="psid" property="psid" />
+                    <result column="user_id" property="userId" />
+                    <result column="group_id" property="groupId" />
+        </resultMap>
+
+</mapper>
