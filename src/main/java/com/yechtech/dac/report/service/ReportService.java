@@ -9,5 +9,5 @@ import com.yechtech.dac.report.dto.ReportVirstDto;
 public interface ReportService {
     IPage<Report> selectPage(ReportDto reportDto);
 
-    Report selectOne(ReportVirstDto reportVirstDto);
+    String selectOne(ReportVirstDto reportVirstDto);
 }

@@ -18,11 +18,6 @@ public class Report implements Serializable {
      */
     private String reportName;
 
-    /**
-     * 报表的访问地址
-     */
-    private String  reportAccessUrl;
-
 
     /**
      * 标签名

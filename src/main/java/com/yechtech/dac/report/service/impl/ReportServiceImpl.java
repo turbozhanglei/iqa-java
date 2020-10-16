@@ -31,7 +31,7 @@ public class ReportServiceImpl implements ReportService {
         log.info("根据系统报表分类获取报表信息： 请求参数=============>>>>{}", JSONObject.toJSONString(reportDto));
         Page<Report> page = new Page<>();
         //optType 0代表系统分类
-        if(reportDto.getOptType()==0){
+        if (reportDto.getOptType() == 0) {
             //调用dap服务，获取数据
             Object connectReport = feignConfig.getDapFegin(reportDto.getAccessToken()).getReport(reportDto.getPageSize(), reportDto.getPageNum(),
                     null, reportDto.getTypeId(), Boolean.TRUE);
@@ -50,7 +50,6 @@ public class ReportServiceImpl implements ReportService {
                             Map map = JSONObject.parseObject(JSONObject.toJSONString(item), Map.class);
                             Report report = new Report();
                             report.setReportName((String) map.get("reportName"));
-                            report.setReportAccessUrl((String) map.get("visitUrl"));
                             report.setReportImg((String) map.get("filepath"));
                             report.setLastUpdateTime((String) map.get("modifyTime"));
                             report.setTag((String[]) map.get("tag"));
@@ -74,7 +73,7 @@ public class ReportServiceImpl implements ReportService {
 
 
     @Override
-    public Report selectOne(ReportVirstDto reportVirstDto) {
+    public String selectOne(ReportVirstDto reportVirstDto) {
         log.info("开始进入报表访问： 请求参数=============>>>>{}", JSONObject.toJSONString(reportVirstDto));
         Report report = new Report();
         //判断用户是否有权限读取报表（暂时不做）
@@ -83,9 +82,9 @@ public class ReportServiceImpl implements ReportService {
         Object connectReport = feignConfig.getDapFegin(reportVirstDto.getAccessToken()).getReport(reportVirstDto.getReportId(), Boolean.TRUE);
         if (ObjectUtils.isNotEmpty(connectReport)) {
             JSONObject jsonObject = JSONObject.parseObject(connectReport.toString());
-            if (jsonObject.get("code").toString().equals("200")) {
+            if (jsonObject.get("code").toString().equals("200") && ObjectUtils.isNotEmpty(jsonObject.get("data"))) {
                 Map map = JSONObject.parseObject(jsonObject.get("data").toString(), Map.class);
-
+                return (String) map.get("visitUrl");
             }
         }
         return null;

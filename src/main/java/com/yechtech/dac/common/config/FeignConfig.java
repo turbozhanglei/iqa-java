@@ -9,6 +9,7 @@ import com.yechtech.dac.common.utils.SpringContextUtil;
 import feign.*;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.cloud.openfeign.support.ResponseEntityDecoder;
 import org.springframework.cloud.openfeign.support.SpringDecoder;
@@ -30,6 +31,10 @@ public class FeignConfig {
 
     @Autowired
     private Client client;
+
+    //Fegin 调用服务前缀
+    @Value("${dap.url}")
+    private String url;
 
     /**
      * 超时时间
@@ -120,8 +125,8 @@ public class FeignConfig {
         return Feign.builder().client(client)
                 .encoder(SpringContextUtil.getBean(SpringEncoder.class))
                 .decoder(SpringContextUtil.getBean(ResponseEntityDecoder.class))
-                .requestInterceptor(requestTemplate -> requestTemplate.header("Authentication", token))
-                .target(AuthCenterInterFaceService.class, "http://localhost:8081");
+                .requestInterceptor(requestTemplate -> requestTemplate.header("Authentication", token)) //添加请求头信息
+                .target(AuthCenterInterFaceService.class, url);
     }
 
 }
