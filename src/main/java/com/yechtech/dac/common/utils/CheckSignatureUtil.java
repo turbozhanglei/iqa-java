@@ -9,10 +9,10 @@ import java.io.UnsupportedEncodingException;
  * 访问接口时验证签名
  */
 public class CheckSignatureUtil {
-    public static boolean check(String code,String timeStamp,String signature) throws UnsupportedEncodingException {
-        StringBuilder str=new StringBuilder();
+    public static boolean check(String code, String timeStamp, String signature) throws UnsupportedEncodingException {
+        StringBuilder str = new StringBuilder();
         String secret = Md5Util.md5(str.append(code).append(timeStamp).append("mdap").toString());
-        if (!secret.equals(signature)){
+        if (!secret.equals(signature)) {
             //验签失败，参数有问题
             return false;
         }

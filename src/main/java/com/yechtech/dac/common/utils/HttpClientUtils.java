@@ -40,51 +40,51 @@ public class HttpClientUtils {
     private static final Logger logger = LoggerFactory.getLogger(HttpClientUtils.class);
     //    private static CloseableHttpClient httpClient;
     public static final String CHARSET = "UTF-8";
-    private static ThreadLocal<Map<String,String>> httpHeader = new ThreadLocal<Map<String,String>>();
-    private static ThreadLocal<Map<String,Object>> httpClientConfig = new ThreadLocal<Map<String,Object>>();
+    private static ThreadLocal<Map<String, String>> httpHeader = new ThreadLocal<Map<String, String>>();
+    private static ThreadLocal<Map<String, Object>> httpClientConfig = new ThreadLocal<Map<String, Object>>();
 
     //连接超时时间
-    public static final String CONNECT_TIMEOUT= "connect_timeout";
+    public static final String CONNECT_TIMEOUT = "connect_timeout";
     //socket超时时间
-    public static final String SOCKET_TIMEOUT= "socket_timeout";
+    public static final String SOCKET_TIMEOUT = "socket_timeout";
     public static final Integer DEFAULT_CONNECT_TIMEOUT = 600000;
     public static final Integer DEFAULT_SOCKET_TIMEOUT = 600000;
 
-    public static CloseableHttpClient buildHttpClient(String accessToken){
-        Map<String,Object> configSetting = new HashMap<String,Object>();
-        if(httpClientConfig!=null && null!=httpClientConfig.get()){
+    public static CloseableHttpClient buildHttpClient(String accessToken) {
+        Map<String, Object> configSetting = new HashMap<String, Object>();
+        if (httpClientConfig != null && null != httpClientConfig.get()) {
             configSetting = httpClientConfig.get();
         }
         RequestConfig.Builder builder = RequestConfig.custom();
         Integer connectTimeout = DEFAULT_CONNECT_TIMEOUT;
-        if(configSetting.get(CONNECT_TIMEOUT)!=null){
-            try{
+        if (configSetting.get(CONNECT_TIMEOUT) != null) {
+            try {
                 connectTimeout = Integer.valueOf(configSetting.get(CONNECT_TIMEOUT).toString());
-            }catch(Exception e){
-                logger.warn("class covert error!",e);
+            } catch (Exception e) {
+                logger.warn("class covert error!", e);
                 connectTimeout = DEFAULT_CONNECT_TIMEOUT;
             }
         }
         builder.setConnectTimeout(connectTimeout);
         Integer socketTimeout = DEFAULT_SOCKET_TIMEOUT;
-        if(configSetting.get(SOCKET_TIMEOUT)!=null){
-            try{
+        if (configSetting.get(SOCKET_TIMEOUT) != null) {
+            try {
                 socketTimeout = Integer.valueOf(configSetting.get(SOCKET_TIMEOUT).toString());
-            }catch(Exception e){
-                logger.warn("class covert error!",e);
+            } catch (Exception e) {
+                logger.warn("class covert error!", e);
                 socketTimeout = DEFAULT_SOCKET_TIMEOUT;
             }
         }
         builder.setSocketTimeout(socketTimeout);
         RequestConfig config = builder.build();
         HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
-        if (StringUtils.isNotEmpty(accessToken)){
+        if (StringUtils.isNotEmpty(accessToken)) {
             // 设置BasicAuth
             CredentialsProvider provider = new BasicCredentialsProvider();
             // Create the authentication scope
             AuthScope scope = new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT, AuthScope.ANY_REALM);
             // Create credential pair，在此处填写用户名和密码
-            UsernamePasswordCredentials credentials = new UsernamePasswordCredentials("Token",accessToken);
+            UsernamePasswordCredentials credentials = new UsernamePasswordCredentials("Token", accessToken);
             // Inject the credentials
             provider.setCredentials(scope, credentials);
             // Set the default credentials provider
@@ -96,51 +96,54 @@ public class HttpClientUtils {
     public static String doGet(String url, Map<String, String> params) throws IOException {
         return doGet(url, params, CHARSET);
     }
+
     /**
      * HTTP Get 获取内容
-     * @param url  请求的url地址 ?之前的地址
-     * @param params 请求的参数
-     * @param charset    编码格式
-     * @return    页面内容
+     *
+     * @param url     请求的url地址 ?之前的地址
+     * @param params  请求的参数
+     * @param charset 编码格式
+     * @return 页面内容
      */
-    public static String doGet(String url,Map<String,String> params,String charset) throws IOException{
+    public static String doGet(String url, Map<String, String> params, String charset) throws IOException {
         String encoding = CHARSET;
-        if(StringUtils.isNotBlank(charset)){
+        if (StringUtils.isNotBlank(charset)) {
             encoding = charset;
         }
-        return doGet(url,params,encoding,encoding);
+        return doGet(url, params, encoding, encoding);
     }
 
     /**
      * HTTP Get 获取内容
-     * @param url  请求的url地址 ?之前的地址
-     * @param params 请求的参数
-     * @param reqcharset     请求编码格式
-     * @param respCharset    返回编码格式
-     * @return    页面内容
+     *
+     * @param url         请求的url地址 ?之前的地址
+     * @param params      请求的参数
+     * @param reqcharset  请求编码格式
+     * @param respCharset 返回编码格式
+     * @return 页面内容
      */
-    public static String doGet(String url,Map<String,String> params,String reqcharset,String respCharset) throws IOException{
-        if(StringUtils.isBlank(url)){
+    public static String doGet(String url, Map<String, String> params, String reqcharset, String respCharset) throws IOException {
+        if (StringUtils.isBlank(url)) {
             return null;
         }
         String requestCharset = CHARSET;
-        if(StringUtils.isNotBlank(reqcharset)){
+        if (StringUtils.isNotBlank(reqcharset)) {
             requestCharset = reqcharset;
         }
         String responseCharset = CHARSET;
-        if(StringUtils.isNotBlank(respCharset)){
+        if (StringUtils.isNotBlank(respCharset)) {
             responseCharset = respCharset;
         }
         CloseableHttpClient httpClient = null;
-        CloseableHttpResponse response = null ;
+        CloseableHttpResponse response = null;
         HttpGet httpGet = null;
         try {
-            if(params != null && !params.isEmpty()){
+            if (params != null && !params.isEmpty()) {
                 List<NameValuePair> pairs = new ArrayList<NameValuePair>(params.size());
-                for(Map.Entry<String,String> entry : params.entrySet()){
+                for (Map.Entry<String, String> entry : params.entrySet()) {
                     String value = entry.getValue();
-                    if(value != null){
-                        pairs.add(new BasicNameValuePair(entry.getKey(),value));
+                    if (value != null) {
+                        pairs.add(new BasicNameValuePair(entry.getKey(), value));
                     }
                 }
                 url += "?" + EntityUtils.toString(new UrlEncodedFormEntity(pairs, requestCharset));
@@ -157,36 +160,34 @@ public class HttpClientUtils {
             }
             HttpEntity entity = response.getEntity();
             String result = null;
-            if (entity != null){
+            if (entity != null) {
                 result = EntityUtils.toString(entity, responseCharset);
             }
             EntityUtils.consume(entity);
             response.close();
             return result;
         } catch (IOException e) {
-            logger.error(e.getMessage(),e);
+            logger.error(e.getMessage(), e);
             throw e;
-        }finally{
-            if(response!=null){
+        } finally {
+            if (response != null) {
                 response.close();
             }
-            if(httpGet!=null){
+            if (httpGet != null) {
                 httpGet.releaseConnection();
             }
-            if(httpClient!=null){
+            if (httpClient != null) {
                 httpClient.close();
             }
         }
     }
 
 
-
-
     private static void handlerHeader(HttpRequestBase requestBase) {
-        if(httpHeader!=null&&httpHeader.get()!=null){
-            Map<String,String> map = httpHeader.get();
-            for(String key:map.keySet()){
-                requestBase.addHeader(key,map.get(key));
+        if (httpHeader != null && httpHeader.get() != null) {
+            Map<String, String> map = httpHeader.get();
+            for (String key : map.keySet()) {
+                requestBase.addHeader(key, map.get(key));
             }
         }
     }
@@ -198,83 +199,85 @@ public class HttpClientUtils {
 
     /**
      * HTTP Post 获取内容
-     * @param url  请求的url地址 ?之前的地址
-     * @param params 请求的参数
-     * @param charset    编码格式
-     * @return    页面内容
+     *
+     * @param url     请求的url地址 ?之前的地址
+     * @param params  请求的参数
+     * @param charset 编码格式
+     * @return 页面内容
      */
-    public static String doPost(String url,Map<String,Object> params,String charset) throws IOException {
+    public static String doPost(String url, Map<String, Object> params, String charset) throws IOException {
         String encoding = CHARSET;
-        if(StringUtils.isNotBlank(charset)){
+        if (StringUtils.isNotBlank(charset)) {
             encoding = charset;
         }
-        return doPost(url,params,encoding,encoding);
+        return doPost(url, params, encoding, encoding);
     }
 
     /**
      * HTTP Post 获取内容
-     * @param url  请求的url地址 ?之前的地址
-     * @param params 请求的参数
-     * @param reqCharset    请求编码格式
-     * @param respCharset    返回编码格式
-     * @return    页面内容
+     *
+     * @param url         请求的url地址 ?之前的地址
+     * @param params      请求的参数
+     * @param reqCharset  请求编码格式
+     * @param respCharset 返回编码格式
+     * @return 页面内容
      */
-    public static String doPost(String url,Map<String,Object> params,String reqCharset,String respCharset) throws IOException {
-        if(StringUtils.isBlank(url)){
+    public static String doPost(String url, Map<String, Object> params, String reqCharset, String respCharset) throws IOException {
+        if (StringUtils.isBlank(url)) {
             return null;
         }
         CloseableHttpClient httpClient = null;
-        CloseableHttpResponse response = null ;
+        CloseableHttpResponse response = null;
         HttpPost httpPost = null;
         String requestCharset = CHARSET;
-        if(StringUtils.isNotBlank(reqCharset)){
+        if (StringUtils.isNotBlank(reqCharset)) {
             requestCharset = reqCharset;
         }
         String responseCharset = CHARSET;
-        if(StringUtils.isNotBlank(respCharset)){
+        if (StringUtils.isNotBlank(respCharset)) {
             responseCharset = respCharset;
         }
         try {
             List<NameValuePair> pairs = null;
-            if(params != null && !params.isEmpty()){
+            if (params != null && !params.isEmpty()) {
                 pairs = new ArrayList<NameValuePair>(params.size());
-                for(Map.Entry<String,Object> entry : params.entrySet()){
+                for (Map.Entry<String, Object> entry : params.entrySet()) {
                     String value = entry.getValue().toString();
-                    if(value != null){
-                        pairs.add(new BasicNameValuePair(entry.getKey(),value));
+                    if (value != null) {
+                        pairs.add(new BasicNameValuePair(entry.getKey(), value));
                     }
                 }
             }
             httpPost = new HttpPost(url);
             handlerHeader(httpPost);
-            if(pairs != null && pairs.size() > 0){
-                httpPost.setEntity(new UrlEncodedFormEntity(pairs,requestCharset));
+            if (pairs != null && pairs.size() > 0) {
+                httpPost.setEntity(new UrlEncodedFormEntity(pairs, requestCharset));
             }
             httpClient = buildHttpClient(params.get("accessToken") == null ? null : params.get("accessToken").toString());
             response = httpClient.execute(httpPost);
             int statusCode = response.getStatusLine().getStatusCode();
-            if (statusCode != 200) {
-                httpPost.abort();
-                throw new RuntimeException("HttpClient,error status code :" + statusCode);
-            }
+//            if (statusCode != 200) {
+//                httpPost.abort();
+//                throw new RuntimeException("HttpClient,error status code :" + statusCode);
+//            }
             HttpEntity entity = response.getEntity();
             String result = null;
-            if (entity != null){
-                result = EntityUtils.toString(entity,responseCharset);
+            if (entity != null) {
+                result = EntityUtils.toString(entity, responseCharset);
             }
             EntityUtils.consume(entity);
             return result;
         } catch (IOException e) {
-            logger.error(e.getMessage(),e);
+            logger.error(e.getMessage(), e);
             throw e;
-        }finally{
-            if(response!=null){
+        } finally {
+            if (response != null) {
                 response.close();
             }
-            if(httpPost!=null){
+            if (httpPost != null) {
                 httpPost.releaseConnection();
             }
-            if(httpClient!=null){
+            if (httpClient != null) {
                 httpClient.close();
             }
         }
@@ -282,34 +285,34 @@ public class HttpClientUtils {
 
 
     /**
-     *  HTTP Post 获取内容
-     * @param url  请求的url地址
-     * @param jsonParam 请求的JSON参数
-     * @param reqCharset    请求编码格式
-     * @param respCharset    返回编码格式
+     * HTTP Post 获取内容
      *
+     * @param url         请求的url地址
+     * @param jsonParam   请求的JSON参数
+     * @param reqCharset  请求编码格式
+     * @param respCharset 返回编码格式
      * @return
      */
-    public static String doPost(String url,String jsonParam,String reqCharset,String respCharset) throws IOException {
-        if(StringUtils.isBlank(url)){
+    public static String doPost(String url, String jsonParam, String reqCharset, String respCharset) throws IOException {
+        if (StringUtils.isBlank(url)) {
             return null;
         }
         CloseableHttpClient httpClient = null;
         CloseableHttpResponse response = null;
-        HttpPost httpPost = null ;
+        HttpPost httpPost = null;
         String requestCharset = CHARSET;
-        if(StringUtils.isNotBlank(reqCharset)){
+        if (StringUtils.isNotBlank(reqCharset)) {
             requestCharset = reqCharset;
         }
         String responseCharset = CHARSET;
-        if(StringUtils.isNotBlank(respCharset)){
+        if (StringUtils.isNotBlank(respCharset)) {
             responseCharset = respCharset;
         }
         try {
             httpPost = new HttpPost(url);
             handlerHeader(httpPost);
-            if(StringUtils.isNotBlank(jsonParam)){
-                StringEntity entity = new StringEntity(jsonParam,CHARSET);
+            if (StringUtils.isNotBlank(jsonParam)) {
+                StringEntity entity = new StringEntity(jsonParam, CHARSET);
                 entity.setContentEncoding(requestCharset);
                 entity.setContentType("application/json");
                 httpPost.setEntity(entity);
@@ -323,60 +326,60 @@ public class HttpClientUtils {
             }
             HttpEntity entity = response.getEntity();
             String result = null;
-            if (entity != null){
+            if (entity != null) {
                 result = EntityUtils.toString(entity, responseCharset);
             }
             EntityUtils.consume(entity);
             return result;
         } catch (IOException e) {
-            logger.error(e.getMessage(),e);
+            logger.error(e.getMessage(), e);
             throw e;
-        }finally{
-            if(response!=null){
+        } finally {
+            if (response != null) {
                 response.close();
             }
-            if(httpPost!=null){
+            if (httpPost != null) {
                 httpPost.releaseConnection();
             }
-            if(httpClient!=null){
+            if (httpClient != null) {
                 httpClient.close();
             }
         }
     }
 
 
-
     /**
-     *  HTTP Post 获取内容
-     * @param url  请求的url地址
+     * HTTP Post 获取内容
+     *
+     * @param url       请求的url地址
      * @param jsonParam 请求的JSON参数
      * @param charset   编码格式
-     *
      * @return
      */
-    public static String doPost(String url,String jsonParam,String charset ) throws IOException {
+    public static String doPost(String url, String jsonParam, String charset) throws IOException {
         String encoding = CHARSET;
-        if(StringUtils.isNotBlank(charset)){
+        if (StringUtils.isNotBlank(charset)) {
             encoding = charset;
         }
-        return doPost(url,jsonParam,encoding,encoding);
+        return doPost(url, jsonParam, encoding, encoding);
     }
 
 
     /**
-     *  HTTP Post 获取内容
-     * @param url  请求的url地址
-     * @param jsonParam 请求的JSON参数
+     * HTTP Post 获取内容
      *
+     * @param url       请求的url地址
+     * @param jsonParam 请求的JSON参数
      * @return
      */
-    public static String doPost(String url,String jsonParam) throws IOException {
-        return doPost(url,jsonParam,CHARSET);
+    public static String doPost(String url, String jsonParam) throws IOException {
+        return doPost(url, jsonParam, CHARSET);
     }
 
 
     /**
      * post发送json数据
+     *
      * @param url
      * @param param
      * @return
@@ -409,14 +412,14 @@ public class HttpClientUtils {
     }
 
 
-    public static void setHeader(Map<String,String> header){
-        if(header!=null) {
+    public static void setHeader(Map<String, String> header) {
+        if (header != null) {
             httpHeader.set(header);
         }
     }
 
-    public static void setConfig(Map<String,Object> config){
-        if(config!=null) {
+    public static void setConfig(Map<String, Object> config) {
+        if (config != null) {
             httpClientConfig.set(config);
         }
     }

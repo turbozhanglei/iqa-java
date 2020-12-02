@@ -1,0 +1,38 @@
+package com.yechtech.dac.traceability.dto;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * 批次追溯主档数据request
+ * @author : zxl
+ * @email : 
+ * @since : 2020-11-11 02:20:13
+ * @version : v1.0.0
+ */
+@Getter
+@Setter
+@Data
+public class BatchTraceabilityDto implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @ApiModelProperty(notes = "id")
+    private Integer id;
+    @ApiModelProperty(notes = "供应商JDE编码")
+    private String supplierJdecode;
+    @ApiModelProperty(notes = "品项JDE编码")
+    private String skuJdecode;
+    @ApiModelProperty(notes = "生产商EQA编码")
+    private String manufacturerEqaCode;
+    @ApiModelProperty(notes = "生产日期")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date productionDate;
+    @ApiModelProperty(notes = "用户token")
+    private String tokenIqa;
+
+}

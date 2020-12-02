@@ -4,6 +4,7 @@ package com.yechtech.dac.common.config;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.yechtech.dac.common.feign.decoder.MagicBoxErrorDecoder;
 import com.yechtech.dac.common.service.AuthCenterInterFaceService;
 import com.yechtech.dac.common.utils.SpringContextUtil;
 import feign.*;
@@ -121,11 +122,12 @@ public class FeignConfig {
     }
 
 
-    public AuthCenterInterFaceService getDapFegin(String token) {
+    public AuthCenterInterFaceService getDapFegin() {
         return Feign.builder().client(client)
                 .encoder(SpringContextUtil.getBean(SpringEncoder.class))
                 .decoder(SpringContextUtil.getBean(ResponseEntityDecoder.class))
-                .requestInterceptor(requestTemplate -> requestTemplate.header("Authentication", token)) //添加请求头信息
+//                .requestInterceptor(requestTemplate -> requestTemplate.header("Authentication", token)) //添加请求头信息
+                .errorDecoder(new MagicBoxErrorDecoder())
                 .target(AuthCenterInterFaceService.class, url);
     }
 

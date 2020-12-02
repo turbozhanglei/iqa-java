@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://Mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yechtech.dac.traceability.dao.BatchTraceabilityLcMapper">
+    <resultMap id="cdfactIqaBatchTraceabilityLcMap" type="com.yechtech.dac.traceability.domain.BatchTraceabilityLc">
+        <result property="id" column="id"/>
+        <result property="supplierJdecode" column="supplier_jdecode"/>
+        <result property="supplierName" column="supplier_name"/>
+        <result property="skuEqacode" column="sku_eqacode"/>
+        <result property="skuJdecode" column="sku_jdecode"/>
+        <result property="skuName" column="sku_name"/>
+        <result property="productionDate" column="production_date"/>
+        <result property="slcCodeLc" column="slc_code_lc"/>
+        <result property="slcNameLc" column="slc_name_lc"/>
+        <result property="slcCodeCc" column="slc_code_cc"/>
+        <result property="slcNameCc" column="slc_name_cc"/>
+        <result property="earliestdelvDate" column="earliestdelv_date"/>
+        <result property="latestshipDate" column="latestship_date"/>
+        <result property="receivedQty" column="received_qty"/>
+        <result property="shipmentQty" column="shipment_qty"/>
+        <result property="inventoriesQty" column="inventories_qty"/>
+        <result property="uom" column="UOM"/>
+    </resultMap>
+
+
+    <select id="query" resultMap="cdfactIqaBatchTraceabilityLcMap">
+        select id from cdm_fact_iqa_batch_traceability_lc where
+        <trim suffixOverrides="and" >
+            1=1 and
+            <if test="supplierJdecode !=null and supplierJdecode !=''">
+                supplier_jdecode = #{supplierJdecode} and
+            </if>
+            <if test="skuJdecode !=null and skuJdecode !=''">
+                sku_jdecode = #{skuJdecode} and
+            </if>
+            <if test="productionDate !=null">
+                production_date = #{productionDate} and
+            </if>
+        </trim>
+        limit 1,10
+    </select>
+
+     <!--分页查询-->
+    <select id="queryPage" resultMap="cdfactIqaBatchTraceabilityLcMap">
+        SELECT
+        *
+        FROM
+        cdm_fact_iqa_batch_traceability_lc a
+        JOIN (
+            SELECT
+             a.id
+            FROM
+            cdm_fact_iqa_batch_traceability_store a
+        INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
+        INNER JOIN ods_user_role_mapping ourm ON ourm.rolename = eskr.sqa_group_name
+        <if test="cdfactIqaBatchTraceabilityLc.psid !=null">
+            AND ourm.adpid = #{cdfactIqaBatchTraceabilityLc.psid}
+        </if>
+        WHERE
+        <trim suffixOverrides="and" >
+            1=1 and
+            <if test="cdfactIqaBatchTraceabilityLc.supplierJdecode !=null and cdfactIqaBatchTraceabilityLc.supplierJdecode !=''">
+                a.supplier_jdecode = #{cdfactIqaBatchTraceabilityLc.supplierJdecode} and
+            </if>
+            <if test="cdfactIqaBatchTraceabilityLc.skuJdecode !=null and cdfactIqaBatchTraceabilityLc.skuJdecode !=''">
+                a.sku_jdecode = #{cdfactIqaBatchTraceabilityLc.skuJdecode} and
+            </if>
+            <if test="cdfactIqaBatchTraceabilityLc.productionDate !=null">
+                a.production_date = #{cdfactIqaBatchTraceabilityLc.productionDate} and
+            </if>
+        </trim>
+        order by a.id desc limit #{startIndex},#{limit}
+        ) b ON a.id = b.id
+    </select>
+
+    <select id="queryPageCount" resultType="java.lang.Long">
+        select count(*) from cdm_fact_iqa_batch_traceability_lc a
+        INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
+        INNER JOIN ods_user_role_mapping ourm ON ourm.rolename = eskr.sqa_group_name
+        <if test="psid !=null">
+            AND ourm.adpid = #{psid}
+        </if>
+        where
+        <trim suffixOverrides="and" >
+            1=1 and
+            <if test="supplierJdecode !=null and supplierJdecode !=''">
+                a.supplier_jdecode = #{supplierJdecode} and
+            </if>
+            <if test="skuJdecode !=null and skuJdecode !=''">
+                a.sku_jdecode = #{skuJdecode} and
+            </if>
+            <if test="productionDate !=null">
+                a.production_date = #{productionDate} and
+            </if>
+        </trim>
+    </select>
+
+</mapper>

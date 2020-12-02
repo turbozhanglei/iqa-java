@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://Mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yechtech.dac.traceability.dao.BatchTraceabilityStoreMapper">
+    <resultMap id="cdfactIqaBatchTraceabilityStoreMap" type="com.yechtech.dac.traceability.domain.BatchTraceabilityStore">
+        <result property="id" column="id"/>
+        <result property="supplierJdecode" column="supplier_jdecode"/>
+        <result property="supplierName" column="supplier_name"/>
+        <result property="skuEqacode" column="sku_eqacode"/>
+        <result property="skuJdecode" column="sku_jdecode"/>
+        <result property="skuName" column="sku_name"/>
+        <result property="productionDate" column="production_date"/>
+        <result property="storeCode" column="store_code"/>
+        <result property="storeName" column="store_name"/>
+        <result property="brandNameCn" column="brand_name_cn"/>
+        <result property="fqaMarketCode" column="fqa_market_code"/>
+        <result property="fqaMarketName" column="fqa_market_name"/>
+        <result property="slcCodeLc" column="slc_code_lc"/>
+        <result property="slcNameLc" column="slc_name_lc"/>
+        <result property="earliestdelvdate" column="earliestdelvdate"/>
+        <result property="latestdelvdate" column="latestdelvdate"/>
+        <result property="quantity" column="quantity"/>
+        <result property="uom" column="UOM"/>
+    </resultMap>
+
+
+    <insert id="insertInfo" parameterType="com.yechtech.dac.traceability.domain.BatchTraceabilityStore">
+        insert into cdm_fact_iqa_batch_traceability_store
+        (supplier_jde_code,supplier_name,sku_eqa_code,sku_jde_code,sku_name,production_date,store_code,store_name,brand_name_cn,fqa_market_code,fqa_market_name,slc_code_lc,slc_name_lc,earliestdelv_date,latestdelv_date,quantity,UOM)
+        values
+        (#{supplierJdecode},#{supplierName},#{skuEqaCode},#{skuJdecode},#{skuName},#{productionDate},#{storeCode},#{storeName},#{brandNameCn},#{fqaMarketCode},#{fqaMarketName},#{slcCodeLc},#{slcNameLc},#{earliestdelvDate},#{latestdelvDate},#{quantity},#{uom})
+    </insert>
+
+
+    <select id="query" resultMap="cdfactIqaBatchTraceabilityStoreMap">
+        select a.* from cdm_fact_iqa_batch_traceability_store a
+        INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
+        INNER JOIN ods_user_role_mapping ourm ON ourm.rolename = eskr.sqa_group_name
+        where
+        <trim suffixOverrides="and" >
+            1=1 and
+            <if test="supplierJdecode !=null and supplierJdecode !=''">
+                a.supplier_jdecode = #{supplierJdecode} and
+            </if>
+            <if test="skuJdecode !=null and skuJdecode !=''">
+                a.sku_jdecode = #{skuJdecode} and
+            </if>
+            <if test="productionDate !=null">
+                a.production_date = #{productionDate} and
+            </if>
+            <if test="skuName !=null and skuName !=''">
+                a.sku_name like Concat(#{skuName},'%')  and
+            </if>
+            <if test="brandNameCn !=null and brandNameCn !=''">
+                a.brand_name_cn like Concat(#{brandNameCn},'%')  and
+            </if>
+        </trim>
+        limit 1,10
+    </select>
+
+    <!-- 分页查询 -->
+    <select id="queryPage" resultMap="cdfactIqaBatchTraceabilityStoreMap">
+        SELECT
+         *
+        FROM
+        cdm_fact_iqa_batch_traceability_store a
+        JOIN (
+            SELECT
+            a.id
+            FROM
+            cdm_fact_iqa_batch_traceability_store a
+            INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
+            INNER JOIN ods_user_role_mapping ourm ON ourm.rolename = eskr.sqa_group_name
+            <if test="BatchTraceabilityStore.psid !=null">
+                AND ourm.adpid = #{BatchTraceabilityStore.psid}
+            </if>
+            WHERE
+        <trim suffixOverrides="and" >
+            1=1 and
+            <if test="BatchTraceabilityStore.supplierJdecode !=null and BatchTraceabilityStore.supplierJdecode !=''">
+                a.supplier_jdecode = #{BatchTraceabilityStore.supplierJdecode} and
+            </if>
+            <if test="BatchTraceabilityStore.skuJdecode !=null and BatchTraceabilityStore.skuJdecode !=''">
+                a.sku_jdecode = #{BatchTraceabilityStore.skuJdecode} and
+            </if>
+            <if test="BatchTraceabilityStore.productionDate !=null">
+                a.production_date = #{BatchTraceabilityStore.productionDate} and
+            </if>
+        </trim>
+        order by a.id desc limit #{startIndex},#{limit}
+        ) b ON a.id = b.id
+    </select>
+
+    <select id="queryPageCount" resultType="java.lang.Long">
+        select count(*) from cdm_fact_iqa_batch_traceability_store a
+        INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
+        INNER JOIN ods_user_role_mapping ourm ON ourm.rolename = eskr.sqa_group_name
+        <if test="psid !=null">
+            AND ourm.adpid = #{psid}
+        </if>
+        where
+        <trim suffixOverrides="and" >
+            1=1 and
+            <if test="supplierJdecode !=null and supplierJdecode !=''">
+                a.supplier_jdecode = #{supplierJdecode} and
+            </if>
+            <if test="skuJdecode !=null and skuJdecode !=''">
+                a.sku_jdecode = #{skuJdecode} and
+            </if>
+            <if test="productionDate !=null">
+                a.production_date = #{productionDate} and
+            </if>
+        </trim>
+    </select>
+
+
+</mapper>

@@ -1,14 +1,30 @@
 server:
-  port: 8098
+  port: 80
 
 spring:
   datasource:
     username: root
-    password: Password01!
-    url: jdbc:mysql://192.168.31.145:3306/dap_db_dev?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=GMT%2B8
-    #url: jdbc:mysql://localhost:3306/dap_db_dev?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=GMT%2B8
+    password: root123456
+    url: jdbc:mysql://172.25.245.229:3306/iqa?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=GMT%2B8
     driver-class-name: com.mysql.jdbc.Driver
-
+  redis:
+    # Redis数据库索引（默认为0）
+    database: 2
+    host: 172.25.245.229
+    port: 6379
+    password:
+    sentinel:
+      master: mymaster
+      nodes: 172.25.245.229:26379,172.25.245.230:26379
+    jedis:
+      pool:
+        min-idle: 8
+        max-idle: 500
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 2000
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: 10000
+    timeout: 0
 mybatis-plus:
   #开启sql  日志
   configuration:
@@ -17,3 +33,8 @@ mybatis-plus:
   type-aliases-package: com.yechtech.dac.user.domain,com.yechtech.dac.job.domain,com.yechtech.dac.system.domain,
   global-config:
     banner: false
+
+dap:
+  url: 172.25.243.47:9999/dm/iframeToken
+
+

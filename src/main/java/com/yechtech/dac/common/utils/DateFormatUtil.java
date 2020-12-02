@@ -11,11 +11,11 @@ import java.util.Date;
 public class DateFormatUtil {
 
     //将日期转换为字符串
-    public static String DateToString(Date date,String pattern){
+    public static String DateToString(Date date, String pattern) {
 
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat(pattern);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
-        return  simpleDateFormat.format(date);
+        return simpleDateFormat.format(date);
 
     }
 }

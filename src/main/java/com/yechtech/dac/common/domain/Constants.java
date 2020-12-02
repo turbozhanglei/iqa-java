@@ -8,5 +8,5 @@ package com.yechtech.dac.common.domain;
 public class Constants {
 
     //缓存前缀
-    public static final String ZADD_CACHE_PREFIX="CACHE_ZADD:";
+    public static final String ZADD_CACHE_PREFIX = "CACHE_ZADD:";
 }

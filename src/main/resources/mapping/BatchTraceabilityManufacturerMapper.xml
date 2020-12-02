@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://Mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yechtech.dac.traceability.dao.BatchTraceabilityManufacturerMapper">
+    <resultMap id="cdfactIqaBatchTraceabilityManufacturerMap" type="com.yechtech.dac.traceability.domain.BatchTraceabilityManufacturer">
+        <result property="id" column="id"/>
+        <result property="manufacturerEqacode" column="manufacturer_eqa_code"/>
+        <result property="manufacturerName" column="manufacturer_name"/>
+        <result property="skuEqacode" column="sku_eqa_code"/>
+        <result property="skuJdecode" column="sku_jde_code"/>
+        <result property="skuName" column="sku_name"/>
+        <result property="productionDate" column="production_date"/>
+        <result property="productionQuantity" column="production_quantity"/>
+        <result property="shipDate" column="ship_date"/>
+        <result property="shipmentQuantity" column="shipment_quantity"/>
+        <result property="receiver" column="receiver"/>
+    </resultMap>
+
+
+    <select id="query" resultMap="cdfactIqaBatchTraceabilityManufacturerMap">
+        SELECT
+         a.*
+        FROM
+        cdm_fact_iqa_batch_traceability_manufacturer a
+        INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
+        INNER JOIN ods_user_role_mapping ourm ON ourm.rolename = eskr.sqa_group_name
+        <if test="psid !=null">
+            AND ourm.adpid = #{psid}
+        </if>
+        where
+        <trim suffixOverrides="and" >
+            1=1 and
+            <if test="manufacturerEqacode !=null and manufacturerEqacode !=''">
+                a.manufacturer_eqacode = #{manufacturerEqacode} and
+            </if>
+            <if test="skuJdecode !=null and skuJdecode !=''">
+                a.sku_jdecode = #{skuJdecode} and
+            </if>
+            <if test="productionDate !=null">
+                a.production_date = #{productionDate} and
+            </if>
+            <if test="skuName !=null and skuName !=''">
+                a.sku_name like Concat('%',#{skuName},'%') and
+            </if>
+            <if test="manufacturerName !=null and manufacturerName !=''">
+                a.manufacturer_name like Concat('%',#{manufacturerName},'%')  and
+            </if>
+        </trim>
+        limit 1,10
+    </select>
+
+    <!-- 分页查询 -->
+    <select id="queryPage" resultMap="cdfactIqaBatchTraceabilityManufacturerMap">
+        SELECT
+        a.manufacturer_eqacode,
+        a.manufacturer_name,
+        a.sku_eqacode,
+        a.sku_jdecode,
+        a.sku_name,
+        a.production_date,
+        a.production_quantity,
+        a.ship_date,
+        a.shipment_quantity,
+        a.receiver
+        FROM
+        cdm_fact_iqa_batch_traceability_manufacturer a
+        INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
+        INNER JOIN ods_user_role_mapping ourm ON ourm.rolename = eskr.sqa_group_name
+        <if test="cdfactIqaBatchTraceabilityManufacturer.psid !=null">
+            AND ourm.adpid = #{cdfactIqaBatchTraceabilityManufacturer.psid}
+        </if>
+        where
+        <trim suffixOverrides="and" >
+            1=1 and
+            <if test="cdfactIqaBatchTraceabilityManufacturer.manufacturerEqacode !=null">
+                a.manufacturer_eqacode = #{cdfactIqaBatchTraceabilityManufacturer.manufacturerEqacode} and
+            </if>
+            <if test="cdfactIqaBatchTraceabilityManufacturer.skuEqacode !=null">
+                a.sku_eqacode = #{cdfactIqaBatchTraceabilityManufacturer.skuEqacode} and
+            </if>
+            <if test="cdfactIqaBatchTraceabilityManufacturer.skuJdecode !=null">
+                a.sku_jdecode = #{cdfactIqaBatchTraceabilityManufacturer.skuJdecode} and
+            </if>
+            <if test="cdfactIqaBatchTraceabilityManufacturer.productionDate !=null">
+                a.production_date = #{cdfactIqaBatchTraceabilityManufacturer.productionDate} and
+            </if>
+        </trim>
+        order by a.id desc limit #{startIndex},#{limit}
+    </select>
+
+    <select id="queryPageCount" resultType="java.lang.Long">
+        select count(*) from cdm_fact_iqa_batch_traceability_manufacturer a
+        INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
+        INNER JOIN ods_user_role_mapping ourm ON ourm.rolename = eskr.sqa_group_name
+        <if test="psid !=null">
+            AND ourm.adpid = #{psid}
+        </if>
+        where
+        <trim suffixOverrides="and" >
+            1=1 and
+            <if test="manufacturerEqacode !=null">
+                a.manufacturer_eqacode = #{manufacturerEqacode} and
+            </if>
+            <if test="skuEqacode !=null">
+                a.sku_eqacode = #{skuEqacode} and
+            </if>
+            <if test="skuJdecode !=null">
+                a.sku_jdecode = #{skuJdecode} and
+            </if>
+            <if test="productionDate !=null">
+                a.production_date = #{productionDate} and
+            </if>
+        </trim>
+    </select>
+
+
+</mapper>

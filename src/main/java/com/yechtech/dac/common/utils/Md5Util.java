@@ -16,7 +16,7 @@ public class Md5Util {
 
         //byte[] secret = DigestUtils.md5Digest(str.getBytes());
 
-       // return new String(secret,"UTF-8");
+        // return new String(secret,"UTF-8");
         String secret = DigestUtils.md5DigestAsHex(str.getBytes());
         return secret;
     }

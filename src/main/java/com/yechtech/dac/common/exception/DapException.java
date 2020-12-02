@@ -6,7 +6,7 @@ package com.yechtech.dac.common.exception;
 public class DapException extends Exception {
 
 
-    public DapException(String message){
+    public DapException(String message) {
         super(message);
     }
 }

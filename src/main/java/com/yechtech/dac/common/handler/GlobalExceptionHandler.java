@@ -17,15 +17,15 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public DacResponse handleException(Exception e){
-        log.error("系统内部异常，异常信息：",e);
+    public DacResponse handleException(Exception e) {
+        log.error("系统内部异常，异常信息：", e);
         return new DacResponse().message("系统内部异常");
     }
 
     @ExceptionHandler(value = DapException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public DacResponse handleDacException(DapException e){
-        log.warn("系统错误: {}",e.getMessage());
+    public DacResponse handleDacException(DapException e) {
+        log.warn("系统错误: {}", e.getMessage());
         return new DacResponse().message(e.getMessage());
     }
 
