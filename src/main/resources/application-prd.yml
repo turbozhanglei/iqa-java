@@ -5,7 +5,7 @@ spring:
   datasource:
     username: root
     password: root123456
-    url: jdbc:mysql://172.25.245.229:3306/iqa?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=GMT%2B8
+    url: jdbc:mysql://172.25.245.230:6033/iqa?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
     driver-class-name: com.mysql.jdbc.Driver
   redis:
     # Redis数据库索引（默认为0）
