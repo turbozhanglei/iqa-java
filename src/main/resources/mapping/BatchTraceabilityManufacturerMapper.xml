@@ -23,7 +23,7 @@
         FROM
         cdm_fact_iqa_batch_traceability_manufacturer a
         INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
-        INNER JOIN ods_user_role_mapping ourm ON ourm.rolename = eskr.sqa_group_name
+        INNER JOIN edw_eqa_user_role_mapping ourm ON ourm.rolename = eskr.sqa_group_name
         <if test="psid !=null">
             AND ourm.adpid = #{psid}
         </if>
@@ -46,7 +46,7 @@
                 a.manufacturer_name like Concat('%',#{manufacturerName},'%')  and
             </if>
         </trim>
-        limit 1,10
+        limit 0,10
     </select>
 
     <!-- 分页查询 -->
@@ -65,7 +65,7 @@
         FROM
         cdm_fact_iqa_batch_traceability_manufacturer a
         INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
-        INNER JOIN ods_user_role_mapping ourm ON ourm.rolename = eskr.sqa_group_name
+        INNER JOIN edw_eqa_user_role_mapping ourm ON ourm.rolename = eskr.sqa_group_name
         <if test="cdfactIqaBatchTraceabilityManufacturer.psid !=null">
             AND ourm.adpid = #{cdfactIqaBatchTraceabilityManufacturer.psid}
         </if>
@@ -91,7 +91,7 @@
     <select id="queryPageCount" resultType="java.lang.Long">
         select count(*) from cdm_fact_iqa_batch_traceability_manufacturer a
         INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
-        INNER JOIN ods_user_role_mapping ourm ON ourm.rolename = eskr.sqa_group_name
+        INNER JOIN edw_eqa_user_role_mapping ourm ON ourm.rolename = eskr.sqa_group_name
         <if test="psid !=null">
             AND ourm.adpid = #{psid}
         </if>

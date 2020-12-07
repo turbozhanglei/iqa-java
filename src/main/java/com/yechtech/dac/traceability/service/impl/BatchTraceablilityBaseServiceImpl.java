@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
-
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
