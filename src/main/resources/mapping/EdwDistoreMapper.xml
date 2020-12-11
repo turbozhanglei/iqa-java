@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://Mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yechtech.dac.traceability.dao.EdwDistoreMapper">
+    <resultMap id="edwDistoreMap" type="com.yechtech.dac.traceability.domain.EdwDistore">
+        <result property="storeId" column="store_id"/>
+        <result property="companyCode" column="company_code"/>
+        <result property="companyName" column="company_name"/>
+        <result property="storeCode" column="store_code"/>
+        <result property="buType" column="bu_type"/>
+        <result property="storeName" column="store_name"/>
+        <result property="brandCode" column="brand_code"/>
+        <result property="storeHyperioncode" column="store_hyperioncode"/>
+        <result property="invoiceCode" column="invoice_code"/>
+        <result property="invoiceName" column="invoice_name"/>
+        <result property="searchType" column="search_type"/>
+        <result property="individualsCompanies" column="individuals_companies"/>
+        <result property="categoryCode" column="category_code"/>
+        <result property="categoryCode21" column="category_code_21"/>
+        <result property="storeAddress" column="store_address"/>
+        <result property="postCode" column="post_code"/>
+        <result property="city" column="city"/>
+        <result property="state" column="state"/>
+        <result property="country" column="country"/>
+        <result property="opsMarketJde" column="ops_market_jde"/>
+        <result property="financeMarket" column="finance_market"/>
+        <result property="legalpersonmarket" column="legalpersonmarket"/>
+        <result property="openClosureattr" column="open_closureattr"/>
+        <result property="openDate" column="open_date"/>
+        <result property="closeDate" column="close_date"/>
+        <result property="blockChain" column="block_chain"/>
+        <result property="slc" column="slc"/>
+        <result property="ownerShip" column="owner_ship"/>
+        <result property="lcId" column="lc_id"/>
+        <result property="lcCode" column="lc_code"/>
+        <result property="storeShortNameCn" column="store_short_name_cn"/>
+        <result property="storeShortNameEn" column="store_short_name_en"/>
+        <result property="tradeZoneCode" column="trade_zone_code"/>
+        <result property="tradeZoneName" column="trade_zone_name"/>
+        <result property="taxRate" column="tax_rate"/>
+        <result property="corporateCompanyCode" column="corporate_company_code"/>
+        <result property="financeMarketName" column="finance_market_name"/>
+        <result property="ownerShipName" column="owner_ship_name"/>
+        <result property="brandNameCn" column="brand_name_cn"/>
+        <result property="brandNameEn" column="brand_name_en"/>
+        <result property="hrCityCode" column="hr_city_code"/>
+        <result property="hrCityName" column="hr_city_name"/>
+        <result property="opsMarketNameJde" column="ops_market_name_jde"/>
+        <result property="storeDetailAddress" column="store_detail_address"/>
+        <result property="storeTelphone" column="store_telphone"/>
+        <result property="postalCode" column="postal_code"/>
+        <result property="mail" column="mail"/>
+        <result property="fax" column="fax"/>
+        <result property="cityCounty" column="city_county"/>
+        <result property="floorNum" column="floor_num"/>
+        <result property="positionCode" column="position_code"/>
+        <result property="consumerUsePhone" column="consumer_use_phone"/>
+        <result property="opsStoreName" column="ops_store_name"/>
+        <result property="countyLevelCity" column="county_level_city"/>
+        <result property="psCity" column="ps_city"/>
+        <result property="psCityNameCn" column="ps_city_name_cn"/>
+        <result property="psCityNameEn" column="ps_city_name_en"/>
+        <result property="cityCategory" column="city_category"/>
+        <result property="cityCategoryNameCn" column="city_category_name_cn"/>
+        <result property="cityCategoryShortNameCn" column="city_category_short_name_cn"/>
+        <result property="cityCategoryNameEn" column="city_category_name_en"/>
+        <result property="cityCategoryShortNameEn" column="city_category_short_name_en"/>
+        <result property="storeTelInfield" column="store_tel_infield"/>
+        <result property="storeTelOutfileld" column="store_tel_outfileld"/>
+        <result property="cmsStoreAddress" column="cms_store_address"/>
+        <result property="cmsRegionalismCode" column="cms_regionalism_code"/>
+        <result property="cmsRegionalismProName" column="cms_regionalism_pro_name"/>
+        <result property="cmsRegionalismCityName" column="cms_regionalism_city_name"/>
+        <result property="cmsRegionalismAreaName" column="cms_regionalism_area_name"/>
+        <result property="storeTypeCode" column="store_type_code"/>
+        <result property="storeTypeName" column="store_type_name"/>
+        <result property="startBusinessDate" column="start_business_date"/>
+        <result property="endBusinessDate" column="end_business_date"/>
+        <result property="restockStyleCode" column="restock_style_code"/>
+        <result property="restockStyleName" column="restock_style_name"/>
+        <result property="bohOpsMarketCode" column="boh_ops_market_code"/>
+        <result property="bohOpsMarketName" column="boh_ops_market_name"/>
+        <result property="parentStoreCode" column="parent_store_code"/>
+        <result property="ieTypeCode" column="ie_type_code"/>
+        <result property="ieTypeName" column="ie_type_name"/>
+        <result property="ieStartDate" column="ie_start_date"/>
+        <result property="ieEndDate" column="ie_end_date"/>
+        <result property="locoCode" column="loco_code"/>
+        <result property="locoName" column="loco_name"/>
+        <result property="doughMakeCode" column="dough_make_code"/>
+        <result property="doughMakeName" column="dough_make_name"/>
+        <result property="breakfastTa" column="breakfast_ta"/>
+        <result property="dinnerTa" column="dinner_ta"/>
+        <result property="itMarketCode" column="it_market_code"/>
+        <result property="itMarketName" column="it_market_name"/>
+        <result property="positionName" column="position_name"/>
+        <result property="workStyleCode" column="work_style_code"/>
+        <result property="workStyleName" column="work_style_name"/>
+        <result property="longitude" column="longitude"/>
+        <result property="latitude" column="latitude"/>
+        <result property="pmpservername" column="pmpservername"/>
+        <result property="microbeneed" column="microbeneed"/>
+        <result property="microbeserverid" column="microbeserverid"/>
+        <result property="microbeservername" column="microbeservername"/>
+        <result property="fqamarketcode" column="fqamarketcode"/>
+        <result property="fqamarketname" column="fqamarketname"/>
+        <result property="ownername" column="ownername"/>
+        <result property="status" column="status"/>
+        <result property="isenabledrestaurant" column="isenabledrestaurant"/>
+        <result property="effectiveDate" column="effective_date"/>
+        <result property="expiredDate" column="expired_date"/>
+        <result property="newFlag" column="new_flag"/>
+        <result property="eqaOpmarket" column="eqa_opmarket"/>
+        <result property="dwCreateBy" column="dw_create_by"/>
+        <result property="dwCreateDate" column="dw_create_date"/>
+        <result property="dwUpdateBy" column="dw_update_by"/>
+        <result property="dwUpdateDate" column="dw_update_date"/>
+        <result property="id" column="id"/>
+    </resultMap>
+
+
+    <select id="queryByPrimaryKey" resultMap="edwDistoreMap">
+        select * from edw_dim_store where id = #{id}
+    </select>
+
+    <select id="query" resultMap="edwDistoreMap">
+        select
+        DISTINCT brand_name_cn
+        from edw_dim_store where
+        <trim suffixOverrides="and" >
+            1=1 and
+            <if test="storeId !=null">
+                store_id = #{storeId} and
+            </if>
+            <if test="brandNameCn != null and brandNameCn != ''">
+                brand_name_cn like concat('%',#{brandNameCn},'%') and
+            </if>
+            <if test="brandNameEn !=null">
+                brand_name_en = #{brandNameEn} and
+            </if>
+        </trim>
+        limit 0,10
+    </select>
+
+    <!-- 分页查询 -->
+    <select id="queryPage" resultMap="edwDistoreMap">
+        select * from edw_dim_store
+        where
+        <trim suffixOverrides="and" >
+            1=1 and
+        <if test="edwDistore.storeId">
+                store_id = #{edwDistore.storeId} and
+            </if>
+            <if test="edwDistore.companyCode">
+                company_code = #{edwDistore.companyCode} and
+            </if>
+            <if test="edwDistore.companyName">
+                company_name = #{edwDistore.companyName} and
+            </if>
+            <if test="edwDistore.storeCode">
+                store_code = #{edwDistore.storeCode} and
+            </if>
+            <if test="edwDistore.buType">
+                bu_type = #{edwDistore.buType} and
+            </if>
+            <if test="edwDistore.storeName">
+                store_name = #{edwDistore.storeName} and
+            </if>
+            <if test="edwDistore.brandCode">
+                brand_code = #{edwDistore.brandCode} and
+            </if>
+            <if test="edwDistore.storeHyperioncode">
+                store_hyperioncode = #{edwDistore.storeHyperioncode} and
+            </if>
+            <if test="edwDistore.invoiceCode">
+                invoice_code = #{edwDistore.invoiceCode} and
+            </if>
+            <if test="edwDistore.invoiceName">
+                invoice_name = #{edwDistore.invoiceName} and
+            </if>
+            <if test="edwDistore.searchType">
+                search_type = #{edwDistore.searchType} and
+            </if>
+            <if test="edwDistore.individualsCompanies">
+                individuals_companies = #{edwDistore.individualsCompanies} and
+            </if>
+            <if test="edwDistore.categoryCode">
+                category_code = #{edwDistore.categoryCode} and
+            </if>
+            <if test="edwDistore.categoryCode21">
+                category_code_21 = #{edwDistore.categoryCode21} and
+            </if>
+            <if test="edwDistore.storeAddress">
+                store_address = #{edwDistore.storeAddress} and
+            </if>
+            <if test="edwDistore.postCode">
+                post_code = #{edwDistore.postCode} and
+            </if>
+            <if test="edwDistore.city">
+                city = #{edwDistore.city} and
+            </if>
+            <if test="edwDistore.state">
+                state = #{edwDistore.state} and
+            </if>
+            <if test="edwDistore.country">
+                country = #{edwDistore.country} and
+            </if>
+            <if test="edwDistore.opsMarketJde">
+                ops_market_jde = #{edwDistore.opsMarketJde} and
+            </if>
+            <if test="edwDistore.financeMarket">
+                finance_market = #{edwDistore.financeMarket} and
+            </if>
+            <if test="edwDistore.legalpersonmarket">
+                legalpersonmarket = #{edwDistore.legalpersonmarket} and
+            </if>
+            <if test="edwDistore.openClosureattr">
+                open_closureattr = #{edwDistore.openClosureattr} and
+            </if>
+            <if test="edwDistore.openDate">
+                open_date = #{edwDistore.openDate} and
+            </if>
+            <if test="edwDistore.closeDate">
+                close_date = #{edwDistore.closeDate} and
+            </if>
+            <if test="edwDistore.blockChain">
+                block_chain = #{edwDistore.blockChain} and
+            </if>
+            <if test="edwDistore.slc">
+                slc = #{edwDistore.slc} and
+            </if>
+            <if test="edwDistore.ownerShip">
+                owner_ship = #{edwDistore.ownerShip} and
+            </if>
+            <if test="edwDistore.lcId">
+                lc_id = #{edwDistore.lcId} and
+            </if>
+            <if test="edwDistore.lcCode">
+                lc_code = #{edwDistore.lcCode} and
+            </if>
+            <if test="edwDistore.storeShortNameCn">
+                store_short_name_cn = #{edwDistore.storeShortNameCn} and
+            </if>
+            <if test="edwDistore.storeShortNameEn">
+                store_short_name_en = #{edwDistore.storeShortNameEn} and
+            </if>
+            <if test="edwDistore.tradeZoneCode">
+                trade_zone_code = #{edwDistore.tradeZoneCode} and
+            </if>
+            <if test="edwDistore.tradeZoneName">
+                trade_zone_name = #{edwDistore.tradeZoneName} and
+            </if>
+            <if test="edwDistore.taxRate">
+                tax_rate = #{edwDistore.taxRate} and
+            </if>
+            <if test="edwDistore.corporateCompanyCode">
+                corporate_company_code = #{edwDistore.corporateCompanyCode} and
+            </if>
+            <if test="edwDistore.financeMarketName">
+                finance_market_name = #{edwDistore.financeMarketName} and
+            </if>
+            <if test="edwDistore.ownerShipName">
+                owner_ship_name = #{edwDistore.ownerShipName} and
+            </if>
+            <if test="edwDistore.brandNameCn">
+                brand_name_cn = #{edwDistore.brandNameCn} and
+            </if>
+            <if test="edwDistore.brandNameEn">
+                brand_name_en = #{edwDistore.brandNameEn} and
+            </if>
+            <if test="edwDistore.hrCityCode">
+                hr_city_code = #{edwDistore.hrCityCode} and
+            </if>
+            <if test="edwDistore.hrCityName">
+                hr_city_name = #{edwDistore.hrCityName} and
+            </if>
+            <if test="edwDistore.opsMarketNameJde">
+                ops_market_name_jde = #{edwDistore.opsMarketNameJde} and
+            </if>
+            <if test="edwDistore.storeDetailAddress">
+                store_detail_address = #{edwDistore.storeDetailAddress} and
+            </if>
+            <if test="edwDistore.storeTelphone">
+                store_telphone = #{edwDistore.storeTelphone} and
+            </if>
+            <if test="edwDistore.postalCode">
+                postal_code = #{edwDistore.postalCode} and
+            </if>
+            <if test="edwDistore.mail">
+                mail = #{edwDistore.mail} and
+            </if>
+            <if test="edwDistore.fax">
+                fax = #{edwDistore.fax} and
+            </if>
+            <if test="edwDistore.cityCounty">
+                city_county = #{edwDistore.cityCounty} and
+            </if>
+            <if test="edwDistore.floorNum">
+                floor_num = #{edwDistore.floorNum} and
+            </if>
+            <if test="edwDistore.positionCode">
+                position_code = #{edwDistore.positionCode} and
+            </if>
+            <if test="edwDistore.consumerUsePhone">
+                consumer_use_phone = #{edwDistore.consumerUsePhone} and
+            </if>
+            <if test="edwDistore.opsStoreName">
+                ops_store_name = #{edwDistore.opsStoreName} and
+            </if>
+            <if test="edwDistore.countyLevelCity">
+                county_level_city = #{edwDistore.countyLevelCity} and
+            </if>
+            <if test="edwDistore.psCity">
+                ps_city = #{edwDistore.psCity} and
+            </if>
+            <if test="edwDistore.psCityNameCn">
+                ps_city_name_cn = #{edwDistore.psCityNameCn} and
+            </if>
+            <if test="edwDistore.psCityNameEn">
+                ps_city_name_en = #{edwDistore.psCityNameEn} and
+            </if>
+            <if test="edwDistore.cityCategory">
+                city_category = #{edwDistore.cityCategory} and
+            </if>
+            <if test="edwDistore.cityCategoryNameCn">
+                city_category_name_cn = #{edwDistore.cityCategoryNameCn} and
+            </if>
+            <if test="edwDistore.cityCategoryShortNameCn">
+                city_category_short_name_cn = #{edwDistore.cityCategoryShortNameCn} and
+            </if>
+            <if test="edwDistore.cityCategoryNameEn">
+                city_category_name_en = #{edwDistore.cityCategoryNameEn} and
+            </if>
+            <if test="edwDistore.cityCategoryShortNameEn">
+                city_category_short_name_en = #{edwDistore.cityCategoryShortNameEn} and
+            </if>
+            <if test="edwDistore.storeTelInfield">
+                store_tel_infield = #{edwDistore.storeTelInfield} and
+            </if>
+            <if test="edwDistore.storeTelOutfileld">
+                store_tel_outfileld = #{edwDistore.storeTelOutfileld} and
+            </if>
+            <if test="edwDistore.cmsStoreAddress">
+                cms_store_address = #{edwDistore.cmsStoreAddress} and
+            </if>
+            <if test="edwDistore.cmsRegionalismCode">
+                cms_regionalism_code = #{edwDistore.cmsRegionalismCode} and
+            </if>
+            <if test="edwDistore.cmsRegionalismProName">
+                cms_regionalism_pro_name = #{edwDistore.cmsRegionalismProName} and
+            </if>
+            <if test="edwDistore.cmsRegionalismCityName">
+                cms_regionalism_city_name = #{edwDistore.cmsRegionalismCityName} and
+            </if>
+            <if test="edwDistore.cmsRegionalismAreaName">
+                cms_regionalism_area_name = #{edwDistore.cmsRegionalismAreaName} and
+            </if>
+            <if test="edwDistore.storeTypeCode">
+                store_type_code = #{edwDistore.storeTypeCode} and
+            </if>
+            <if test="edwDistore.storeTypeName">
+                store_type_name = #{edwDistore.storeTypeName} and
+            </if>
+            <if test="edwDistore.startBusinessDate">
+                start_business_date = #{edwDistore.startBusinessDate} and
+            </if>
+            <if test="edwDistore.endBusinessDate">
+                end_business_date = #{edwDistore.endBusinessDate} and
+            </if>
+            <if test="edwDistore.restockStyleCode">
+                restock_style_code = #{edwDistore.restockStyleCode} and
+            </if>
+            <if test="edwDistore.restockStyleName">
+                restock_style_name = #{edwDistore.restockStyleName} and
+            </if>
+            <if test="edwDistore.bohOpsMarketCode">
+                boh_ops_market_code = #{edwDistore.bohOpsMarketCode} and
+            </if>
+            <if test="edwDistore.bohOpsMarketName">
+                boh_ops_market_name = #{edwDistore.bohOpsMarketName} and
+            </if>
+            <if test="edwDistore.parentStoreCode">
+                parent_store_code = #{edwDistore.parentStoreCode} and
+            </if>
+            <if test="edwDistore.ieTypeCode">
+                ie_type_code = #{edwDistore.ieTypeCode} and
+            </if>
+            <if test="edwDistore.ieTypeName">
+                ie_type_name = #{edwDistore.ieTypeName} and
+            </if>
+            <if test="edwDistore.ieStartDate">
+                ie_start_date = #{edwDistore.ieStartDate} and
+            </if>
+            <if test="edwDistore.ieEndDate">
+                ie_end_date = #{edwDistore.ieEndDate} and
+            </if>
+            <if test="edwDistore.locoCode">
+                loco_code = #{edwDistore.locoCode} and
+            </if>
+            <if test="edwDistore.locoName">
+                loco_name = #{edwDistore.locoName} and
+            </if>
+            <if test="edwDistore.doughMakeCode">
+                dough_make_code = #{edwDistore.doughMakeCode} and
+            </if>
+            <if test="edwDistore.doughMakeName">
+                dough_make_name = #{edwDistore.doughMakeName} and
+            </if>
+            <if test="edwDistore.breakfastTa">
+                breakfast_ta = #{edwDistore.breakfastTa} and
+            </if>
+            <if test="edwDistore.dinnerTa">
+                dinner_ta = #{edwDistore.dinnerTa} and
+            </if>
+            <if test="edwDistore.itMarketCode">
+                it_market_code = #{edwDistore.itMarketCode} and
+            </if>
+            <if test="edwDistore.itMarketName">
+                it_market_name = #{edwDistore.itMarketName} and
+            </if>
+            <if test="edwDistore.positionName">
+                position_name = #{edwDistore.positionName} and
+            </if>
+            <if test="edwDistore.workStyleCode">
+                work_style_code = #{edwDistore.workStyleCode} and
+            </if>
+            <if test="edwDistore.workStyleName">
+                work_style_name = #{edwDistore.workStyleName} and
+            </if>
+            <if test="edwDistore.longitude">
+                longitude = #{edwDistore.longitude} and
+            </if>
+            <if test="edwDistore.latitude">
+                latitude = #{edwDistore.latitude} and
+            </if>
+            <if test="edwDistore.pmpservername">
+                pmpservername = #{edwDistore.pmpservername} and
+            </if>
+            <if test="edwDistore.microbeneed">
+                microbeneed = #{edwDistore.microbeneed} and
+            </if>
+            <if test="edwDistore.microbeserverid">
+                microbeserverid = #{edwDistore.microbeserverid} and
+            </if>
+            <if test="edwDistore.microbeservername">
+                microbeservername = #{edwDistore.microbeservername} and
+            </if>
+            <if test="edwDistore.fqamarketcode">
+                fqamarketcode = #{edwDistore.fqamarketcode} and
+            </if>
+            <if test="edwDistore.fqamarketname">
+                fqamarketname = #{edwDistore.fqamarketname} and
+            </if>
+            <if test="edwDistore.ownername">
+                ownername = #{edwDistore.ownername} and
+            </if>
+            <if test="edwDistore.status">
+                status = #{edwDistore.status} and
+            </if>
+            <if test="edwDistore.isenabledrestaurant">
+                isenabledrestaurant = #{edwDistore.isenabledrestaurant} and
+            </if>
+            <if test="edwDistore.effectiveDate">
+                effective_date = #{edwDistore.effectiveDate} and
+            </if>
+            <if test="edwDistore.expiredDate">
+                expired_date = #{edwDistore.expiredDate} and
+            </if>
+            <if test="edwDistore.newFlag">
+                new_flag = #{edwDistore.newFlag} and
+            </if>
+            <if test="edwDistore.eqaOpmarket">
+                eqa_opmarket = #{edwDistore.eqaOpmarket} and
+            </if>
+            <if test="edwDistore.dwCreateBy">
+                dw_create_by = #{edwDistore.dwCreateBy} and
+            </if>
+            <if test="edwDistore.dwCreateDate">
+                dw_create_date = #{edwDistore.dwCreateDate} and
+            </if>
+            <if test="edwDistore.dwUpdateBy">
+                dw_update_by = #{edwDistore.dwUpdateBy} and
+            </if>
+            <if test="edwDistore.dwUpdateDate">
+                dw_update_date = #{edwDistore.dwUpdateDate} and
+            </if>
+                </trim>
+        order by id desc limit #{startIndex},#{limit}
+    </select>
+
+    <select id="queryPageCount" resultType="java.lang.Long">
+        select count(*) from edw_dim_store
+        where
+        <trim suffixOverrides="and" >
+            1=1 and
+        <if test="storeId">
+                store_id = #{storeId} and
+            </if>
+            <if test="companyCode">
+                company_code = #{companyCode} and
+            </if>
+            <if test="companyName">
+                company_name = #{companyName} and
+            </if>
+            <if test="storeCode">
+                store_code = #{storeCode} and
+            </if>
+            <if test="buType">
+                bu_type = #{buType} and
+            </if>
+            <if test="storeName">
+                store_name = #{storeName} and
+            </if>
+            <if test="brandCode">
+                brand_code = #{brandCode} and
+            </if>
+            <if test="storeHyperioncode">
+                store_hyperioncode = #{storeHyperioncode} and
+            </if>
+            <if test="invoiceCode">
+                invoice_code = #{invoiceCode} and
+            </if>
+            <if test="invoiceName">
+                invoice_name = #{invoiceName} and
+            </if>
+            <if test="searchType">
+                search_type = #{searchType} and
+            </if>
+            <if test="individualsCompanies">
+                individuals_companies = #{individualsCompanies} and
+            </if>
+            <if test="categoryCode">
+                category_code = #{categoryCode} and
+            </if>
+            <if test="categoryCode21">
+                category_code_21 = #{categoryCode21} and
+            </if>
+            <if test="storeAddress">
+                store_address = #{storeAddress} and
+            </if>
+            <if test="postCode">
+                post_code = #{postCode} and
+            </if>
+            <if test="city">
+                city = #{city} and
+            </if>
+            <if test="state">
+                state = #{state} and
+            </if>
+            <if test="country">
+                country = #{country} and
+            </if>
+            <if test="opsMarketJde">
+                ops_market_jde = #{opsMarketJde} and
+            </if>
+            <if test="financeMarket">
+                finance_market = #{financeMarket} and
+            </if>
+            <if test="legalpersonmarket">
+                legalpersonmarket = #{legalpersonmarket} and
+            </if>
+            <if test="openClosureattr">
+                open_closureattr = #{openClosureattr} and
+            </if>
+            <if test="openDate">
+                open_date = #{openDate} and
+            </if>
+            <if test="closeDate">
+                close_date = #{closeDate} and
+            </if>
+            <if test="blockChain">
+                block_chain = #{blockChain} and
+            </if>
+            <if test="slc">
+                slc = #{slc} and
+            </if>
+            <if test="ownerShip">
+                owner_ship = #{ownerShip} and
+            </if>
+            <if test="lcId">
+                lc_id = #{lcId} and
+            </if>
+            <if test="lcCode">
+                lc_code = #{lcCode} and
+            </if>
+            <if test="storeShortNameCn">
+                store_short_name_cn = #{storeShortNameCn} and
+            </if>
+            <if test="storeShortNameEn">
+                store_short_name_en = #{storeShortNameEn} and
+            </if>
+            <if test="tradeZoneCode">
+                trade_zone_code = #{tradeZoneCode} and
+            </if>
+            <if test="tradeZoneName">
+                trade_zone_name = #{tradeZoneName} and
+            </if>
+            <if test="taxRate">
+                tax_rate = #{taxRate} and
+            </if>
+            <if test="corporateCompanyCode">
+                corporate_company_code = #{corporateCompanyCode} and
+            </if>
+            <if test="financeMarketName">
+                finance_market_name = #{financeMarketName} and
+            </if>
+            <if test="ownerShipName">
+                owner_ship_name = #{ownerShipName} and
+            </if>
+            <if test="brandNameCn">
+                brand_name_cn = #{brandNameCn} and
+            </if>
+            <if test="brandNameEn">
+                brand_name_en = #{brandNameEn} and
+            </if>
+            <if test="hrCityCode">
+                hr_city_code = #{hrCityCode} and
+            </if>
+            <if test="hrCityName">
+                hr_city_name = #{hrCityName} and
+            </if>
+            <if test="opsMarketNameJde">
+                ops_market_name_jde = #{opsMarketNameJde} and
+            </if>
+            <if test="storeDetailAddress">
+                store_detail_address = #{storeDetailAddress} and
+            </if>
+            <if test="storeTelphone">
+                store_telphone = #{storeTelphone} and
+            </if>
+            <if test="postalCode">
+                postal_code = #{postalCode} and
+            </if>
+            <if test="mail">
+                mail = #{mail} and
+            </if>
+            <if test="fax">
+                fax = #{fax} and
+            </if>
+            <if test="cityCounty">
+                city_county = #{cityCounty} and
+            </if>
+            <if test="floorNum">
+                floor_num = #{floorNum} and
+            </if>
+            <if test="positionCode">
+                position_code = #{positionCode} and
+            </if>
+            <if test="consumerUsePhone">
+                consumer_use_phone = #{consumerUsePhone} and
+            </if>
+            <if test="opsStoreName">
+                ops_store_name = #{opsStoreName} and
+            </if>
+            <if test="countyLevelCity">
+                county_level_city = #{countyLevelCity} and
+            </if>
+            <if test="psCity">
+                ps_city = #{psCity} and
+            </if>
+            <if test="psCityNameCn">
+                ps_city_name_cn = #{psCityNameCn} and
+            </if>
+            <if test="psCityNameEn">
+                ps_city_name_en = #{psCityNameEn} and
+            </if>
+            <if test="cityCategory">
+                city_category = #{cityCategory} and
+            </if>
+            <if test="cityCategoryNameCn">
+                city_category_name_cn = #{cityCategoryNameCn} and
+            </if>
+            <if test="cityCategoryShortNameCn">
+                city_category_short_name_cn = #{cityCategoryShortNameCn} and
+            </if>
+            <if test="cityCategoryNameEn">
+                city_category_name_en = #{cityCategoryNameEn} and
+            </if>
+            <if test="cityCategoryShortNameEn">
+                city_category_short_name_en = #{cityCategoryShortNameEn} and
+            </if>
+            <if test="storeTelInfield">
+                store_tel_infield = #{storeTelInfield} and
+            </if>
+            <if test="storeTelOutfileld">
+                store_tel_outfileld = #{storeTelOutfileld} and
+            </if>
+            <if test="cmsStoreAddress">
+                cms_store_address = #{cmsStoreAddress} and
+            </if>
+            <if test="cmsRegionalismCode">
+                cms_regionalism_code = #{cmsRegionalismCode} and
+            </if>
+            <if test="cmsRegionalismProName">
+                cms_regionalism_pro_name = #{cmsRegionalismProName} and
+            </if>
+            <if test="cmsRegionalismCityName">
+                cms_regionalism_city_name = #{cmsRegionalismCityName} and
+            </if>
+            <if test="cmsRegionalismAreaName">
+                cms_regionalism_area_name = #{cmsRegionalismAreaName} and
+            </if>
+            <if test="storeTypeCode">
+                store_type_code = #{storeTypeCode} and
+            </if>
+            <if test="storeTypeName">
+                store_type_name = #{storeTypeName} and
+            </if>
+            <if test="startBusinessDate">
+                start_business_date = #{startBusinessDate} and
+            </if>
+            <if test="endBusinessDate">
+                end_business_date = #{endBusinessDate} and
+            </if>
+            <if test="restockStyleCode">
+                restock_style_code = #{restockStyleCode} and
+            </if>
+            <if test="restockStyleName">
+                restock_style_name = #{restockStyleName} and
+            </if>
+            <if test="bohOpsMarketCode">
+                boh_ops_market_code = #{bohOpsMarketCode} and
+            </if>
+            <if test="bohOpsMarketName">
+                boh_ops_market_name = #{bohOpsMarketName} and
+            </if>
+            <if test="parentStoreCode">
+                parent_store_code = #{parentStoreCode} and
+            </if>
+            <if test="ieTypeCode">
+                ie_type_code = #{ieTypeCode} and
+            </if>
+            <if test="ieTypeName">
+                ie_type_name = #{ieTypeName} and
+            </if>
+            <if test="ieStartDate">
+                ie_start_date = #{ieStartDate} and
+            </if>
+            <if test="ieEndDate">
+                ie_end_date = #{ieEndDate} and
+            </if>
+            <if test="locoCode">
+                loco_code = #{locoCode} and
+            </if>
+            <if test="locoName">
+                loco_name = #{locoName} and
+            </if>
+            <if test="doughMakeCode">
+                dough_make_code = #{doughMakeCode} and
+            </if>
+            <if test="doughMakeName">
+                dough_make_name = #{doughMakeName} and
+            </if>
+            <if test="breakfastTa">
+                breakfast_ta = #{breakfastTa} and
+            </if>
+            <if test="dinnerTa">
+                dinner_ta = #{dinnerTa} and
+            </if>
+            <if test="itMarketCode">
+                it_market_code = #{itMarketCode} and
+            </if>
+            <if test="itMarketName">
+                it_market_name = #{itMarketName} and
+            </if>
+            <if test="positionName">
+                position_name = #{positionName} and
+            </if>
+            <if test="workStyleCode">
+                work_style_code = #{workStyleCode} and
+            </if>
+            <if test="workStyleName">
+                work_style_name = #{workStyleName} and
+            </if>
+            <if test="longitude">
+                longitude = #{longitude} and
+            </if>
+            <if test="latitude">
+                latitude = #{latitude} and
+            </if>
+            <if test="pmpservername">
+                pmpservername = #{pmpservername} and
+            </if>
+            <if test="microbeneed">
+                microbeneed = #{microbeneed} and
+            </if>
+            <if test="microbeserverid">
+                microbeserverid = #{microbeserverid} and
+            </if>
+            <if test="microbeservername">
+                microbeservername = #{microbeservername} and
+            </if>
+            <if test="fqamarketcode">
+                fqamarketcode = #{fqamarketcode} and
+            </if>
+            <if test="fqamarketname">
+                fqamarketname = #{fqamarketname} and
+            </if>
+            <if test="ownername">
+                ownername = #{ownername} and
+            </if>
+            <if test="status">
+                status = #{status} and
+            </if>
+            <if test="isenabledrestaurant">
+                isenabledrestaurant = #{isenabledrestaurant} and
+            </if>
+            <if test="effectiveDate">
+                effective_date = #{effectiveDate} and
+            </if>
+            <if test="expiredDate">
+                expired_date = #{expiredDate} and
+            </if>
+            <if test="newFlag">
+                new_flag = #{newFlag} and
+            </if>
+            <if test="eqaOpmarket">
+                eqa_opmarket = #{eqaOpmarket} and
+            </if>
+            <if test="dwCreateBy">
+                dw_create_by = #{dwCreateBy} and
+            </if>
+            <if test="dwCreateDate">
+                dw_create_date = #{dwCreateDate} and
+            </if>
+            <if test="dwUpdateBy">
+                dw_update_by = #{dwUpdateBy} and
+            </if>
+            <if test="dwUpdateDate">
+                dw_update_date = #{dwUpdateDate} and
+            </if>
+                </trim>
+    </select>
+
+</mapper>

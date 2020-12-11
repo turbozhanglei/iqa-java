@@ -41,7 +41,6 @@ public class BatchTraceablilityBaseController extends BaseController {
      **/
     @GetMapping("/getTraceBackList")
     public DacResponse getTraceBackList(BatchTraceabilityMasterDto batchDto){
-//        IPage<BatchTraceabilityMasterData> reportIPage = batchTraceablilityBaseService.selectPage(batchDto);
         return batchTraceablilityBaseService.selectPage(batchDto);
     }
 
@@ -53,7 +52,6 @@ public class BatchTraceablilityBaseController extends BaseController {
      **/
     @GetMapping("/getInputList")
     public DacResponse getInputList(FilterConditionDto batchDto){
-//        List<FilterConditionData> reportIPage = batchTraceablilityBaseService.selectInputList(batchDto);
         return batchTraceablilityBaseService.selectInputList(batchDto);
     }
 
@@ -65,7 +63,6 @@ public class BatchTraceablilityBaseController extends BaseController {
      **/
     @GetMapping("/detail")
     public DacResponse detail(BatchTraceabilityDto batchDto){
-//        BatchTraceabilityDetailedSummary detailedSummary = batchTraceablilityBaseService.selectDetail(batchDto);
         return batchTraceablilityBaseService.selectDetail(batchDto);
     }
 
@@ -77,7 +74,6 @@ public class BatchTraceablilityBaseController extends BaseController {
      **/
     @GetMapping("/getUpstreamRmi")
     public DacResponse getUpstreamRmi(BatchTraceabilityBaseDto batchDto){
-//        IPage<BatchTraceabilityRmi> reportIPage = batchTraceablilityBaseService.getUpstreamRmi(batchDto);
         return batchTraceablilityBaseService.getUpstreamRmi(batchDto);
     }
 
@@ -89,7 +85,6 @@ public class BatchTraceablilityBaseController extends BaseController {
      **/
     @GetMapping("/getManufacturerList")
     public DacResponse getManufacturerList(BatchTraceabilityBaseDto batchDto){
-//        IPage<BatchTraceabilityManufacturer> reportIPage = batchTraceablilityBaseService.getManufacturerList(batchDto);
         return batchTraceablilityBaseService.getManufacturerList(batchDto);
     }
 
@@ -101,7 +96,6 @@ public class BatchTraceablilityBaseController extends BaseController {
      **/
     @GetMapping("/getIntegrateInformation")
     public DacResponse getIntegrateInformation(BatchTraceabilityBaseDto batchDto){
-//        IPage<BatchTraceabilityCc> reportIPage = batchTraceablilityBaseService.getIntegrateInformation(batchDto);
         return batchTraceablilityBaseService.getIntegrateInformation(batchDto);
     }
 
@@ -113,7 +107,6 @@ public class BatchTraceablilityBaseController extends BaseController {
      **/
     @GetMapping("/getLogisticsCenter")
     public DacResponse getLogisticsCenter(BatchTraceabilityBaseDto batchDto){
-//        IPage<BatchTraceabilityLc> reportIPage = batchTraceablilityBaseService.getLogisticsCenter(batchDto);
         return batchTraceablilityBaseService.getLogisticsCenter(batchDto);
     }
 
@@ -125,7 +118,6 @@ public class BatchTraceablilityBaseController extends BaseController {
      **/
     @GetMapping("/getRestaurantList")
     public DacResponse getRestaurantList(BatchTraceabilityBaseDto batchDto){
-//        PageResult<BatchTraceabilityStore> reportIPage = batchTraceablilityBaseService.getRestaurantList(batchDto);
         return batchTraceablilityBaseService.getRestaurantList(batchDto);
     }
 
@@ -137,7 +129,6 @@ public class BatchTraceablilityBaseController extends BaseController {
      **/
     @GetMapping("/checkUserInfo")
     public DacResponse checkUserInfo(UserDto batchDto){
-//        UserResp response = batchTraceablilityBaseService.checkUserInfo(batchDto);
         return batchTraceablilityBaseService.checkUserInfo(batchDto);
     }
 

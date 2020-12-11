@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://Mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yechtech.dac.traceability.dao.EdwDiskuMapper">
+    <resultMap id="edwDiskuMap" type="com.yechtech.dac.traceability.domain.EdwDisku">
+        <result property="skuId" column="Sku_id"/>
+        <result property="skuCodeShort" column="Sku_Code_Short"/>
+        <result property="skuCode" column="Sku_Code"/>
+        <result property="skuCode3" column="Sku_Code3"/>
+        <result property="skuDescriptionEn" column="Sku_Description_EN"/>
+        <result property="skuName" column="SKU_Name"/>
+        <result property="skuStandards" column="Sku_Standards"/>
+        <result property="salesreportingcode1" column="SalesReportingCode1"/>
+        <result property="salesreportingcode1Desc" column="SalesReportingCode1_Desc"/>
+        <result property="salesreportingcode3" column="SalesReportingCode3"/>
+        <result property="salesreportingcode3Desc" column="SalesReportingCode3_Desc"/>
+        <result property="salesreportingcode4" column="SalesReportingCode4"/>
+        <result property="salesreportingcode4Desc" column="SalesReportingCode4_Desc"/>
+        <result property="salesreportingcode5" column="SalesReportingCode5"/>
+        <result property="salesreportingcode5Desc" column="SalesReportingCode5_Desc"/>
+        <result property="salesreportingcode6" column="SalesReportingCode6"/>
+        <result property="salesreportingcode7" column="SalesReportingCode7"/>
+        <result property="salesreportingcode9" column="SalesReportingCode9"/>
+        <result property="issendep" column="IsSendEP"/>
+        <result property="issendpricejde" column="IsSendPriceJde"/>
+        <result property="isosxsm" column="Isosxsm"/>
+        <result property="isoel" column="IsOEL"/>
+        <result property="mrs" column="MRS"/>
+        <result property="qgdt" column="QGDT"/>
+        <result property="lcmrs" column="LCMRS"/>
+        <result property="rtmrs" column="RTMRS"/>
+        <result property="plcd" column="PLCD"/>
+        <result property="eqano" column="eQANo"/>
+        <result property="tax" column="TAX"/>
+        <result property="barcord" column="BARCORD"/>
+        <result property="dayqgned" column="DayQGNED"/>
+        <result property="dayqgfsd" column="DayQGFSD"/>
+        <result property="newCj" column="New_CJ"/>
+        <result property="rateRoyal" column="Rate_ROYAL"/>
+        <result property="purchasingreportcode1" column="PurchasingReportCode1"/>
+        <result property="purchasingreportcode1Desc" column="PurchasingReportCode1_Desc"/>
+        <result property="purchasingreportcode2" column="PurchasingReportCode2"/>
+        <result property="purchasingreportcode2Desc" column="PurchasingReportCode2_Desc"/>
+        <result property="purchasingreportcode4" column="PurchasingReportCode4"/>
+        <result property="specialClassification" column="Special_Classification"/>
+        <result property="commoditycode" column="CommodityCode"/>
+        <result property="repricebasketpricecat" column="RepriceBasketPriceCat"/>
+        <result property="repricebasketpricecatDesc" column="RepriceBasketPriceCat_Desc"/>
+        <result property="buyer" column="Buyer"/>
+        <result property="buyerName" column="Buyer_Name"/>
+        <result property="unitofmeasureprimary" column="UnitOfMeasurePrimary"/>
+        <result property="unitofmeasureprimaryName" column="UnitOfMeasurePrimary_Name"/>
+        <result property="unitofmeasuresecondary" column="UnitOfMeasureSecondary"/>
+        <result property="unitofmeasuresecondaryName" column="UnitOfMeasureSecondary_Name"/>
+        <result property="unitofmeasurepurchas" column="UnitOfMeasurePurchas"/>
+        <result property="unitofmeasurepurchasName" column="UnitOfMeasurePurchas_Name"/>
+        <result property="unitofmeasurepricing" column="UnitOfMeasurePricing"/>
+        <result property="unitofmeasurepricingName" column="UnitOfMeasurePricing_Name"/>
+        <result property="unitofmeasureshipping" column="UnitOfMeasureShipping"/>
+        <result property="unitofmeasureshippingName" column="UnitOfMeasureShipping_Name"/>
+        <result property="unitofmeasureallocation" column="UnitOfMeasureAllocation"/>
+        <result property="unitofmeasureallocationName" column="UnitOfMeasureAllocation_Name"/>
+        <result property="glcategory" column="GlCategory"/>
+        <result property="glcategoryDesc" column="GlCategory_Desc"/>
+        <result property="stockingtype" column="StockingType"/>
+        <result property="skuCodZ" column="Sku_Cod_Z"/>
+        <result property="leadtimelevel" column="LeadtimeLevel"/>
+        <result property="plantimefencerule" column="PlanTimeFenceRule"/>
+        <result property="planningtimefencedays" column="PlanningTimeFenceDays"/>
+        <result property="freezetimefencedays" column="FreezeTimeFenceDays"/>
+        <result property="msgtimefencedays" column="MsgTimeFenceDays"/>
+        <result property="skuEqacode" column="SKU_EQACode"/>
+        <result property="categoryEqacode" column="Category_EQACode"/>
+        <result property="categoryname" column="CategoryName"/>
+        <result property="subcategoryEqacode" column="SubCategory_EQACode"/>
+        <result property="subcategoryname" column="SubCategoryName"/>
+        <result property="status" column="Status"/>
+        <result property="brand" column="Brand"/>
+        <result property="qaEnTeamname" column="QA_EN_TeamName"/>
+        <result property="property" column="property"/>
+        <result property="riskfoodsec" column="riskfoodsec"/>
+        <result property="complexity" column="complexity"/>
+        <result property="risklevel" column="risklevel"/>
+        <result property="qualityimportance" column="qualityimportance"/>
+        <result property="foodrisklevel" column="foodrisklevel"/>
+        <result property="categoryName1" column="Category_Name_1"/>
+        <result property="categoryName2" column="Category_Name_2"/>
+        <result property="categoryName3" column="Category_Name_3"/>
+        <result property="categoryName4" column="Category_Name_4"/>
+        <result property="categoryName5" column="Category_Name_5"/>
+        <result property="categoryCode1" column="Category_Code_1"/>
+        <result property="categoryCode2" column="Category_Code_2"/>
+        <result property="categoryCode3" column="Category_Code_3"/>
+        <result property="categoryCode4" column="Category_Code_4"/>
+        <result property="categoryCode5" column="Category_Code_5"/>
+        <result property="fitcode" column="FITCODE"/>
+        <result property="skuCreateDate" column="SKU_Create_Date"/>
+        <result property="skuImportflag" column="Sku_ImportFlag"/>
+        <result property="brandScreening" column="brand_screening"/>
+        <result property="effectiveDate" column="effective_date"/>
+        <result property="expiredDate" column="expired_date"/>
+        <result property="newFlag" column="new_flag"/>
+        <result property="dwCreateBy" column="dw_create_by"/>
+        <result property="dwCreateDate" column="dw_create_date"/>
+        <result property="dwUpdateBy" column="dw_update_by"/>
+        <result property="dwUpdateDate" column="dw_update_date"/>
+        <result property="eqaInternalorimport" column="eqa_internalorimport"/>
+        <result property="eqaFoodCategory" column="eqa_food_category"/>
+        <result property="eqaFoodSubcategory" column="eqa_food_subcategory"/>
+        <result property="id" column="id"/>
+    </resultMap>
+
+
+
+    <select id="queryByPrimaryKey" resultMap="edwDiskuMap">
+        select * from edw_dim_sku where id = #{id}
+    </select>
+
+    <select id="query" resultMap="edwDiskuMap">
+        select
+        a.SKU_Name,a.id
+        from edw_dim_sku a
+        INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_code
+        INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE (ourm.rolename, ' ', '') = eskr.sqa_group_name
+        <if test="psid !=null and psid !=''">
+            AND ourm.adpid = #{psid}
+        </if>
+        where
+        <trim suffixOverrides="and" >
+            1=1 and
+            <if test="skuId !=null">
+                Sku_id = #{skuId} and
+            </if>
+            <if test="skuCodeShort !=null">
+                Sku_Code_Short = #{skuCodeShort} and
+            </if>
+            <if test="skuCode !=null">
+                Sku_Code = #{skuCode} and
+            </if>
+            <if test="skuDescriptionEn !=null">
+                Sku_Description_EN = #{skuDescriptionEn} and
+            </if>
+            <if test="skuName !=null and skuName !=''">
+                SKU_Name like concat('%',#{skuName},'%')  and
+            </if>
+            <if test="skuStandards !=null">
+                Sku_Standards = #{skuStandards} and
+            </if>
+            <if test="brand !=null">
+                Brand = #{brand} and
+            </if>
+        </trim>
+        limit 0,10
+    </select>
+
+    <!-- 分页查询 -->
+    <select id="queryPage" resultMap="edwDiskuMap">
+        select * from edw_dim_sku
+        where
+        <trim suffixOverrides="and" >
+            1=1 and
+        <if test="edwDisku.skuId">
+                Sku_id = #{edwDisku.skuId} and
+            </if>
+            <if test="edwDisku.skuCodeShort">
+                Sku_Code_Short = #{edwDisku.skuCodeShort} and
+            </if>
+            <if test="edwDisku.skuCode">
+                Sku_Code = #{edwDisku.skuCode} and
+            </if>
+            <if test="edwDisku.skuCode3">
+                Sku_Code3 = #{edwDisku.skuCode3} and
+            </if>
+            <if test="edwDisku.skuDescriptionEn">
+                Sku_Description_EN = #{edwDisku.skuDescriptionEn} and
+            </if>
+            <if test="edwDisku.skuName">
+                SKU_Name = #{edwDisku.skuName} and
+            </if>
+            <if test="edwDisku.skuStandards">
+                Sku_Standards = #{edwDisku.skuStandards} and
+            </if>
+            <if test="edwDisku.salesreportingcode1">
+                SalesReportingCode1 = #{edwDisku.salesreportingcode1} and
+            </if>
+            <if test="edwDisku.salesreportingcode1Desc">
+                SalesReportingCode1_Desc = #{edwDisku.salesreportingcode1Desc} and
+            </if>
+            <if test="edwDisku.salesreportingcode3">
+                SalesReportingCode3 = #{edwDisku.salesreportingcode3} and
+            </if>
+            <if test="edwDisku.salesreportingcode3Desc">
+                SalesReportingCode3_Desc = #{edwDisku.salesreportingcode3Desc} and
+            </if>
+            <if test="edwDisku.salesreportingcode4">
+                SalesReportingCode4 = #{edwDisku.salesreportingcode4} and
+            </if>
+            <if test="edwDisku.salesreportingcode4Desc">
+                SalesReportingCode4_Desc = #{edwDisku.salesreportingcode4Desc} and
+            </if>
+            <if test="edwDisku.salesreportingcode5">
+                SalesReportingCode5 = #{edwDisku.salesreportingcode5} and
+            </if>
+            <if test="edwDisku.salesreportingcode5Desc">
+                SalesReportingCode5_Desc = #{edwDisku.salesreportingcode5Desc} and
+            </if>
+            <if test="edwDisku.salesreportingcode6">
+                SalesReportingCode6 = #{edwDisku.salesreportingcode6} and
+            </if>
+            <if test="edwDisku.salesreportingcode7">
+                SalesReportingCode7 = #{edwDisku.salesreportingcode7} and
+            </if>
+            <if test="edwDisku.salesreportingcode9">
+                SalesReportingCode9 = #{edwDisku.salesreportingcode9} and
+            </if>
+            <if test="edwDisku.issendep">
+                IsSendEP = #{edwDisku.issendep} and
+            </if>
+            <if test="edwDisku.issendpricejde">
+                IsSendPriceJde = #{edwDisku.issendpricejde} and
+            </if>
+            <if test="edwDisku.isosxsm">
+                Isosxsm = #{edwDisku.isosxsm} and
+            </if>
+            <if test="edwDisku.isoel">
+                IsOEL = #{edwDisku.isoel} and
+            </if>
+            <if test="edwDisku.mrs">
+                MRS = #{edwDisku.mrs} and
+            </if>
+            <if test="edwDisku.qgdt">
+                QGDT = #{edwDisku.qgdt} and
+            </if>
+            <if test="edwDisku.lcmrs">
+                LCMRS = #{edwDisku.lcmrs} and
+            </if>
+            <if test="edwDisku.rtmrs">
+                RTMRS = #{edwDisku.rtmrs} and
+            </if>
+            <if test="edwDisku.plcd">
+                PLCD = #{edwDisku.plcd} and
+            </if>
+            <if test="edwDisku.eqano">
+                eQANo = #{edwDisku.eqano} and
+            </if>
+            <if test="edwDisku.tax">
+                TAX = #{edwDisku.tax} and
+            </if>
+            <if test="edwDisku.barcord">
+                BARCORD = #{edwDisku.barcord} and
+            </if>
+            <if test="edwDisku.dayqgned">
+                DayQGNED = #{edwDisku.dayqgned} and
+            </if>
+            <if test="edwDisku.dayqgfsd">
+                DayQGFSD = #{edwDisku.dayqgfsd} and
+            </if>
+            <if test="edwDisku.newCj">
+                New_CJ = #{edwDisku.newCj} and
+            </if>
+            <if test="edwDisku.rateRoyal">
+                Rate_ROYAL = #{edwDisku.rateRoyal} and
+            </if>
+            <if test="edwDisku.purchasingreportcode1">
+                PurchasingReportCode1 = #{edwDisku.purchasingreportcode1} and
+            </if>
+            <if test="edwDisku.purchasingreportcode1Desc">
+                PurchasingReportCode1_Desc = #{edwDisku.purchasingreportcode1Desc} and
+            </if>
+            <if test="edwDisku.purchasingreportcode2">
+                PurchasingReportCode2 = #{edwDisku.purchasingreportcode2} and
+            </if>
+            <if test="edwDisku.purchasingreportcode2Desc">
+                PurchasingReportCode2_Desc = #{edwDisku.purchasingreportcode2Desc} and
+            </if>
+            <if test="edwDisku.purchasingreportcode4">
+                PurchasingReportCode4 = #{edwDisku.purchasingreportcode4} and
+            </if>
+            <if test="edwDisku.specialClassification">
+                Special_Classification = #{edwDisku.specialClassification} and
+            </if>
+            <if test="edwDisku.commoditycode">
+                CommodityCode = #{edwDisku.commoditycode} and
+            </if>
+            <if test="edwDisku.repricebasketpricecat">
+                RepriceBasketPriceCat = #{edwDisku.repricebasketpricecat} and
+            </if>
+            <if test="edwDisku.repricebasketpricecatDesc">
+                RepriceBasketPriceCat_Desc = #{edwDisku.repricebasketpricecatDesc} and
+            </if>
+            <if test="edwDisku.buyer">
+                Buyer = #{edwDisku.buyer} and
+            </if>
+            <if test="edwDisku.buyerName">
+                Buyer_Name = #{edwDisku.buyerName} and
+            </if>
+            <if test="edwDisku.unitofmeasureprimary">
+                UnitOfMeasurePrimary = #{edwDisku.unitofmeasureprimary} and
+            </if>
+            <if test="edwDisku.unitofmeasureprimaryName">
+                UnitOfMeasurePrimary_Name = #{edwDisku.unitofmeasureprimaryName} and
+            </if>
+            <if test="edwDisku.unitofmeasuresecondary">
+                UnitOfMeasureSecondary = #{edwDisku.unitofmeasuresecondary} and
+            </if>
+            <if test="edwDisku.unitofmeasuresecondaryName">
+                UnitOfMeasureSecondary_Name = #{edwDisku.unitofmeasuresecondaryName} and
+            </if>
+            <if test="edwDisku.unitofmeasurepurchas">
+                UnitOfMeasurePurchas = #{edwDisku.unitofmeasurepurchas} and
+            </if>
+            <if test="edwDisku.unitofmeasurepurchasName">
+                UnitOfMeasurePurchas_Name = #{edwDisku.unitofmeasurepurchasName} and
+            </if>
+            <if test="edwDisku.unitofmeasurepricing">
+                UnitOfMeasurePricing = #{edwDisku.unitofmeasurepricing} and
+            </if>
+            <if test="edwDisku.unitofmeasurepricingName">
+                UnitOfMeasurePricing_Name = #{edwDisku.unitofmeasurepricingName} and
+            </if>
+            <if test="edwDisku.unitofmeasureshipping">
+                UnitOfMeasureShipping = #{edwDisku.unitofmeasureshipping} and
+            </if>
+            <if test="edwDisku.unitofmeasureshippingName">
+                UnitOfMeasureShipping_Name = #{edwDisku.unitofmeasureshippingName} and
+            </if>
+            <if test="edwDisku.unitofmeasureallocation">
+                UnitOfMeasureAllocation = #{edwDisku.unitofmeasureallocation} and
+            </if>
+            <if test="edwDisku.unitofmeasureallocationName">
+                UnitOfMeasureAllocation_Name = #{edwDisku.unitofmeasureallocationName} and
+            </if>
+            <if test="edwDisku.glcategory">
+                GlCategory = #{edwDisku.glcategory} and
+            </if>
+            <if test="edwDisku.glcategoryDesc">
+                GlCategory_Desc = #{edwDisku.glcategoryDesc} and
+            </if>
+            <if test="edwDisku.stockingtype">
+                StockingType = #{edwDisku.stockingtype} and
+            </if>
+            <if test="edwDisku.skuCodZ">
+                Sku_Cod_Z = #{edwDisku.skuCodZ} and
+            </if>
+            <if test="edwDisku.leadtimelevel">
+                LeadtimeLevel = #{edwDisku.leadtimelevel} and
+            </if>
+            <if test="edwDisku.plantimefencerule">
+                PlanTimeFenceRule = #{edwDisku.plantimefencerule} and
+            </if>
+            <if test="edwDisku.planningtimefencedays">
+                PlanningTimeFenceDays = #{edwDisku.planningtimefencedays} and
+            </if>
+            <if test="edwDisku.freezetimefencedays">
+                FreezeTimeFenceDays = #{edwDisku.freezetimefencedays} and
+            </if>
+            <if test="edwDisku.msgtimefencedays">
+                MsgTimeFenceDays = #{edwDisku.msgtimefencedays} and
+            </if>
+            <if test="edwDisku.skuEqacode">
+                SKU_EQACode = #{edwDisku.skuEqacode} and
+            </if>
+            <if test="edwDisku.categoryEqacode">
+                Category_EQACode = #{edwDisku.categoryEqacode} and
+            </if>
+            <if test="edwDisku.categoryname">
+                CategoryName = #{edwDisku.categoryname} and
+            </if>
+            <if test="edwDisku.subcategoryEqacode">
+                SubCategory_EQACode = #{edwDisku.subcategoryEqacode} and
+            </if>
+            <if test="edwDisku.subcategoryname">
+                SubCategoryName = #{edwDisku.subcategoryname} and
+            </if>
+            <if test="edwDisku.status">
+                Status = #{edwDisku.status} and
+            </if>
+            <if test="edwDisku.brand">
+                Brand = #{edwDisku.brand} and
+            </if>
+            <if test="edwDisku.qaEnTeamname">
+                QA_EN_TeamName = #{edwDisku.qaEnTeamname} and
+            </if>
+            <if test="edwDisku.property">
+                property = #{edwDisku.property} and
+            </if>
+            <if test="edwDisku.riskfoodsec">
+                riskfoodsec = #{edwDisku.riskfoodsec} and
+            </if>
+            <if test="edwDisku.complexity">
+                complexity = #{edwDisku.complexity} and
+            </if>
+            <if test="edwDisku.risklevel">
+                risklevel = #{edwDisku.risklevel} and
+            </if>
+            <if test="edwDisku.qualityimportance">
+                qualityimportance = #{edwDisku.qualityimportance} and
+            </if>
+            <if test="edwDisku.foodrisklevel">
+                foodrisklevel = #{edwDisku.foodrisklevel} and
+            </if>
+            <if test="edwDisku.categoryName1">
+                Category_Name_1 = #{edwDisku.categoryName1} and
+            </if>
+            <if test="edwDisku.categoryName2">
+                Category_Name_2 = #{edwDisku.categoryName2} and
+            </if>
+            <if test="edwDisku.categoryName3">
+                Category_Name_3 = #{edwDisku.categoryName3} and
+            </if>
+            <if test="edwDisku.categoryName4">
+                Category_Name_4 = #{edwDisku.categoryName4} and
+            </if>
+            <if test="edwDisku.categoryName5">
+                Category_Name_5 = #{edwDisku.categoryName5} and
+            </if>
+            <if test="edwDisku.categoryCode1">
+                Category_Code_1 = #{edwDisku.categoryCode1} and
+            </if>
+            <if test="edwDisku.categoryCode2">
+                Category_Code_2 = #{edwDisku.categoryCode2} and
+            </if>
+            <if test="edwDisku.categoryCode3">
+                Category_Code_3 = #{edwDisku.categoryCode3} and
+            </if>
+            <if test="edwDisku.categoryCode4">
+                Category_Code_4 = #{edwDisku.categoryCode4} and
+            </if>
+            <if test="edwDisku.categoryCode5">
+                Category_Code_5 = #{edwDisku.categoryCode5} and
+            </if>
+            <if test="edwDisku.fitcode">
+                FITCODE = #{edwDisku.fitcode} and
+            </if>
+            <if test="edwDisku.skuCreateDate">
+                SKU_Create_Date = #{edwDisku.skuCreateDate} and
+            </if>
+            <if test="edwDisku.skuImportflag">
+                Sku_ImportFlag = #{edwDisku.skuImportflag} and
+            </if>
+            <if test="edwDisku.brandScreening">
+                brand_screening = #{edwDisku.brandScreening} and
+            </if>
+            <if test="edwDisku.effectiveDate">
+                effective_date = #{edwDisku.effectiveDate} and
+            </if>
+            <if test="edwDisku.expiredDate">
+                expired_date = #{edwDisku.expiredDate} and
+            </if>
+            <if test="edwDisku.newFlag">
+                new_flag = #{edwDisku.newFlag} and
+            </if>
+            <if test="edwDisku.dwCreateBy">
+                dw_create_by = #{edwDisku.dwCreateBy} and
+            </if>
+            <if test="edwDisku.dwCreateDate">
+                dw_create_date = #{edwDisku.dwCreateDate} and
+            </if>
+            <if test="edwDisku.dwUpdateBy">
+                dw_update_by = #{edwDisku.dwUpdateBy} and
+            </if>
+            <if test="edwDisku.dwUpdateDate">
+                dw_update_date = #{edwDisku.dwUpdateDate} and
+            </if>
+            <if test="edwDisku.eqaInternalorimport">
+                eqa_internalorimport = #{edwDisku.eqaInternalorimport} and
+            </if>
+            <if test="edwDisku.eqaFoodCategory">
+                eqa_food_category = #{edwDisku.eqaFoodCategory} and
+            </if>
+            <if test="edwDisku.eqaFoodSubcategory">
+                eqa_food_subcategory = #{edwDisku.eqaFoodSubcategory} and
+            </if>
+                </trim>
+        order by id desc limit #{startIndex},#{limit}
+    </select>
+
+    <select id="queryPageCount" resultType="java.lang.Long">
+        select count(*) from edw_dim_sku
+        where
+        <trim suffixOverrides="and" >
+            1=1 and
+        <if test="skuId">
+                Sku_id = #{skuId} and
+            </if>
+            <if test="skuCodeShort">
+                Sku_Code_Short = #{skuCodeShort} and
+            </if>
+            <if test="skuCode">
+                Sku_Code = #{skuCode} and
+            </if>
+            <if test="skuCode3">
+                Sku_Code3 = #{skuCode3} and
+            </if>
+            <if test="skuDescriptionEn">
+                Sku_Description_EN = #{skuDescriptionEn} and
+            </if>
+            <if test="skuName">
+                SKU_Name = #{skuName} and
+            </if>
+            <if test="skuStandards">
+                Sku_Standards = #{skuStandards} and
+            </if>
+            <if test="salesreportingcode1">
+                SalesReportingCode1 = #{salesreportingcode1} and
+            </if>
+            <if test="salesreportingcode1Desc">
+                SalesReportingCode1_Desc = #{salesreportingcode1Desc} and
+            </if>
+            <if test="salesreportingcode3">
+                SalesReportingCode3 = #{salesreportingcode3} and
+            </if>
+            <if test="salesreportingcode3Desc">
+                SalesReportingCode3_Desc = #{salesreportingcode3Desc} and
+            </if>
+            <if test="salesreportingcode4">
+                SalesReportingCode4 = #{salesreportingcode4} and
+            </if>
+            <if test="salesreportingcode4Desc">
+                SalesReportingCode4_Desc = #{salesreportingcode4Desc} and
+            </if>
+            <if test="salesreportingcode5">
+                SalesReportingCode5 = #{salesreportingcode5} and
+            </if>
+            <if test="salesreportingcode5Desc">
+                SalesReportingCode5_Desc = #{salesreportingcode5Desc} and
+            </if>
+            <if test="salesreportingcode6">
+                SalesReportingCode6 = #{salesreportingcode6} and
+            </if>
+            <if test="salesreportingcode7">
+                SalesReportingCode7 = #{salesreportingcode7} and
+            </if>
+            <if test="salesreportingcode9">
+                SalesReportingCode9 = #{salesreportingcode9} and
+            </if>
+            <if test="issendep">
+                IsSendEP = #{issendep} and
+            </if>
+            <if test="issendpricejde">
+                IsSendPriceJde = #{issendpricejde} and
+            </if>
+            <if test="isosxsm">
+                Isosxsm = #{isosxsm} and
+            </if>
+            <if test="leadtimelevel">
+                LeadtimeLevel = #{leadtimelevel} and
+            </if>
+            <if test="plantimefencerule">
+                PlanTimeFenceRule = #{plantimefencerule} and
+            </if>
+            <if test="planningtimefencedays">
+                PlanningTimeFenceDays = #{planningtimefencedays} and
+            </if>
+            <if test="freezetimefencedays">
+                FreezeTimeFenceDays = #{freezetimefencedays} and
+            </if>
+            <if test="msgtimefencedays">
+                MsgTimeFenceDays = #{msgtimefencedays} and
+            </if>
+            <if test="skuEqacode">
+                SKU_EQACode = #{skuEqacode} and
+            </if>
+            <if test="categoryEqacode">
+                Category_EQACode = #{categoryEqacode} and
+            </if>
+            <if test="categoryname">
+                CategoryName = #{categoryname} and
+            </if>
+            <if test="subcategoryEqacode">
+                SubCategory_EQACode = #{subcategoryEqacode} and
+            </if>
+        </trim>
+    </select>
+
+</mapper>

@@ -52,7 +52,7 @@
             FROM
             cdm_fact_iqa_batch_traceability_store a
         INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
-        INNER JOIN edw_eqa_user_role_mapping ourm ON ourm.rolename = eskr.sqa_group_name
+        INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
         <if test="cdfactIqaBatchTraceabilityLc.psid !=null">
             AND ourm.adpid = #{cdfactIqaBatchTraceabilityLc.psid}
         </if>
@@ -76,7 +76,7 @@
     <select id="queryPageCount" resultType="java.lang.Long">
         select count(*) from cdm_fact_iqa_batch_traceability_lc a
         INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
-        INNER JOIN edw_eqa_user_role_mapping ourm ON ourm.rolename = eskr.sqa_group_name
+        INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
         <if test="psid !=null">
             AND ourm.adpid = #{psid}
         </if>

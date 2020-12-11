@@ -32,7 +32,7 @@
     <!-- 分页查询 -->
     <select id="queryPage" resultMap="cdfactIqaBatchTraceabilityMasterDataMap">
         SELECT
-            a.id,
+            DISTINCT
             a.manufacturer_rmi_code,
             a.manufacturer_rmi_name,
             a.rmi_sku_code,
@@ -60,7 +60,7 @@
         FROM
         cdm_fact_iqa_batch_traceability_master_data a
         INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
-        INNER JOIN edw_eqa_user_role_mapping ourm ON ourm.rolename = eskr.sqa_group_name
+        INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
         <if test="cdfactIqaBatchTraceabilityMasterData.psid !=null">
             AND ourm.adpid = #{cdfactIqaBatchTraceabilityMasterData.psid}
         </if>
@@ -92,13 +92,13 @@
                 a.rest_brand = #{cdfactIqaBatchTraceabilityMasterData.restBrand} and
             </if>
         </trim>
-        order by a.id desc limit #{startIndex},#{limit}
+        order by a.production_date desc limit #{startIndex},#{limit}
     </select>
 
     <select id="queryPageCount" resultType="java.lang.Long">
         select count(*) from cdm_fact_iqa_batch_traceability_master_data a
         INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
-        INNER JOIN edw_eqa_user_role_mapping ourm ON ourm.rolename = eskr.sqa_group_name
+        INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
         <if test="psid !=null">
             AND ourm.adpid = #{psid}
         </if>

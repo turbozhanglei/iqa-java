@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://Mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yechtech.dac.traceability.dao.EdwIqaMasterDataRmiMapper">
+    <resultMap id="edwIqaMasterDataRmiMap" type="com.yechtech.dac.traceability.domain.EdwIqaMasterDataRmi">
+        <result property="dataType" column="data_type"/>
+        <result property="dataCode" column="data_code"/>
+        <result property="dataValue" column="data_value"/>
+        <result property="id" column="id"/>
+    </resultMap>
+
+
+    <select id="query" resultMap="edwIqaMasterDataRmiMap">
+        select * from edw_iqa_master_data_rmi where
+        <trim suffixOverrides="and" >
+            1=1 and
+        <if test="dataType !=null and dataType !=''">
+                data_type = #{dataType} and
+            </if>
+            <if test="dataCode !=null and dataCode !=''">
+                data_code = #{dataCode} and
+            </if>
+            <if test="dataValue !=null and dataValue !=''">
+                data_value like concat('%',#{dataValue},'%')  and
+            </if>
+        </trim>
+        limit 0,10
+    </select>
+
+    <!-- 分页查询 -->
+    <select id="queryPage" resultMap="edwIqaMasterDataRmiMap">
+        select * from edw_iqa_master_data_rmi
+        where
+        <trim suffixOverrides="and" >
+            1=1 and
+        <if test="edwIqaMasterDataRmi.dataType">
+                data_type = #{edwIqaMasterDataRmi.dataType} and
+            </if>
+            <if test="edwIqaMasterDataRmi.dataCode">
+                data_code = #{edwIqaMasterDataRmi.dataCode} and
+            </if>
+            <if test="edwIqaMasterDataRmi.dataValue">
+                data_value = #{edwIqaMasterDataRmi.dataValue} and
+            </if>
+                </trim>
+        order by id desc limit #{startIndex},#{limit}
+    </select>
+
+    <select id="queryPageCount" resultType="java.lang.Long">
+        select count(*) from edw_iqa_master_data_rmi
+        where
+        <trim suffixOverrides="and" >
+            1=1 and
+        <if test="dataType">
+                data_type = #{dataType} and
+            </if>
+            <if test="dataCode">
+                data_code = #{dataCode} and
+            </if>
+            <if test="dataValue">
+                data_value = #{dataValue} and
+            </if>
+                </trim>
+    </select>
+
+</mapper>

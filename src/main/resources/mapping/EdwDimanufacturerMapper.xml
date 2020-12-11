@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://Mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yechtech.dac.traceability.dao.EdwDimanufacturerMapper">
+    <resultMap id="edwDimanufacturerMap" type="com.yechtech.dac.traceability.domain.EdwDimanufacturer">
+        <result property="manufacturerId" column="manufacturer_id"/>
+        <result property="manufacturerEqaCode" column="manufacturer_eqa_code"/>
+        <result property="manufacturerCnName" column="manufacturer_cn_name"/>
+        <result property="manufacturernameEnName" column="manufacturername_en_name"/>
+        <result property="registerAddress" column="register_address"/>
+        <result property="qaTeamEnName" column="qa_team_en_name"/>
+        <result property="manufacturerLevel" column="manufacturer_level"/>
+        <result property="provinceCnName" column="province_cn_name"/>
+        <result property="cityCnName" column="city_cn_name"/>
+        <result property="factoryAddress" column="factory_address"/>
+        <result property="businessLicenseCnName" column="business_license_cn_name"/>
+        <result property="businessLicenseExpireDate" column="business_license_expire_date"/>
+        <result property="authenticationStatus" column="authentication_status"/>
+        <result property="status" column="status"/>
+        <result property="purchaseType" column="purchase_type"/>
+        <result property="mainSubcategoryCode" column="main_subcategory_code"/>
+        <result property="mainSubcategoryCnName" column="main_subcategory_cn_name"/>
+        <result property="mainSkuEqaCode" column="main_sku_eqa_code"/>
+        <result property="mainSkuJdeCode" column="main_sku_jde_code"/>
+        <result property="mainSkuCnName" column="main_sku_cn_name"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="operator" column="operator"/>
+        <result property="closureReasonDesc" column="closure_reason_desc"/>
+        <result property="propertyDesc" column="property_desc"/>
+        <result property="productType" column="product_type"/>
+        <result property="topCategoryCode" column="top_category_code"/>
+        <result property="effectiveDate" column="effective_date"/>
+        <result property="expiredDate" column="expired_date"/>
+        <result property="newFlag" column="new_flag"/>
+        <result property="dwCreateBy" column="dw_create_by"/>
+        <result property="dwCreateDate" column="dw_create_date"/>
+        <result property="dwUpdateBy" column="dw_update_by"/>
+        <result property="dwUpdateDate" column="dw_update_date"/>
+        <result property="id" column="id"/>
+    </resultMap>
+
+
+    <update id="update" parameterType="com.yechtech.dac.traceability.domain.EdwDimanufacturer">
+        update edw_dim_manufacturer set
+        <trim suffixOverrides="," >
+        <if test="manufacturerId">
+                manufacturer_id = #{manufacturerId},
+            </if>
+            <if test="manufacturerEqaCode">
+                manufacturer_eqa_code = #{manufacturerEqaCode},
+            </if>
+            <if test="manufacturerCnName">
+                manufacturer_cn_name = #{manufacturerCnName},
+            </if>
+            <if test="manufacturernameEnName">
+                manufacturername_en_name = #{manufacturernameEnName},
+            </if>
+            <if test="registerAddress">
+                register_address = #{registerAddress},
+            </if>
+            <if test="qaTeamEnName">
+                qa_team_en_name = #{qaTeamEnName},
+            </if>
+            <if test="manufacturerLevel">
+                manufacturer_level = #{manufacturerLevel},
+            </if>
+            <if test="provinceCnName">
+                province_cn_name = #{provinceCnName},
+            </if>
+            <if test="cityCnName">
+                city_cn_name = #{cityCnName},
+            </if>
+            <if test="factoryAddress">
+                factory_address = #{factoryAddress},
+            </if>
+            <if test="businessLicenseCnName">
+                business_license_cn_name = #{businessLicenseCnName},
+            </if>
+            <if test="businessLicenseExpireDate">
+                business_license_expire_date = #{businessLicenseExpireDate},
+            </if>
+            <if test="authenticationStatus">
+                authentication_status = #{authenticationStatus},
+            </if>
+            <if test="status">
+                status = #{status},
+            </if>
+            <if test="purchaseType">
+                purchase_type = #{purchaseType},
+            </if>
+            <if test="mainSubcategoryCode">
+                main_subcategory_code = #{mainSubcategoryCode},
+            </if>
+            <if test="mainSubcategoryCnName">
+                main_subcategory_cn_name = #{mainSubcategoryCnName},
+            </if>
+            <if test="mainSkuEqaCode">
+                main_sku_eqa_code = #{mainSkuEqaCode},
+            </if>
+            <if test="mainSkuJdeCode">
+                main_sku_jde_code = #{mainSkuJdeCode},
+            </if>
+            <if test="mainSkuCnName">
+                main_sku_cn_name = #{mainSkuCnName},
+            </if>
+            <if test="createTime">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime">
+                update_time = #{updateTime},
+            </if>
+            <if test="operator">
+                operator = #{operator},
+            </if>
+            <if test="closureReasonDesc">
+                closure_reason_desc = #{closureReasonDesc},
+            </if>
+            <if test="propertyDesc">
+                property_desc = #{propertyDesc},
+            </if>
+            <if test="productType">
+                product_type = #{productType},
+            </if>
+            <if test="topCategoryCode">
+                top_category_code = #{topCategoryCode},
+            </if>
+            <if test="effectiveDate">
+                effective_date = #{effectiveDate},
+            </if>
+            <if test="expiredDate">
+                expired_date = #{expiredDate},
+            </if>
+            <if test="newFlag">
+                new_flag = #{newFlag},
+            </if>
+            <if test="dwCreateBy">
+                dw_create_by = #{dwCreateBy},
+            </if>
+            <if test="dwCreateDate">
+                dw_create_date = #{dwCreateDate},
+            </if>
+            <if test="dwUpdateBy">
+                dw_update_by = #{dwUpdateBy},
+            </if>
+            <if test="dwUpdateDate">
+                dw_update_date = #{dwUpdateDate},
+            </if>
+        </trim>
+        where
+        id = #{id}
+    </update>
+
+    <select id="queryByPrimaryKey" resultMap="edwDimanufacturerMap">
+        select * from edw_dim_manufacturer where id = #{id}
+    </select>
+
+    <select id="query" resultMap="edwDimanufacturerMap">
+        select * from edw_dim_manufacturer where
+        <trim suffixOverrides="and" >
+            1=1 and
+           <if test="manufacturerId !=null">
+                manufacturer_id = #{manufacturerId} and
+            </if>
+            <if test="manufacturerEqaCode !=null">
+                manufacturer_eqa_code = #{manufacturerEqaCode} and
+            </if>
+            <if test="manufacturerCnName !=null and manufacturerCnName !=''">
+                manufacturer_cn_name like concat('%',#{manufacturerCnName},'%')  and
+            </if>
+            <if test="manufacturernameEnName !=null">
+                manufacturername_en_name = #{manufacturernameEnName} and
+            </if>
+            <if test="registerAddress !=null">
+                register_address = #{registerAddress} and
+            </if>
+            <if test="manufacturerLevel !=null">
+                manufacturer_level = #{manufacturerLevel} and
+            </if>
+        </trim>
+        limit 0,10
+    </select>
+
+    <!-- 分页查询 -->
+    <select id="queryPage" resultMap="edwDimanufacturerMap">
+        select * from edw_dim_manufacturer
+        where
+        <trim suffixOverrides="and" >
+            1=1 and
+        <if test="edwDimanufacturer.manufacturerId">
+                manufacturer_id = #{edwDimanufacturer.manufacturerId} and
+            </if>
+            <if test="edwDimanufacturer.manufacturerEqaCode">
+                manufacturer_eqa_code = #{edwDimanufacturer.manufacturerEqaCode} and
+            </if>
+            <if test="edwDimanufacturer.manufacturerCnName">
+                manufacturer_cn_name = #{edwDimanufacturer.manufacturerCnName} and
+            </if>
+            <if test="edwDimanufacturer.manufacturernameEnName">
+                manufacturername_en_name = #{edwDimanufacturer.manufacturernameEnName} and
+            </if>
+            <if test="edwDimanufacturer.registerAddress">
+                register_address = #{edwDimanufacturer.registerAddress} and
+            </if>
+            <if test="edwDimanufacturer.qaTeamEnName">
+                qa_team_en_name = #{edwDimanufacturer.qaTeamEnName} and
+            </if>
+            <if test="edwDimanufacturer.manufacturerLevel">
+                manufacturer_level = #{edwDimanufacturer.manufacturerLevel} and
+            </if>
+            <if test="edwDimanufacturer.provinceCnName">
+                province_cn_name = #{edwDimanufacturer.provinceCnName} and
+            </if>
+            <if test="edwDimanufacturer.cityCnName">
+                city_cn_name = #{edwDimanufacturer.cityCnName} and
+            </if>
+            <if test="edwDimanufacturer.factoryAddress">
+                factory_address = #{edwDimanufacturer.factoryAddress} and
+            </if>
+            <if test="edwDimanufacturer.businessLicenseCnName">
+                business_license_cn_name = #{edwDimanufacturer.businessLicenseCnName} and
+            </if>
+            <if test="edwDimanufacturer.businessLicenseExpireDate">
+                business_license_expire_date = #{edwDimanufacturer.businessLicenseExpireDate} and
+            </if>
+            <if test="edwDimanufacturer.authenticationStatus">
+                authentication_status = #{edwDimanufacturer.authenticationStatus} and
+            </if>
+            <if test="edwDimanufacturer.status">
+                status = #{edwDimanufacturer.status} and
+            </if>
+            <if test="edwDimanufacturer.purchaseType">
+                purchase_type = #{edwDimanufacturer.purchaseType} and
+            </if>
+            <if test="edwDimanufacturer.mainSubcategoryCode">
+                main_subcategory_code = #{edwDimanufacturer.mainSubcategoryCode} and
+            </if>
+            <if test="edwDimanufacturer.mainSubcategoryCnName">
+                main_subcategory_cn_name = #{edwDimanufacturer.mainSubcategoryCnName} and
+            </if>
+            <if test="edwDimanufacturer.mainSkuEqaCode">
+                main_sku_eqa_code = #{edwDimanufacturer.mainSkuEqaCode} and
+            </if>
+            <if test="edwDimanufacturer.mainSkuJdeCode">
+                main_sku_jde_code = #{edwDimanufacturer.mainSkuJdeCode} and
+            </if>
+            <if test="edwDimanufacturer.mainSkuCnName">
+                main_sku_cn_name = #{edwDimanufacturer.mainSkuCnName} and
+            </if>
+            <if test="edwDimanufacturer.createTime">
+                create_time = #{edwDimanufacturer.createTime} and
+            </if>
+            <if test="edwDimanufacturer.updateTime">
+                update_time = #{edwDimanufacturer.updateTime} and
+            </if>
+            <if test="edwDimanufacturer.operator">
+                operator = #{edwDimanufacturer.operator} and
+            </if>
+            <if test="edwDimanufacturer.closureReasonDesc">
+                closure_reason_desc = #{edwDimanufacturer.closureReasonDesc} and
+            </if>
+            <if test="edwDimanufacturer.propertyDesc">
+                property_desc = #{edwDimanufacturer.propertyDesc} and
+            </if>
+            <if test="edwDimanufacturer.productType">
+                product_type = #{edwDimanufacturer.productType} and
+            </if>
+            <if test="edwDimanufacturer.topCategoryCode">
+                top_category_code = #{edwDimanufacturer.topCategoryCode} and
+            </if>
+            <if test="edwDimanufacturer.effectiveDate">
+                effective_date = #{edwDimanufacturer.effectiveDate} and
+            </if>
+            <if test="edwDimanufacturer.expiredDate">
+                expired_date = #{edwDimanufacturer.expiredDate} and
+            </if>
+            <if test="edwDimanufacturer.newFlag">
+                new_flag = #{edwDimanufacturer.newFlag} and
+            </if>
+            <if test="edwDimanufacturer.dwCreateBy">
+                dw_create_by = #{edwDimanufacturer.dwCreateBy} and
+            </if>
+            <if test="edwDimanufacturer.dwCreateDate">
+                dw_create_date = #{edwDimanufacturer.dwCreateDate} and
+            </if>
+            <if test="edwDimanufacturer.dwUpdateBy">
+                dw_update_by = #{edwDimanufacturer.dwUpdateBy} and
+            </if>
+            <if test="edwDimanufacturer.dwUpdateDate">
+                dw_update_date = #{edwDimanufacturer.dwUpdateDate} and
+            </if>
+                </trim>
+        order by id desc limit #{startIndex},#{limit}
+    </select>
+
+    <select id="queryPageCount" resultType="java.lang.Long">
+        select count(*) from edw_dim_manufacturer
+        where
+        <trim suffixOverrides="and" >
+            1=1 and
+        <if test="manufacturerId">
+                manufacturer_id = #{manufacturerId} and
+            </if>
+            <if test="manufacturerEqaCode">
+                manufacturer_eqa_code = #{manufacturerEqaCode} and
+            </if>
+            <if test="manufacturerCnName">
+                manufacturer_cn_name = #{manufacturerCnName} and
+            </if>
+            <if test="manufacturernameEnName">
+                manufacturername_en_name = #{manufacturernameEnName} and
+            </if>
+            <if test="registerAddress">
+                register_address = #{registerAddress} and
+            </if>
+            <if test="qaTeamEnName">
+                qa_team_en_name = #{qaTeamEnName} and
+            </if>
+            <if test="manufacturerLevel">
+                manufacturer_level = #{manufacturerLevel} and
+            </if>
+            <if test="provinceCnName">
+                province_cn_name = #{provinceCnName} and
+            </if>
+            <if test="cityCnName">
+                city_cn_name = #{cityCnName} and
+            </if>
+            <if test="factoryAddress">
+                factory_address = #{factoryAddress} and
+            </if>
+            <if test="businessLicenseCnName">
+                business_license_cn_name = #{businessLicenseCnName} and
+            </if>
+            <if test="businessLicenseExpireDate">
+                business_license_expire_date = #{businessLicenseExpireDate} and
+            </if>
+            <if test="authenticationStatus">
+                authentication_status = #{authenticationStatus} and
+            </if>
+            <if test="status">
+                status = #{status} and
+            </if>
+            <if test="purchaseType">
+                purchase_type = #{purchaseType} and
+            </if>
+            <if test="mainSubcategoryCode">
+                main_subcategory_code = #{mainSubcategoryCode} and
+            </if>
+            <if test="mainSubcategoryCnName">
+                main_subcategory_cn_name = #{mainSubcategoryCnName} and
+            </if>
+            <if test="mainSkuEqaCode">
+                main_sku_eqa_code = #{mainSkuEqaCode} and
+            </if>
+            <if test="mainSkuJdeCode">
+                main_sku_jde_code = #{mainSkuJdeCode} and
+            </if>
+            <if test="mainSkuCnName">
+                main_sku_cn_name = #{mainSkuCnName} and
+            </if>
+            <if test="createTime">
+                create_time = #{createTime} and
+            </if>
+            <if test="updateTime">
+                update_time = #{updateTime} and
+            </if>
+            <if test="operator">
+                operator = #{operator} and
+            </if>
+            <if test="closureReasonDesc">
+                closure_reason_desc = #{closureReasonDesc} and
+            </if>
+            <if test="propertyDesc">
+                property_desc = #{propertyDesc} and
+            </if>
+            <if test="productType">
+                product_type = #{productType} and
+            </if>
+            <if test="topCategoryCode">
+                top_category_code = #{topCategoryCode} and
+            </if>
+            <if test="effectiveDate">
+                effective_date = #{effectiveDate} and
+            </if>
+            <if test="expiredDate">
+                expired_date = #{expiredDate} and
+            </if>
+            <if test="newFlag">
+                new_flag = #{newFlag} and
+            </if>
+            <if test="dwCreateBy">
+                dw_create_by = #{dwCreateBy} and
+            </if>
+            <if test="dwCreateDate">
+                dw_create_date = #{dwCreateDate} and
+            </if>
+            <if test="dwUpdateBy">
+                dw_update_by = #{dwUpdateBy} and
+            </if>
+            <if test="dwUpdateDate">
+                dw_update_date = #{dwUpdateDate} and
+            </if>
+                </trim>
+    </select>
+
+</mapper>

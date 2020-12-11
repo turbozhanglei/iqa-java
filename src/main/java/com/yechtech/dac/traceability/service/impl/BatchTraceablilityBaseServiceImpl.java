@@ -64,6 +64,18 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
     @Resource
     ConfigMapper configMapper;
 
+    @Resource
+    EdwDiskuMapper edwDiskuMapper;
+
+    @Resource
+    EdwDimanufacturerMapper edwDimanufacturerMapper;
+
+    @Resource
+    EdwIqaMasterDataRmiMapper edwIqaMasterDataRmiMapper;
+
+    @Resource
+    EdwDistoreMapper edwDistoreMapper;
+
 
     @Override
     public DacResponse
@@ -93,19 +105,26 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
 
     @Override
     public DacResponse selectInputList(FilterConditionDto batchDto){
+        String psid="";
         if (env.equals("prd") || env.equals("uat")){
             String bloo = checkToken(batchDto.getTokenIqa());
             if (StringUtils.isEmpty(bloo)){
                 return new DacResponse().message("用户信息已失效");
             }
+            psid = bloo;
         }
         List<FilterConditionData> responseList  = new ArrayList<>();
         switch (batchDto.getType()){
             case 1:
                 //品项名称
-                BatchTraceabilityManufacturer manufacturerDto =new BatchTraceabilityManufacturer();
-                manufacturerDto.setSkuName(batchDto.getSkuName());
-                List<BatchTraceabilityManufacturer> resultList = manufacturerMapper.query(manufacturerDto);
+//                BatchTraceabilityManufacturer manufacturerDto =new BatchTraceabilityManufacturer();
+//                manufacturerDto.setSkuName(batchDto.getSkuName());
+//                manufacturerDto.setPsid(psid);
+//                List<BatchTraceabilityManufacturer> resultList = manufacturerMapper.query(manufacturerDto);
+                EdwDisku edwDisku =new EdwDisku();
+                edwDisku.setSkuName(batchDto.getSkuName());
+                edwDisku.setPsid(psid);
+                List<EdwDisku> resultList = edwDiskuMapper.query(edwDisku);
                 resultList.forEach(item->{
                     FilterConditionData filterConditionData = new FilterConditionData();
                     filterConditionData.setLable(item.getId().toString());
@@ -115,47 +134,64 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
                 break;
             case 2:
                 //生产商名称
-                BatchTraceabilityManufacturer queyManufacturer =new BatchTraceabilityManufacturer();
-//                QueryWrapper<BatchTraceabilityManufacturer> queryManufacturer = new QueryWrapper<>();
-//                queryManufacturer.like("manufacturer_name",batchDto.getSkuName());
-                queyManufacturer.setManufacturerName(batchDto.getManufacturerName());
-                List<BatchTraceabilityManufacturer> resultManufacturerList = manufacturerMapper.query(queyManufacturer);
+//                BatchTraceabilityManufacturer queyManufacturer =new BatchTraceabilityManufacturer();
+//                queyManufacturer.setManufacturerName(batchDto.getManufacturerName());
+//                queyManufacturer.setPsid(psid);
+//                List<BatchTraceabilityManufacturer> resultManufacturerList = manufacturerMapper.query(queyManufacturer);
+                EdwDimanufacturer edwDimanufacturer =new EdwDimanufacturer();
+                edwDimanufacturer.setManufacturerCnName(batchDto.getManufacturerName());
+                List<EdwDimanufacturer> resultManufacturerList = edwDimanufacturerMapper.query(edwDimanufacturer);
                 resultManufacturerList.forEach(item->{
                     FilterConditionData filterConditionData = new FilterConditionData();
                     filterConditionData.setLable(item.getId().toString());
-                    filterConditionData.setValue(item.getManufacturerName());
+                    filterConditionData.setValue(item.getManufacturerCnName());
                     responseList.add(filterConditionData);
                 });
                 break;
             case 3:
                 //原料名称
-                BatchTraceabilityRmi rmiDto = new BatchTraceabilityRmi();
-                rmiDto.setRmiSkuName(batchDto.getRmiSkuName());
-                    List<BatchTraceabilityRmi> resultRmi = rmiMapper.query(rmiDto);
+//                BatchTraceabilityRmi rmiDto = new BatchTraceabilityRmi();
+//                rmiDto.setRmiSkuName(batchDto.getRmiSkuName());
+//                rmiDto.setPsid(psid);
+//                List<BatchTraceabilityRmi> resultRmi = rmiMapper.query(rmiDto);
+                EdwIqaMasterDataRmi masterDataRmi = new EdwIqaMasterDataRmi();
+                masterDataRmi.setDataType("1");
+                masterDataRmi.setDataValue(batchDto.getRmiSkuName());
+                List<EdwIqaMasterDataRmi> resultRmi = edwIqaMasterDataRmiMapper.query(masterDataRmi);
                 resultRmi.forEach(item->{
                     FilterConditionData filterConditionData = new FilterConditionData();
                     filterConditionData.setLable(item.getId().toString());
-                    filterConditionData.setValue(item.getRmiSkuName());
+                    filterConditionData.setValue(item.getDataValue());
                     responseList.add(filterConditionData);
                 });
 
                 break;
             case 4:
                 //原料生产商名称
-                BatchTraceabilityRmi qrmiDto = new BatchTraceabilityRmi();
-                qrmiDto.setManufacturerRmiName(batchDto.getManufacturerRmiName());
-                List<BatchTraceabilityRmi> resultqrmi = rmiMapper.query(qrmiDto);
+//                BatchTraceabilityRmi qrmiDto = new BatchTraceabilityRmi();
+//                qrmiDto.setPsid(psid);
+//                qrmiDto.setManufacturerRmiName(batchDto.getManufacturerRmiName());
+//                List<BatchTraceabilityRmi> resultqrmi = rmiMapper.query(qrmiDto);
+                EdwIqaMasterDataRmi edwIqaMasterDataRmi = new EdwIqaMasterDataRmi();
+                edwIqaMasterDataRmi.setDataType("2");
+                edwIqaMasterDataRmi.setDataValue(batchDto.getRmiSkuName());
+                List<EdwIqaMasterDataRmi> resultqrmi = edwIqaMasterDataRmiMapper.query(edwIqaMasterDataRmi);
                 resultqrmi.forEach(item->{
                     FilterConditionData filterConditionData = new FilterConditionData();
                     filterConditionData.setLable(item.getId().toString());
-                    filterConditionData.setValue(item.getManufacturerRmiName());
+                    filterConditionData.setValue(item.getDataValue());
                     responseList.add(filterConditionData);
                 });
                 break;
             case 5:
-                BatchTraceabilityStore storePro = new BatchTraceabilityStore();
-                storePro.setSkuName(batchDto.getProductName());
-                List<BatchTraceabilityStore> resultPro = storeMapper.query(storePro);
+//                BatchTraceabilityStore storePro = new BatchTraceabilityStore();
+//                storePro.setPsid(psid);
+//                storePro.setSkuName(batchDto.getProductName());
+//                List<BatchTraceabilityStore> resultPro = storeMapper.query(storePro);
+                EdwDisku edwDiskuPro =new EdwDisku();
+                edwDiskuPro.setSkuName(batchDto.getProductName());
+                edwDiskuPro.setPsid(psid);
+                List<EdwDisku> resultPro = edwDiskuMapper.query(edwDiskuPro);
                 resultPro.forEach(item->{
                     FilterConditionData filterConditionData = new FilterConditionData();
                     filterConditionData.setLable(item.getId().toString());
@@ -164,13 +200,21 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
                 });
                 break;
             case 6:
-                BatchTraceabilityStore storeBrand = new BatchTraceabilityStore();
-                storeBrand.setBrandNameCn(batchDto.getBrandNameCn());
-                List<BatchTraceabilityStore> resultBrand = storeMapper.query(storeBrand);
+//                BatchTraceabilityStore storeBrand = new BatchTraceabilityStore();
+//                storeBrand.setPsid(psid);
+//                storeBrand.setBrandNameCn(batchDto.getBrandNameCn());
+//                List<BatchTraceabilityStore> resultBrand = storeMapper.query(storeBrand);
+                EdwDistore edwDistore =new EdwDistore();
+                edwDistore.setBrandNameCn(batchDto.getBrandNameCn());
+                List<EdwDistore> resultBrand = edwDistoreMapper.query(edwDistore);
                 resultBrand.forEach(item->{
                     FilterConditionData filterConditionData = new FilterConditionData();
-                    filterConditionData.setLable(item.getId().toString());
-                    filterConditionData.setValue(item.getBrandNameCn());
+//                    filterConditionData.setLable(item.getId().toString());
+                    if (null != item){
+                        if (StringUtils.isNotBlank(item.getBrandNameCn())){
+                            filterConditionData.setValue(item.getBrandNameCn());
+                        }
+                    }
                     responseList.add(filterConditionData);
                 });
                 break;
@@ -182,6 +226,7 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
 
     @Override
     public DacResponse selectDetail(BatchTraceabilityDto batchDto) {
+        log.info("获取批次追溯详情入参batchDto=========》,{}", batchDto.toString());
         if (env.equals("prd") || env.equals("uat")){
             String bloo = checkToken(batchDto.getTokenIqa());
             if (StringUtils.isEmpty(bloo)){
@@ -197,76 +242,79 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         queryWrapper.eq("production_date",batchDto.getProductionDate());
 
         List<DetailedSummary> detailedSummaries = detailedSummaryMapper.selectList(queryWrapper);
+
         if (CollectionUtils.isNotEmpty(detailedSummaries)){
-
             BeanUtils.copyProperties(detailedSummaries.get(0),batchTraceabilityDetailedSummary);
-            //获取详情页状态 -上游原料
-            BatchTraceabilityRmi queryRmi = new BatchTraceabilityRmi();
-            queryRmi.setManufacturerEqaCode(batchDto.getManufacturerEqaCode());
-            queryRmi.setSkuJdecode(batchDto.getSkuJdecode());
-            queryRmi.setProductionDate(batchDto.getProductionDate());
-
-            List<BatchTraceabilityRmi> batchTraceabilityRmis = rmiMapper.query(queryRmi);
-            if (CollectionUtils.isEmpty(batchTraceabilityRmis)){
-                batchTraceabilityDetailedSummary.setMaterialStatus(StatusType.Zero.getCode());
-            }else {
-                batchTraceabilityDetailedSummary.setMaterialStatus(StatusType.One.getCode());
-            }
-
-            //获取生产商状态
-            BatchTraceabilityManufacturer manufacturer =new BatchTraceabilityManufacturer();
-            manufacturer.setManufacturerEqacode(batchDto.getManufacturerEqaCode());
-            manufacturer.setSkuJdecode(batchDto.getSkuJdecode());
-            manufacturer.setProductionDate(batchDto.getProductionDate());
-            List<BatchTraceabilityManufacturer> batchTraceabilityManufacturer = manufacturerMapper.query(manufacturer);
-            if (CollectionUtils.isEmpty(batchTraceabilityManufacturer)){
-                batchTraceabilityDetailedSummary.setProductStauts(StatusType.Zero.getCode());
-            }else {
-                batchTraceabilityDetailedSummary.setProductStauts(StatusType.One.getCode());
-            }
-
-
-            //获取整合中心状态
-            BatchTraceabilityCc bilityCc =new BatchTraceabilityCc();
-            bilityCc.setSupplierJdecode(batchDto.getSupplierJdecode());
-            bilityCc.setSkuJdecode(batchDto.getSkuJdecode());
-            bilityCc.setProductionDate(batchDto.getProductionDate());
-            List<BatchTraceabilityCc> batchTraceabilityCc = ccMapper.query(bilityCc);
-            if (CollectionUtils.isEmpty(batchTraceabilityCc)){
-                batchTraceabilityDetailedSummary.setIntegrationStauts(StatusType.Zero.getCode());
-            }else {
-                batchTraceabilityDetailedSummary.setIntegrationStauts(StatusType.One.getCode());
-            }
-
-            //获取物流中心状态
-            BatchTraceabilityLc traceabilityLc =new BatchTraceabilityLc();
-            traceabilityLc.setSupplierJdecode(batchDto.getSupplierJdecode());
-            traceabilityLc.setSkuJdecode(batchDto.getSkuJdecode());
-            traceabilityLc.setProductionDate(batchDto.getProductionDate());
-            List<BatchTraceabilityLc> batchTraceabilityLc = batchTraceabilityLcMapper.query(traceabilityLc);
-            if (CollectionUtils.isEmpty(batchTraceabilityLc)){
-                batchTraceabilityDetailedSummary.setLogisticsStauts(StatusType.Zero.getCode());
-            }else {
-                batchTraceabilityDetailedSummary.setLogisticsStauts(StatusType.One.getCode());
-            }
-
-            //获取餐厅中心状态
-            BatchTraceabilityStore traceabilityStore =new BatchTraceabilityStore();
-            traceabilityStore.setSupplierJdecode(batchDto.getSupplierJdecode());
-            traceabilityStore.setSkuJdecode(batchDto.getSkuJdecode());
-            traceabilityStore.setProductionDate(batchDto.getProductionDate());
-            List<BatchTraceabilityStore> batchTraceabilityStores = storeMapper.query(traceabilityStore);
-            if (CollectionUtils.isEmpty(batchTraceabilityStores)){
-                batchTraceabilityDetailedSummary.setRestaurantStatus(StatusType.Zero.getCode());
-            }else {
-                batchTraceabilityDetailedSummary.setRestaurantStatus(StatusType.One.getCode());
-            }
         }
+
+        //获取详情页状态 -上游原料
+        BatchTraceabilityRmi queryRmi = new BatchTraceabilityRmi();
+        queryRmi.setManufacturerEqaCode(batchDto.getManufacturerEqaCode());
+        queryRmi.setSkuJdecode(batchDto.getSkuJdecode());
+        queryRmi.setProductionDate(batchDto.getProductionDate());
+
+        List<BatchTraceabilityRmi> batchTraceabilityRmis = rmiMapper.query(queryRmi);
+        if (CollectionUtils.isEmpty(batchTraceabilityRmis)){
+            batchTraceabilityDetailedSummary.setMaterialStatus(StatusType.Zero.getCode());
+        }else {
+            batchTraceabilityDetailedSummary.setMaterialStatus(StatusType.One.getCode());
+        }
+
+        //获取生产商状态
+        BatchTraceabilityManufacturer manufacturer =new BatchTraceabilityManufacturer();
+        manufacturer.setManufacturerEqacode(batchDto.getManufacturerEqaCode());
+        manufacturer.setSkuJdecode(batchDto.getSkuJdecode());
+        manufacturer.setProductionDate(batchDto.getProductionDate());
+        List<BatchTraceabilityManufacturer> batchTraceabilityManufacturer = manufacturerMapper.query(manufacturer);
+        if (CollectionUtils.isEmpty(batchTraceabilityManufacturer)){
+            batchTraceabilityDetailedSummary.setProductStauts(StatusType.Zero.getCode());
+        }else {
+            batchTraceabilityDetailedSummary.setProductStauts(StatusType.One.getCode());
+        }
+
+
+        //获取整合中心状态
+        BatchTraceabilityCc bilityCc =new BatchTraceabilityCc();
+        bilityCc.setSupplierJdecode(batchDto.getSupplierJdecode());
+        bilityCc.setSkuJdecode(batchDto.getSkuJdecode());
+        bilityCc.setProductionDate(batchDto.getProductionDate());
+        List<BatchTraceabilityCc> batchTraceabilityCc = ccMapper.query(bilityCc);
+        if (CollectionUtils.isEmpty(batchTraceabilityCc)){
+            batchTraceabilityDetailedSummary.setIntegrationStauts(StatusType.Zero.getCode());
+        }else {
+            batchTraceabilityDetailedSummary.setIntegrationStauts(StatusType.One.getCode());
+        }
+
+        //获取物流中心状态
+        BatchTraceabilityLc traceabilityLc =new BatchTraceabilityLc();
+        traceabilityLc.setSupplierJdecode(batchDto.getSupplierJdecode());
+        traceabilityLc.setSkuJdecode(batchDto.getSkuJdecode());
+        traceabilityLc.setProductionDate(batchDto.getProductionDate());
+        List<BatchTraceabilityLc> batchTraceabilityLc = batchTraceabilityLcMapper.query(traceabilityLc);
+        if (CollectionUtils.isEmpty(batchTraceabilityLc)){
+            batchTraceabilityDetailedSummary.setLogisticsStauts(StatusType.Zero.getCode());
+        }else {
+            batchTraceabilityDetailedSummary.setLogisticsStauts(StatusType.One.getCode());
+        }
+
+        //获取餐厅中心状态
+        BatchTraceabilityStore traceabilityStore =new BatchTraceabilityStore();
+        traceabilityStore.setSupplierJdecode(batchDto.getSupplierJdecode());
+        traceabilityStore.setSkuJdecode(batchDto.getSkuJdecode());
+        traceabilityStore.setProductionDate(batchDto.getProductionDate());
+        List<BatchTraceabilityStore> batchTraceabilityStores = storeMapper.query(traceabilityStore);
+        if (CollectionUtils.isEmpty(batchTraceabilityStores)){
+            batchTraceabilityDetailedSummary.setRestaurantStatus(StatusType.Zero.getCode());
+        }else {
+            batchTraceabilityDetailedSummary.setRestaurantStatus(StatusType.One.getCode());
+        }
+
         return new DacResponse().data(batchTraceabilityDetailedSummary);
     }
 
     @Override
     public DacResponse getUpstreamRmi(BatchTraceabilityBaseDto batchDto) {
+        log.info("获取上游原料信息入参batchDto=========》,{}", batchDto.toString());
         BatchTraceabilityRmi batchTraceabilityRmi =new BatchTraceabilityRmi();
         if (env.equals("prd") || env.equals("uat")){
             String bloo = checkToken(batchDto.getTokenIqa());
@@ -297,6 +345,7 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
 
     @Override
     public DacResponse getManufacturerList(BatchTraceabilityBaseDto batchDto) {
+        log.info("获取生产商信息列表入参batchDto=========》,{}", batchDto.toString());
         BatchTraceabilityManufacturer batchTraceabilityManufacturer=new BatchTraceabilityManufacturer();
         if (env.equals("prd") || env.equals("uat")){
             String bloo = checkToken(batchDto.getTokenIqa());
@@ -327,6 +376,7 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
 
     @Override
     public DacResponse getIntegrateInformation(BatchTraceabilityBaseDto batchDto) {
+        log.info("获取整合中心列表入参batchDto=========》,{}", batchDto.toString());
         BatchTraceabilityCc batchTraceabilityCc =new BatchTraceabilityCc();
         if (env.equals("prd") || env.equals("uat")){
             String bloo = checkToken(batchDto.getTokenIqa());
@@ -356,6 +406,7 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
 
     @Override
     public DacResponse getLogisticsCenter(BatchTraceabilityBaseDto batchDto) {
+        log.info("获取物流中心列表入参batchDto=========》,{}", batchDto.toString());
         BatchTraceabilityLc batchTraceabilityLc =new BatchTraceabilityLc();
         if (env.equals("prd") || env.equals("uat")){
             String bloo = checkToken(batchDto.getTokenIqa());
@@ -385,6 +436,7 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
 
     @Override
     public DacResponse getRestaurantList(BatchTraceabilityBaseDto batchDto) {
+        log.info("获取餐厅信息列表入参batchDto=========》,{}", batchDto.toString());
         BatchTraceabilityStore batchTraceabilityStore =new BatchTraceabilityStore();
         if (env.equals("prd") || env.equals("uat")){
             String bloo = checkToken(batchDto.getTokenIqa());
@@ -420,7 +472,6 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
             } catch (Exception e) {
                 log.error("调用SCID报错信息==========>>"+e.getMessage());
             }
-            // Object obj = feignConfig.getDapFegin().getPrdAccessToken(batchDto.getToken());
             log.info("调用SCID返回参数=========》,{}", JSONObject.toJSONString(str));
             Map map1 = JSONObject.parseObject(str, Map.class);
             Map data = JSONObject.parseObject(JSONObject.toJSONString(map1.get("data")), Map.class);
@@ -436,7 +487,7 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
                     redisService.set(tokenIqa,psid,Long.parseLong(config.getIqavalue()));
                 }
             }catch (Exception e){
-                log.error("调用SCDI接口错误信息error=========》",e.getLocalizedMessage());
+                log.error("调用redisService错误信息error=========》",e.getLocalizedMessage());
             }
         }
         return new DacResponse().data(resp);
