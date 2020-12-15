@@ -81,18 +81,15 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
     public DacResponse
     selectPage(BatchTraceabilityMasterDto batchDto) {
         BatchTraceabilityMasterData batchTraceabilityMasterData=new BatchTraceabilityMasterData();
+        BeanUtils.copyProperties(batchDto,batchTraceabilityMasterData);
         if (env.equals("prd") || env.equals("uat")){
             String bloo = checkToken(batchDto.getTokenIqa());
-            if (StringUtils.isEmpty(bloo)){
+            if (StringUtils.isNotBlank(bloo)){
+                batchTraceabilityMasterData.setPsid(bloo);
+            }else{
                 return new DacResponse().message("用户信息已失效");
             }
-            batchTraceabilityMasterData.setPsid(bloo);
         }
-//        QueryWrapper<BatchTraceabilityMasterData> queryWrapper = getMyApplyDtoQueryWrapper(batchDto);
-//        Page<BatchTraceabilityMasterData> page = new Page<>(batchDto.getPageNum(), batchDto.getPageSize());
-//        IPage<BatchTraceabilityMasterData> batchTraceabilityMasterDataIPage = masterDataMapper.selectPage(page,queryWrapper);
-
-        BeanUtils.copyProperties(batchDto,batchTraceabilityMasterData);
         int startIndex = (batchDto.getPageNum() - 1) * batchDto.getPageSize();
         List<BatchTraceabilityMasterData> list = masterDataMapper.queryPage(startIndex, batchDto.getPageSize(), batchTraceabilityMasterData);
         long count = masterDataMapper.queryPageCount(batchTraceabilityMasterData);
@@ -117,10 +114,6 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         switch (batchDto.getType()){
             case 1:
                 //品项名称
-//                BatchTraceabilityManufacturer manufacturerDto =new BatchTraceabilityManufacturer();
-//                manufacturerDto.setSkuName(batchDto.getSkuName());
-//                manufacturerDto.setPsid(psid);
-//                List<BatchTraceabilityManufacturer> resultList = manufacturerMapper.query(manufacturerDto);
                 EdwDisku edwDisku =new EdwDisku();
                 edwDisku.setSkuName(batchDto.getSkuName());
                 edwDisku.setPsid(psid);
@@ -134,10 +127,6 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
                 break;
             case 2:
                 //生产商名称
-//                BatchTraceabilityManufacturer queyManufacturer =new BatchTraceabilityManufacturer();
-//                queyManufacturer.setManufacturerName(batchDto.getManufacturerName());
-//                queyManufacturer.setPsid(psid);
-//                List<BatchTraceabilityManufacturer> resultManufacturerList = manufacturerMapper.query(queyManufacturer);
                 EdwDimanufacturer edwDimanufacturer =new EdwDimanufacturer();
                 edwDimanufacturer.setManufacturerCnName(batchDto.getManufacturerName());
                 List<EdwDimanufacturer> resultManufacturerList = edwDimanufacturerMapper.query(edwDimanufacturer);
@@ -150,10 +139,6 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
                 break;
             case 3:
                 //原料名称
-//                BatchTraceabilityRmi rmiDto = new BatchTraceabilityRmi();
-//                rmiDto.setRmiSkuName(batchDto.getRmiSkuName());
-//                rmiDto.setPsid(psid);
-//                List<BatchTraceabilityRmi> resultRmi = rmiMapper.query(rmiDto);
                 EdwIqaMasterDataRmi masterDataRmi = new EdwIqaMasterDataRmi();
                 masterDataRmi.setDataType("1");
                 masterDataRmi.setDataValue(batchDto.getRmiSkuName());
@@ -168,13 +153,9 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
                 break;
             case 4:
                 //原料生产商名称
-//                BatchTraceabilityRmi qrmiDto = new BatchTraceabilityRmi();
-//                qrmiDto.setPsid(psid);
-//                qrmiDto.setManufacturerRmiName(batchDto.getManufacturerRmiName());
-//                List<BatchTraceabilityRmi> resultqrmi = rmiMapper.query(qrmiDto);
                 EdwIqaMasterDataRmi edwIqaMasterDataRmi = new EdwIqaMasterDataRmi();
                 edwIqaMasterDataRmi.setDataType("2");
-                edwIqaMasterDataRmi.setDataValue(batchDto.getRmiSkuName());
+                edwIqaMasterDataRmi.setDataValue(batchDto.getManufacturerRmiName());
                 List<EdwIqaMasterDataRmi> resultqrmi = edwIqaMasterDataRmiMapper.query(edwIqaMasterDataRmi);
                 resultqrmi.forEach(item->{
                     FilterConditionData filterConditionData = new FilterConditionData();
@@ -184,10 +165,6 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
                 });
                 break;
             case 5:
-//                BatchTraceabilityStore storePro = new BatchTraceabilityStore();
-//                storePro.setPsid(psid);
-//                storePro.setSkuName(batchDto.getProductName());
-//                List<BatchTraceabilityStore> resultPro = storeMapper.query(storePro);
                 EdwDisku edwDiskuPro =new EdwDisku();
                 edwDiskuPro.setSkuName(batchDto.getProductName());
                 edwDiskuPro.setPsid(psid);
@@ -200,10 +177,6 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
                 });
                 break;
             case 6:
-//                BatchTraceabilityStore storeBrand = new BatchTraceabilityStore();
-//                storeBrand.setPsid(psid);
-//                storeBrand.setBrandNameCn(batchDto.getBrandNameCn());
-//                List<BatchTraceabilityStore> resultBrand = storeMapper.query(storeBrand);
                 EdwDistore edwDistore =new EdwDistore();
                 edwDistore.setBrandNameCn(batchDto.getBrandNameCn());
                 List<EdwDistore> resultBrand = edwDistoreMapper.query(edwDistore);
@@ -323,16 +296,10 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
             }
             batchTraceabilityRmi.setPsid(bloo);
         }
-//        QueryWrapper<BatchTraceabilityRmi> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.eq("manufacturer_eqa_code",batchDto.getManufacturerEqaCode());
-//        queryWrapper.eq("sku_jde_code",batchDto.getSkuJdeCode());
-//        queryWrapper.eq("production_date",batchDto.getProductionDate());
         batchTraceabilityRmi.setManufacturerEqaCode(batchDto.getManufacturerEqaCode());
         batchTraceabilityRmi.setSkuJdecode(batchDto.getSkuJdecode());
         batchTraceabilityRmi.setProductionDate(batchDto.getProductionDate());
 
-//        Page<BatchTraceabilityRmi> page = new Page<>(batchDto.getPageNum(), batchDto.getPageSize());
-//        IPage<BatchTraceabilityRmi> batchTraceabilityRmiIPage = rmiMapper.selectPage(page, queryWrapper);
         int startIndex = (batchDto.getPageNum() - 1) * batchDto.getPageSize();
         List<BatchTraceabilityRmi> list = rmiMapper.queryPage(startIndex, batchDto.getPageSize(), batchTraceabilityRmi);
         long count = rmiMapper.queryPageCount(batchTraceabilityRmi);
@@ -354,16 +321,10 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
             }
             batchTraceabilityManufacturer.setPsid(bloo);
         }
-//        QueryWrapper<BatchTraceabilityManufacturer> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.eq("manufacturer_eqa_code",batchDto.getManufacturerEqaCode());
-//        queryWrapper.eq("sku_jde_code",batchDto.getSkuJdeCode());
-//        queryWrapper.eq("production_date",batchDto.getProductionDate());
 
         batchTraceabilityManufacturer.setManufacturerEqacode(batchDto.getManufacturerEqaCode());
         batchTraceabilityManufacturer.setSkuJdecode(batchDto.getSkuJdecode());
         batchTraceabilityManufacturer.setProductionDate(batchDto.getProductionDate());
-//        Page<BatchTraceabilityManufacturer> page = new Page<>(batchDto.getPageNum(), batchDto.getPageSize());
-//        IPage<BatchTraceabilityManufacturer> batchTraceabilityRmiIPage = manufacturerMapper.selectPage(page, queryWrapper);
         int startIndex = (batchDto.getPageNum() - 1) * batchDto.getPageSize();
         List<BatchTraceabilityManufacturer> list = manufacturerMapper.queryPage(startIndex, batchDto.getPageSize(), batchTraceabilityManufacturer);
         long count = manufacturerMapper.queryPageCount(batchTraceabilityManufacturer);
@@ -385,18 +346,12 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
             }
             batchTraceabilityCc.setPsid(bloo);
         }
-//        QueryWrapper<BatchTraceabilityCc> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.eq("supplier_jde_code",batchDto.getSupplierJdeCode());
-//        queryWrapper.eq("sku_jde_code",batchDto.getSkuJdeCode());
-//        queryWrapper.eq("production_date",batchDto.getProductionDate());
         batchTraceabilityCc.setSupplierJdecode(batchDto.getSupplierJdecode());
         batchTraceabilityCc.setSkuJdecode(batchDto.getSkuJdecode());
         batchTraceabilityCc.setProductionDate(batchDto.getProductionDate());
         int startIndex = (batchDto.getPageNum() - 1) * batchDto.getPageSize();
         List<BatchTraceabilityCc> list = ccMapper.queryPage(startIndex, batchDto.getPageSize(), batchTraceabilityCc);
         long count = ccMapper.queryPageCount(batchTraceabilityCc);
-//        Page<BatchTraceabilityCc> page = new Page<>(batchDto.getPageNum(), batchDto.getPageSize());
-//        IPage<BatchTraceabilityCc> batchTraceabilityRmiIPage = ccMapper.selectPage(page, queryWrapper);
         PageResult pageResult = new PageResult();
         pageResult.setData(list);
         pageResult.setTotal(count);
@@ -415,18 +370,12 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
             }
             batchTraceabilityLc.setPsid(bloo);
         }
-//        QueryWrapper<BatchTraceabilityLc> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.eq("supplier_jde_code",batchDto.getSupplierJdeCode());
-//        queryWrapper.eq("sku_jde_code",batchDto.getSkuJdeCode());
-//        queryWrapper.eq("production_date",batchDto.getProductionDate());
         batchTraceabilityLc.setSupplierJdecode(batchDto.getSupplierJdecode());
         batchTraceabilityLc.setSkuJdecode(batchDto.getSkuJdecode());
         batchTraceabilityLc.setProductionDate(batchDto.getProductionDate());
         int startIndex = (batchDto.getPageNum() - 1) * batchDto.getPageSize();
         List<BatchTraceabilityLc> list = batchTraceabilityLcMapper.queryPage(startIndex, batchDto.getPageSize(), batchTraceabilityLc);
         long count = batchTraceabilityLcMapper.queryPageCount(batchTraceabilityLc);
-//        Page<BatchTraceabilityLc> page = new Page<>(batchDto.getPageNum(), batchDto.getPageSize());
-//        IPage<BatchTraceabilityLc> batchTraceabilityRmiIPage = batchTraceabilityLcMapper.selectPage(page, queryWrapper);
         PageResult pageResult = new PageResult();
         pageResult.setData(list);
         pageResult.setTotal(count);
@@ -492,7 +441,14 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         }
         return new DacResponse().data(resp);
     }
-    
+
+    @Override
+    public List<BatchTraceabilityMasterData> queryList(BatchTraceabilityMasterDto queryRequest) {
+        BatchTraceabilityMasterData batchTraceabilityMasterData=new BatchTraceabilityMasterData();
+        BeanUtils.copyProperties(queryRequest,batchTraceabilityMasterData);
+        return masterDataMapper.query(batchTraceabilityMasterData);
+    }
+
     private String checkToken(String token){
         String info ="";
         try {

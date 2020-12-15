@@ -40,6 +40,38 @@
         limit 0,10
     </select>
 
+    <select id="queryList" resultMap="cdfactIqaBatchTraceabilityLcMap">
+        SELECT
+        *
+        FROM
+        cdm_fact_iqa_batch_traceability_lc a
+        JOIN (
+        SELECT
+        a.id
+        FROM
+        cdm_fact_iqa_batch_traceability_store a
+        INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
+        INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
+        <if test="psid !=null and psid !=''">
+            AND ourm.adpid = #{psid}
+        </if>
+        WHERE
+        <trim suffixOverrides="and" >
+            1=1 and
+            <if test="supplierJdecode !=null and supplierJdecode !=''">
+                a.supplier_jdecode = #{supplierJdecode} and
+            </if>
+            <if test="skuJdecode !=null and skuJdecode !=''">
+                a.sku_jdecode = #{skuJdecode} and
+            </if>
+            <if test="productionDate !=null">
+                a.production_date = #{productionDate} and
+            </if>
+        </trim>
+        order by a.id desc
+        ) b ON a.id = b.id
+    </select>
+
      <!--分页查询-->
     <select id="queryPage" resultMap="cdfactIqaBatchTraceabilityLcMap">
         SELECT

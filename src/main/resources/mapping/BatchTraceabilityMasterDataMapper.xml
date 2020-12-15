@@ -29,58 +29,58 @@
         <result property="restBrandCode" column="rest_brand_code"/>
     </resultMap>
 
-    <!-- 分页查询 -->
-    <select id="queryPage" resultMap="cdfactIqaBatchTraceabilityMasterDataMap">
+
+    <select id="query" resultMap="cdfactIqaBatchTraceabilityMasterDataMap">
         SELECT
-            DISTINCT
-            a.manufacturer_rmi_code,
-            a.manufacturer_rmi_name,
-            a.rmi_sku_code,
-            a.rmi_sku_name,
-            a.rmi_batch_no,
-            a.supplier_eqacode,
-            a.supplier_jdecode,
-            a.supplier_name,
-            a.manufacturer_name,
-            a.sku_eqacode,
-            a.sku_jdecode,
-            a.sku_name,
-            a.production_date,
-            a.production_qty,
-            a.UOM,
-            a.supplier_shipment_qty,
-            a.received_qty,
-            a.shipment_qty,
-            a.inventories_qty,
-            a.trace_ratio,
-            a.store_code,
-            a.rest_brand_code,
-            a.rest_brand,
-            a.manufacturer_eqa_code
+        DISTINCT
+        a.manufacturer_rmi_code,
+        a.manufacturer_rmi_name,
+        a.rmi_sku_code,
+        a.rmi_sku_name,
+        a.rmi_batch_no,
+        a.supplier_eqacode,
+        a.supplier_jdecode,
+        a.supplier_name,
+        a.manufacturer_name,
+        a.sku_eqacode,
+        a.sku_jdecode,
+        a.sku_name,
+        a.production_date,
+        a.production_qty,
+        a.UOM,
+        a.supplier_shipment_qty,
+        a.received_qty,
+        a.shipment_qty,
+        a.inventories_qty,
+        a.trace_ratio,
+        a.store_code,
+        a.rest_brand_code,
+        a.rest_brand,
+        a.manufacturer_eqa_code
         FROM
         cdm_fact_iqa_batch_traceability_master_data a
         INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
         INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
-        <if test="cdfactIqaBatchTraceabilityMasterData.psid !=null">
+        <if test="cdfactIqaBatchTraceabilityMasterData.psid !=null and cdfactIqaBatchTraceabilityMasterData.psid !=''">
             AND ourm.adpid = #{cdfactIqaBatchTraceabilityMasterData.psid}
         </if>
         where
         <trim suffixOverrides="and" >
             1=1 and
             <if test="cdfactIqaBatchTraceabilityMasterData.skuName !=null and cdfactIqaBatchTraceabilityMasterData.skuName !=''">
-                a.sku_name like Concat('%',#{cdfactIqaBatchTraceabilityMasterData.skuName},'%')  and
+                a.sku_name = #{cdfactIqaBatchTraceabilityMasterData.skuName}  and
             </if>
             <if test="cdfactIqaBatchTraceabilityMasterData.manufacturerName !=null and cdfactIqaBatchTraceabilityMasterData.manufacturerName !=''">
-                a.manufacturer_name like Concat('%',#{cdfactIqaBatchTraceabilityMasterData.manufacturerName},'%')  and
+                a.manufacturer_name = #{cdfactIqaBatchTraceabilityMasterData.manufacturerName}  and
             </if>
             <if test="cdfactIqaBatchTraceabilityMasterData.productionDate !=null">
                 a.production_date = #{cdfactIqaBatchTraceabilityMasterData.productionDate} and
             </if>
             <if test="cdfactIqaBatchTraceabilityMasterData.rmiSkuName !=null and cdfactIqaBatchTraceabilityMasterData.rmiSkuName !=''">
-                a.rmi_sku_name like Concat('%',#{cdfactIqaBatchTraceabilityMasterData.rmiSkuName},'%')   and
+                a.rmi_sku_name = #{cdfactIqaBatchTraceabilityMasterData.rmiSkuName}  and
             </if>
             <if test="cdfactIqaBatchTraceabilityMasterData.manufacturerRmiName !=null and cdfactIqaBatchTraceabilityMasterData.manufacturerRmiName !=''">
-                a.manufacturer_rmi_name like Concat('%',#{cdfactIqaBatchTraceabilityMasterData.manufacturerRmiName},'%')  and
+                a.manufacturer_rmi_name = #{cdfactIqaBatchTraceabilityMasterData.manufacturerRmiName} and
             </if>
             <if test="cdfactIqaBatchTraceabilityMasterData.rmiBatchNo !=null and cdfactIqaBatchTraceabilityMasterData.rmiBatchNo !=''">
                 a.rmi_batch_no = #{cdfactIqaBatchTraceabilityMasterData.rmiBatchNo} and
@@ -91,12 +91,307 @@
             <if test="cdfactIqaBatchTraceabilityMasterData.restBrand !=null and cdfactIqaBatchTraceabilityMasterData.restBrand !=''">
                 a.rest_brand = #{cdfactIqaBatchTraceabilityMasterData.restBrand} and
             </if>
+            <if test="cdfactIqaBatchTraceabilityMasterData.startTime !=null and cdfactIqaBatchTraceabilityMasterData.startTime != ''">
+                a.production_date &gt;= #{cdfactIqaBatchTraceabilityMasterData.startTime} and
+            </if>
+            <if test="cdfactIqaBatchTraceabilityMasterData.endTime !=null and cdfactIqaBatchTraceabilityMasterData.endTime != ''">
+                a.production_date &lt;= #{cdfactIqaBatchTraceabilityMasterData.endTime} and
+            </if>
         </trim>
-        order by a.production_date desc limit #{startIndex},#{limit}
+        order by a.production_date desc
     </select>
 
+    <!-- 分页查询 -->
+    <!--<select id="queryPage" resultMap="cdfactIqaBatchTraceabilityMasterDataMap">-->
+        <!--SELECT-->
+            <!--DISTINCT-->
+            <!--a.manufacturer_rmi_code,-->
+            <!--a.manufacturer_rmi_name,-->
+            <!--a.rmi_sku_code,-->
+            <!--a.rmi_sku_name,-->
+            <!--a.rmi_batch_no,-->
+            <!--a.supplier_eqacode,-->
+            <!--a.supplier_jdecode,-->
+            <!--a.supplier_name,-->
+            <!--a.manufacturer_name,-->
+            <!--a.sku_eqacode,-->
+            <!--a.sku_jdecode,-->
+            <!--a.sku_name,-->
+            <!--a.production_date,-->
+            <!--a.production_qty,-->
+            <!--a.UOM,-->
+            <!--a.supplier_shipment_qty,-->
+            <!--a.received_qty,-->
+            <!--a.shipment_qty,-->
+            <!--a.inventories_qty,-->
+            <!--a.trace_ratio,-->
+            <!--a.store_code,-->
+            <!--a.rest_brand_code,-->
+            <!--a.rest_brand,-->
+            <!--a.manufacturer_eqa_code-->
+        <!--FROM-->
+        <!--cdm_fact_iqa_batch_traceability_master_data a-->
+        <!--INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode-->
+        <!--INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name-->
+        <!--<if test="cdfactIqaBatchTraceabilityMasterData.psid !=null and cdfactIqaBatchTraceabilityMasterData.psid !=''">-->
+            <!--AND ourm.adpid = #{cdfactIqaBatchTraceabilityMasterData.psid}-->
+        <!--</if>-->
+        <!--where-->
+        <!--<trim suffixOverrides="and" >-->
+            <!--1=1 and-->
+            <!--<if test="cdfactIqaBatchTraceabilityMasterData.skuName !=null and cdfactIqaBatchTraceabilityMasterData.skuName !=''">-->
+                <!--a.sku_name = #{cdfactIqaBatchTraceabilityMasterData.skuName}  and-->
+            <!--</if>-->
+            <!--<if test="cdfactIqaBatchTraceabilityMasterData.manufacturerName !=null and cdfactIqaBatchTraceabilityMasterData.manufacturerName !=''">-->
+                <!--a.manufacturer_name = #{cdfactIqaBatchTraceabilityMasterData.manufacturerName}  and-->
+            <!--</if>-->
+            <!--<if test="cdfactIqaBatchTraceabilityMasterData.productionDate !=null">-->
+                <!--a.production_date = #{cdfactIqaBatchTraceabilityMasterData.productionDate} and-->
+            <!--</if>-->
+            <!--<if test="cdfactIqaBatchTraceabilityMasterData.rmiSkuName !=null and cdfactIqaBatchTraceabilityMasterData.rmiSkuName !=''">-->
+                <!--a.rmi_sku_name = #{cdfactIqaBatchTraceabilityMasterData.rmiSkuName}  and-->
+            <!--</if>-->
+            <!--<if test="cdfactIqaBatchTraceabilityMasterData.manufacturerRmiName !=null and cdfactIqaBatchTraceabilityMasterData.manufacturerRmiName !=''">-->
+                <!--a.manufacturer_rmi_name = #{cdfactIqaBatchTraceabilityMasterData.manufacturerRmiName}  and-->
+            <!--</if>-->
+            <!--<if test="cdfactIqaBatchTraceabilityMasterData.rmiBatchNo !=null and cdfactIqaBatchTraceabilityMasterData.rmiBatchNo !=''">-->
+                <!--a.rmi_batch_no = #{cdfactIqaBatchTraceabilityMasterData.rmiBatchNo} and-->
+            <!--</if>-->
+            <!--<if test="cdfactIqaBatchTraceabilityMasterData.productName !=null and cdfactIqaBatchTraceabilityMasterData.productName !=''">-->
+                <!--a.sku_name = #{cdfactIqaBatchTraceabilityMasterData.productName} and-->
+            <!--</if>-->
+            <!--<if test="cdfactIqaBatchTraceabilityMasterData.restBrand !=null and cdfactIqaBatchTraceabilityMasterData.restBrand !=''">-->
+                <!--a.rest_brand = #{cdfactIqaBatchTraceabilityMasterData.restBrand} and-->
+            <!--</if>-->
+            <!--<if test="cdfactIqaBatchTraceabilityMasterData.startTime !=null and cdfactIqaBatchTraceabilityMasterData.startTime != ''">-->
+                <!--a.production_date &gt;= #{cdfactIqaBatchTraceabilityMasterData.startTime} and-->
+            <!--</if>-->
+            <!--<if test="cdfactIqaBatchTraceabilityMasterData.endTime !=null and cdfactIqaBatchTraceabilityMasterData.endTime != ''">-->
+                <!--a.production_date &lt;= #{cdfactIqaBatchTraceabilityMasterData.endTime} and-->
+            <!--</if>-->
+        <!--</trim>-->
+        <!--order by a.production_date desc limit #{startIndex},#{limit}-->
+    <!--</select>-->
+
+    <select id="queryPage" resultMap="cdfactIqaBatchTraceabilityMasterDataMap">
+        SELECT
+            DateKey,
+            supplier_eqacode,
+            supplier_jdecode,
+            supplier_name,
+            manufacturer_eqa_code,
+            manufacturer_name,
+            sku_eqacode,
+            sku_jdecode,
+            sku_name,
+            production_date,
+            sum(production_qty) AS production_qty,
+            UOM,
+            supplier_shipment_qty,
+            received_qty,
+            shipment_qty,
+            inventories_qty,
+            (
+            shipment_qty + inventories_qty
+            ) / supplier_shipment_qty AS trace_ratio
+        FROM
+        (
+        SELECT
+            DateKey,
+            supplier_eqacode,
+            supplier_jdecode,
+            supplier_name,
+            manufacturer_eqa_code,
+            manufacturer_name,
+            sku_eqacode,
+            sku_jdecode,
+            sku_name,
+            production_date,
+            production_qty,
+            UOM,
+            supplier_shipment_qty,
+            received_qty,
+            sum(shipment_qty) AS shipment_qty,
+            inventories_qty
+        FROM
+        (
+            SELECT
+            a.DateKey,
+            a.supplier_eqacode,
+            a.supplier_jdecode,
+            a.supplier_name,
+            a.manufacturer_eqa_code,
+            a.manufacturer_name,
+            a.sku_eqacode,
+            a.sku_jdecode,
+            a.sku_name,
+            a.production_date,
+            a.production_qty,
+            a.UOM,
+            a.supplier_shipment_qty,
+            a.received_qty,
+            a.shipment_qty,
+            a.inventories_qty
+        FROM
+        cdm_fact_iqa_batch_traceability_master_data a
+        INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
+        INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE (ourm.rolename, ' ', '') = eskr.sqa_group_name
+        <if test="cdfactIqaBatchTraceabilityMasterData.psid !=null and cdfactIqaBatchTraceabilityMasterData.psid !=''">
+            AND ourm.adpid = #{cdfactIqaBatchTraceabilityMasterData.psid}
+        </if>
+        where
+        <trim suffixOverrides="and" >
+            1=1 and
+            <if test="cdfactIqaBatchTraceabilityMasterData.skuName !=null and cdfactIqaBatchTraceabilityMasterData.skuName !=''">
+                a.sku_name = #{cdfactIqaBatchTraceabilityMasterData.skuName}  and
+            </if>
+            <if test="cdfactIqaBatchTraceabilityMasterData.manufacturerName !=null and cdfactIqaBatchTraceabilityMasterData.manufacturerName !=''">
+                a.manufacturer_name = #{cdfactIqaBatchTraceabilityMasterData.manufacturerName}  and
+            </if>
+            <if test="cdfactIqaBatchTraceabilityMasterData.productionDate !=null">
+                a.production_date = #{cdfactIqaBatchTraceabilityMasterData.productionDate} and
+            </if>
+            <if test="cdfactIqaBatchTraceabilityMasterData.rmiSkuName !=null and cdfactIqaBatchTraceabilityMasterData.rmiSkuName !=''">
+                a.rmi_sku_name = #{cdfactIqaBatchTraceabilityMasterData.rmiSkuName}  and
+            </if>
+            <if test="cdfactIqaBatchTraceabilityMasterData.manufacturerRmiName !=null and cdfactIqaBatchTraceabilityMasterData.manufacturerRmiName !=''">
+                a.manufacturer_rmi_name = #{cdfactIqaBatchTraceabilityMasterData.manufacturerRmiName}  and
+            </if>
+            <if test="cdfactIqaBatchTraceabilityMasterData.rmiBatchNo !=null and cdfactIqaBatchTraceabilityMasterData.rmiBatchNo !=''">
+                a.rmi_batch_no = #{cdfactIqaBatchTraceabilityMasterData.rmiBatchNo} and
+            </if>
+            <if test="cdfactIqaBatchTraceabilityMasterData.productName !=null and cdfactIqaBatchTraceabilityMasterData.productName !=''">
+                a.sku_name = #{cdfactIqaBatchTraceabilityMasterData.productName} and
+            </if>
+            <if test="cdfactIqaBatchTraceabilityMasterData.restBrand !=null and cdfactIqaBatchTraceabilityMasterData.restBrand !=''">
+                a.rest_brand = #{cdfactIqaBatchTraceabilityMasterData.restBrand} and
+            </if>
+            <if test="cdfactIqaBatchTraceabilityMasterData.startTime !=null and cdfactIqaBatchTraceabilityMasterData.startTime != ''">
+                a.production_date &gt;= #{cdfactIqaBatchTraceabilityMasterData.startTime} and
+            </if>
+            <if test="cdfactIqaBatchTraceabilityMasterData.endTime !=null and cdfactIqaBatchTraceabilityMasterData.endTime != ''">
+                a.production_date &lt;= #{cdfactIqaBatchTraceabilityMasterData.endTime} and
+            </if>
+        </trim>
+        GROUP BY
+        DateKey,
+        supplier_eqacode,
+        supplier_jdecode,
+        supplier_name,
+        manufacturer_eqa_code,
+        manufacturer_name,
+        sku_eqacode,
+        sku_jdecode,
+        sku_name,
+        production_date,
+        production_qty,
+        UOM,
+        supplier_shipment_qty,
+        received_qty,
+        shipment_qty,
+        inventories_qty
+        ) shipment_qty
+        GROUP BY
+        DateKey,
+        supplier_eqacode,
+        supplier_jdecode,
+        supplier_name,
+        manufacturer_eqa_code,
+        manufacturer_name,
+        sku_eqacode,
+        sku_jdecode,
+        sku_name,
+        production_date,
+        UOM,
+        supplier_shipment_qty,
+        received_qty,
+        inventories_qty,
+        production_qty
+        ) production_qty
+        GROUP BY
+        DateKey,
+        supplier_eqacode,
+        supplier_jdecode,
+        supplier_name,
+        manufacturer_eqa_code,
+        manufacturer_name,
+        sku_eqacode,
+        sku_jdecode,
+        sku_name,
+        production_date,
+        UOM,
+        supplier_shipment_qty,
+        received_qty,
+        shipment_qty,
+        inventories_qty
+        ORDER BY
+        production_date DESC
+        limit #{startIndex},#{limit}
+    </select>
+
+
     <select id="queryPageCount" resultType="java.lang.Long">
-        select count(*) from cdm_fact_iqa_batch_traceability_master_data a
+        select count(*) from (
+            SELECT
+            DateKey,
+            supplier_eqacode,
+            supplier_jdecode,
+            supplier_name,
+            manufacturer_eqa_code,
+            manufacturer_name,
+            sku_eqacode,
+            sku_jdecode,
+            sku_name,
+            production_date,
+            sum(production_qty) AS production_qty,
+            UOM,
+            supplier_shipment_qty,
+            received_qty,
+            shipment_qty,
+            inventories_qty,
+            (
+            shipment_qty + inventories_qty
+            ) / supplier_shipment_qty AS trace_ratio
+        FROM
+        (
+        SELECT
+        DateKey,
+        supplier_eqacode,
+        supplier_jdecode,
+        supplier_name,
+        manufacturer_eqa_code,
+        manufacturer_name,
+        sku_eqacode,
+        sku_jdecode,
+        sku_name,
+        production_date,
+        production_qty,
+        UOM,
+        supplier_shipment_qty,
+        received_qty,
+        sum(shipment_qty) AS shipment_qty,
+        inventories_qty
+        FROM
+        (
+        SELECT
+        a.DateKey,
+        a.supplier_eqacode,
+        a.supplier_jdecode,
+        a.supplier_name,
+        a.manufacturer_eqa_code,
+        a.manufacturer_name,
+        a.sku_eqacode,
+        a.sku_jdecode,
+        a.sku_name,
+        a.production_date,
+        a.production_qty,
+        a.UOM,
+        a.supplier_shipment_qty,
+        a.received_qty,
+        a.shipment_qty,
+        a.inventories_qty
+        FROM
+        cdm_fact_iqa_batch_traceability_master_data a
         INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
         INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
         <if test="psid !=null">
@@ -106,19 +401,19 @@
         <trim suffixOverrides="and" >
             1=1 and
             <if test="skuName !=null and skuName !=''">
-                a.sku_name like Concat('%',#{skuName},'%')  and
+                a.sku_name = #{skuName}  and
             </if>
             <if test="manufacturerName !=null and manufacturerName !=''">
-                a.manufacturer_name like Concat('%',#{manufacturerName},'%') and
+                a.manufacturer_name = #{manufacturerName} and
             </if>
             <if test="productionDate !=null">
                 a.production_date = #{productionDate} and
             </if>
             <if test="rmiSkuName !=null and rmiSkuName !=''">
-                a.rmi_sku_name like Concat('%',#{rmiSkuName},'%') and
+                a.rmi_sku_name = #{rmiSkuName} and
             </if>
             <if test="manufacturerRmiName !=null and manufacturerRmiName !=''">
-                a.manufacturer_rmi_name like Concat('%',#{manufacturerRmiName},'%')  and
+                a.manufacturer_rmi_name = #{manufacturerRmiName}  and
             </if>
             <if test="rmiBatchNo !=null and rmiBatchNo !=''">
                 a.rmi_batch_no = #{rmiBatchNo} and
@@ -129,7 +424,66 @@
             <if test="restBrand !=null and restBrand !=''">
                 a.rest_brand = #{restBrand} and
             </if>
+            <if test="startTime !=null and startTime != ''">
+                a.production_date &gt;= #{startTime} and
+            </if>
+            <if test="endTime !=null and endTime != ''">
+                a.production_date &lt;= #{endTime} and
+            </if>
         </trim>
+        GROUP BY
+        DateKey,
+        supplier_eqacode,
+        supplier_jdecode,
+        supplier_name,
+        manufacturer_eqa_code,
+        manufacturer_name,
+        sku_eqacode,
+        sku_jdecode,
+        sku_name,
+        production_date,
+        production_qty,
+        UOM,
+        supplier_shipment_qty,
+        received_qty,
+        shipment_qty,
+        inventories_qty
+        ) shipment_qty
+        GROUP BY
+        DateKey,
+        supplier_eqacode,
+        supplier_jdecode,
+        supplier_name,
+        manufacturer_eqa_code,
+        manufacturer_name,
+        sku_eqacode,
+        sku_jdecode,
+        sku_name,
+        production_date,
+        UOM,
+        supplier_shipment_qty,
+        received_qty,
+        inventories_qty,
+        production_qty
+        ) production_qty
+        GROUP BY
+        DateKey,
+        supplier_eqacode,
+        supplier_jdecode,
+        supplier_name,
+        manufacturer_eqa_code,
+        manufacturer_name,
+        sku_eqacode,
+        sku_jdecode,
+        sku_name,
+        production_date,
+        UOM,
+        supplier_shipment_qty,
+        received_qty,
+        shipment_qty,
+        inventories_qty
+        )total
     </select>
+
 
 </mapper>

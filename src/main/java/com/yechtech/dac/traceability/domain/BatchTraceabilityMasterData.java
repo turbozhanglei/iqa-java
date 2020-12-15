@@ -79,6 +79,10 @@ public class BatchTraceabilityMasterData extends Model<BatchTraceabilityMasterDa
     private String productName;
     @ApiModelProperty(notes = "权限标识psid")
     private String psid;
+    @ApiModelProperty(notes = "生产日期")
+    private String startTime;
+    @ApiModelProperty(notes = "生产日期")
+    private String endTime;
 
     
 }

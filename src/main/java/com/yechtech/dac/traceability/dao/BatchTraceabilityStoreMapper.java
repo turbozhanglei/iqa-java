@@ -28,4 +28,6 @@ public interface BatchTraceabilityStoreMapper extends BaseMapper<BatchTraceabili
     long queryPageCount(BatchTraceabilityStore batchTraceabilityStore);
 
     void insertInfo(BatchTraceabilityStore batchTraceabilityStore);
+
+    List<BatchTraceabilityStore> queryList(BatchTraceabilityStore traceabilityStore);
 }

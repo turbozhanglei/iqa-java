@@ -49,6 +49,43 @@
         limit 0,10
     </select>
 
+    <select id="queryList" resultMap="cdfactIqaBatchTraceabilityManufacturerMap">
+        SELECT
+        a.manufacturer_eqacode,
+        a.manufacturer_name,
+        a.sku_eqacode,
+        a.sku_jdecode,
+        a.sku_name,
+        a.production_date,
+        a.production_quantity,
+        a.ship_date,
+        a.shipment_quantity,
+        a.receiver
+        FROM
+        cdm_fact_iqa_batch_traceability_manufacturer a
+        INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
+        INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
+        <if test="psid !=null and psid !=''">
+            AND ourm.adpid = #{psid}
+        </if>
+        where
+        <trim suffixOverrides="and" >
+            1=1 and
+            <if test="manufacturerEqacode !=null and manufacturerEqacode !=''">
+                a.manufacturer_eqacode = #{manufacturerEqacode} and
+            </if>
+            <if test="skuEqacode !=null and skuEqacode !=''">
+                a.sku_eqacode = #{skuEqacode} and
+            </if>
+            <if test="skuJdecode !=null and skuJdecode !=''">
+                a.sku_jdecode = #{skuJdecode} and
+            </if>
+            <if test="productionDate !=null">
+                a.production_date = #{productionDate} and
+            </if>
+        </trim>
+    </select>
+
     <!-- 分页查询 -->
     <select id="queryPage" resultMap="cdfactIqaBatchTraceabilityManufacturerMap">
         SELECT

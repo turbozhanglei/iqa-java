@@ -26,4 +26,6 @@ public interface BatchTraceabilityManufacturerMapper extends BaseMapper<BatchTra
     List<BatchTraceabilityManufacturer> queryPage(@Param("startIndex") int startIndex, @Param("limit") int limit, @Param("cdfactIqaBatchTraceabilityManufacturer") BatchTraceabilityManufacturer cdfactIqaBatchTraceabilityManufacturer);
 
     long queryPageCount(BatchTraceabilityManufacturer cdfactIqaBatchTraceabilityManufacturer);
+
+    List<BatchTraceabilityManufacturer> queryList(BatchTraceabilityManufacturer manufacturer);
 }

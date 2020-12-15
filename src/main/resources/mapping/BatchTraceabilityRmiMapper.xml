@@ -52,6 +52,52 @@
         limit 0,10
     </select>
 
+    <select id="queryList" resultMap="cdfactIqaBatchTraceabilityRmiMap">
+        SELECT
+        a.manufacturer_rmi_code,
+        a.manufacturer_rmi_name,
+        a.rmi_sku_code,
+        a.rmi_sku_name,
+        a.rmi_batch_no,
+        a.manufacturer_name,
+        a.sku_eqacode,
+        a.sku_jdecode,
+        a.sku_name,
+        a.production_date,
+        a.UOM,
+        a.quantity
+        FROM
+        cdm_fact_iqa_batch_traceability_rmi a
+        INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
+        INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
+        <if test="psid !=null and psid !=''">
+            AND ourm.adpid = #{psid}
+        </if>
+        where
+        <trim suffixOverrides="and" >
+            1=1 and
+            <if test="manufacturerEqaCode !=null and manufacturerEqaCode !=''">
+                a.manufacturer_eqa_code = #{manufacturerEqaCode} and
+            </if>
+            <if test="manufacturerName !=null and manufacturerName !=''">
+                a.manufacturer_name = #{manufacturerName} and
+            </if>
+            <if test="skuEqacode !=null and skuEqacode !=''">
+                a.sku_eqacode = #{skuEqacode} and
+            </if>
+            <if test="skuJdecode !=null and skuJdecode !=''">
+                a.sku_jdecode = #{skuJdecode} and
+            </if>
+            <if test="skuName !=null and skuName !=''">
+                a.sku_name = #{skuName} and
+            </if>
+            <if test="productionDate !=null">
+                a.production_date = #{productionDate} and
+            </if>
+        </trim>
+        order by a.id desc
+    </select>
+
 
     <!-- 分页查询 -->
     <select id="queryPage" resultMap="cdfactIqaBatchTraceabilityRmiMap">
@@ -72,7 +118,7 @@
         cdm_fact_iqa_batch_traceability_rmi a
         INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
         INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
-        <if test="cdfactIqaBatchTraceabilityRmi.psid !=null">
+        <if test="cdfactIqaBatchTraceabilityRmi.psid !=null and cdfactIqaBatchTraceabilityRmi.psid !=''">
             AND ourm.adpid = #{cdfactIqaBatchTraceabilityRmi.psid}
         </if>
         where
@@ -93,16 +139,16 @@
             <if test="cdfactIqaBatchTraceabilityRmi.rmiBatchNo !=null">
                 a.rmi_batch_no = #{cdfactIqaBatchTraceabilityRmi.rmiBatchNo} and
             </if>
-            <if test="cdfactIqaBatchTraceabilityRmi.manufacturerEqaCode !=null">
+            <if test="cdfactIqaBatchTraceabilityRmi.manufacturerEqaCode !=null and cdfactIqaBatchTraceabilityRmi.manufacturerEqaCode !=''">
                 a.manufacturer_eqa_code = #{cdfactIqaBatchTraceabilityRmi.manufacturerEqaCode} and
             </if>
             <if test="cdfactIqaBatchTraceabilityRmi.manufacturerName !=null">
                 a.manufacturer_name = #{cdfactIqaBatchTraceabilityRmi.manufacturerName} and
             </if>
-            <if test="cdfactIqaBatchTraceabilityRmi.skuEqacode !=null">
+            <if test="cdfactIqaBatchTraceabilityRmi.skuEqacode !=null and cdfactIqaBatchTraceabilityRmi.skuEqacode !=''">
                 a.sku_eqacode = #{cdfactIqaBatchTraceabilityRmi.skuEqacode} and
             </if>
-            <if test="cdfactIqaBatchTraceabilityRmi.skuJdecode !=null">
+            <if test="cdfactIqaBatchTraceabilityRmi.skuJdecode !=null and cdfactIqaBatchTraceabilityRmi.skuJdecode !=''">
                 a.sku_jdecode = #{cdfactIqaBatchTraceabilityRmi.skuJdecode} and
             </if>
             <if test="cdfactIqaBatchTraceabilityRmi.skuName !=null">
@@ -122,7 +168,7 @@
         select count(*) from cdm_fact_iqa_batch_traceability_rmi a
         INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
         INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
-        <if test="psid !=null">
+        <if test="psid !=null and psid !=''">
             AND ourm.adpid = #{psid}
         </if>
         where
@@ -143,16 +189,16 @@
             <if test="rmiBatchNo !=null">
                 a.rmi_batch_no = #{rmiBatchNo} and
             </if>
-            <if test="manufacturerEqaCode !=null">
+            <if test="manufacturerEqaCode !=null and manufacturerEqaCode !=''">
                 a.manufacturer_eqa_code = #{manufacturerEqaCode} and
             </if>
             <if test="manufacturerName !=null">
                 a.manufacturer_name = #{manufacturerName} and
             </if>
-            <if test="skuEqacode !=null">
+            <if test="skuEqacode !=null and skuEqacode !=''">
                 a.sku_eqacode = #{skuEqacode} and
             </if>
-            <if test="skuJdecode !=null">
+            <if test="skuJdecode !=null and skuJdecode !=''">
                 a.sku_jdecode = #{skuJdecode} and
             </if>
             <if test="skuName !=null">

@@ -62,5 +62,10 @@ public class BatchTraceabilityMasterDto implements Serializable {
     private Integer pageSize;
     @ApiModelProperty(notes = "用户token")
     private String tokenIqa;
+    @ApiModelProperty(notes = "生产日期")
+    private String startTime;
+    @ApiModelProperty(notes = "生产日期")
+    private String endTime;
+    private String psid;
 
 }

@@ -19,7 +19,10 @@ import java.util.List;
 @Mapper
 public interface BatchTraceabilityMasterDataMapper extends BaseMapper<BatchTraceabilityMasterData> {
 
+    List<BatchTraceabilityMasterData>query(@Param("cdfactIqaBatchTraceabilityMasterData") BatchTraceabilityMasterData cdfactIqaBatchTraceabilityMasterData);
+
     List<BatchTraceabilityMasterData> queryPage(@Param("startIndex") int startIndex, @Param("limit") int limit, @Param("cdfactIqaBatchTraceabilityMasterData") BatchTraceabilityMasterData cdfactIqaBatchTraceabilityMasterData);
 
     long queryPageCount(BatchTraceabilityMasterData cdfactIqaBatchTraceabilityMasterData);
+
 }

@@ -25,4 +25,6 @@ public interface BatchTraceabilityCcMapper extends BaseMapper<BatchTraceabilityC
     List<BatchTraceabilityCc> queryPage(@Param("startIndex") int startIndex, @Param("limit") int limit, @Param("cdfactIqaBatchTraceabilityCc") BatchTraceabilityCc batchTraceabilityStore);
 
     long queryPageCount(BatchTraceabilityCc batchTraceabilityStore);
+
+    List<BatchTraceabilityCc> queryList(BatchTraceabilityCc bilityCc);
 }

@@ -26,4 +26,6 @@ public interface BatchTraceabilityRmiMapper extends BaseMapper<BatchTraceability
     List<BatchTraceabilityRmi> queryPage(@Param("startIndex") int startIndex, @Param("limit") int limit, @Param("cdfactIqaBatchTraceabilityRmi") BatchTraceabilityRmi cdfactIqaBatchTraceabilityRmi);
 
     long queryPageCount(BatchTraceabilityRmi cdfactIqaBatchTraceabilityRmi);
+
+    List<BatchTraceabilityRmi> queryList(BatchTraceabilityRmi queryRmi);
 }

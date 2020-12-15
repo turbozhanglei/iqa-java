@@ -1,7 +1,10 @@
 package com.yechtech.dac.traceability.service;
 
 import com.yechtech.dac.common.domain.DacResponse;
+import com.yechtech.dac.traceability.domain.BatchTraceabilityMasterData;
 import com.yechtech.dac.traceability.dto.*;
+
+import java.util.List;
 
 /**
  * @description:
@@ -28,4 +31,6 @@ public interface BatchTraceablilityBaseService {
     DacResponse getRestaurantList(BatchTraceabilityBaseDto batchDto);
 
     DacResponse checkUserInfo(UserDto batchDto);
+
+    List<BatchTraceabilityMasterData> queryList(BatchTraceabilityMasterDto queryRequest);
 }

@@ -4,17 +4,30 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.yechtech.dac.common.controller.BaseController;
 import com.yechtech.dac.common.domain.DacResponse;
+import com.yechtech.dac.common.domain.QueryRequest;
 import com.yechtech.dac.common.service.RedisService;
 import com.yechtech.dac.traceability.dao.ConfigMapper;
 import com.yechtech.dac.traceability.domain.*;
 import com.yechtech.dac.traceability.dto.*;
 import com.yechtech.dac.traceability.service.BatchTraceablilityBaseService;
+import com.yechtech.dac.traceability.service.ExcelService;
+import com.yechtech.dac.traceability.utils.ExcelUtil;
+import com.yechtech.dac.traceability.utils.IqaExcelUtil;
 import com.yechtech.dac.traceability.utils.PageResult;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,14 +38,20 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/rest")
+@Slf4j
 public class BatchTraceablilityBaseController extends BaseController {
 
     @Resource
     private BatchTraceablilityBaseService batchTraceablilityBaseService;
 
-    @Resource
-    ConfigMapper configMapper;
+    @Value("${spring.profiles.active}")
+    private String env;
 
+    @Autowired
+    private RedisService redisService;
+
+    @Resource
+    ExcelService excelService;
     /*
      * description : 获取批次追溯列表
      * param :[batchDto]
@@ -132,5 +151,104 @@ public class BatchTraceablilityBaseController extends BaseController {
         return batchTraceablilityBaseService.checkUserInfo(batchDto);
     }
 
+
+
+    @GetMapping(value = "/exportExcel")
+    public DacResponse export(BatchTraceabilityMasterDto queryRequest, HttpServletResponse response)throws Exception{
+        List<String> title=new ArrayList<>();
+        String fileName = null;
+        String sheetName = null;
+        if (env.equals("prd") || env.equals("uat")){
+            String bloo = checkToken(queryRequest.getTokenIqa());
+            if (StringUtils.isNotBlank(bloo)){
+                queryRequest.setPsid(bloo);
+            }else {
+                return  new DacResponse().data(fileName).message("用户信息已失效");
+            }
+        }
+        List<BatchTraceabilityMasterData> list = batchTraceablilityBaseService.queryList(queryRequest);
+        if(CollectionUtils.isNotEmpty(list)){
+            title.add("品项名称");
+            title.add("供货商名称");
+            title.add("生产商名称");
+            title.add("生产日期");
+            title.add("生产量");
+            title.add("采购单位");
+            title.add("供货商发货数量");
+            title.add("到货数量");
+            title.add("出货数量");
+            title.add("在货数量");
+            title.add("追溯率");
+            title.add("品项JDEcode");
+            title.add("供货商DEcode");
+            fileName = "批次追溯主档"+System.currentTimeMillis()+".xls";
+            sheetName = "批次追溯主档";
+            HSSFWorkbook wb= ExcelUtil.getHSSFWorkbook(sheetName, title, list, null,"reportLog");
+            this.setResponseHeader(response, fileName);
+            OutputStream os=response.getOutputStream();
+            wb.write(os);
+            os.flush();
+            os.close();
+        }
+        return new DacResponse().data(fileName);
+    }
+
+    @GetMapping(value = "/exportIqaExcel")
+    public DacResponse exportIqaExcel(BatchTraceabilityDto queryRequest, HttpServletResponse response)throws Exception{
+        String fileName = null;
+        String sheetName = null;
+        String psid="";
+        if (env.equals("prd") || env.equals("uat")){
+            String bloo = checkToken(queryRequest.getTokenIqa());
+            if (StringUtils.isNotBlank(bloo)){
+                psid = bloo;
+            }else {
+                return new DacResponse().data(fileName).message("用户信息已失效");
+            }
+        }
+        fileName = "批次追溯详情"+System.currentTimeMillis()+".xls";
+        sheetName = "批次追溯详情";
+        HSSFWorkbook wb= excelService.getHSSFWorkbook(queryRequest,psid);
+//        HSSFWorkbook wb= IqaExcelUtil.getHSSFWorkbook(sheetName,queryRequest);
+        this.setResponseHeader(response, fileName);
+        OutputStream os=response.getOutputStream();
+        wb.write(os);
+        os.flush();
+        os.close();
+        return new DacResponse().data(fileName);
+    }
+
+    //发送响应流方法
+    public void setResponseHeader(HttpServletResponse response, String fileName) {
+        try {
+            try {
+                fileName = new String(fileName.getBytes(),"ISO8859-1");
+            } catch (UnsupportedEncodingException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            //准备将Excel的输出流通过response输出到页面下载
+            //八进制输出流
+            response.setContentType("application/octet-stream");
+
+            //这后面可以设置导出Excel的名称，此例中名为student.xls
+            response.setHeader("Content-disposition", "attachment;filename="+fileName);
+
+        } catch (Exception ex) {
+            log.error("error", ex.getLocalizedMessage());
+        }
+    }
+
+    private String checkToken(String token){
+        String info ="";
+        try {
+            if (StringUtils.isNotBlank(token)){
+                info = redisService.get(token);
+            }
+        }catch (Exception e){
+            log.error("error",e.getLocalizedMessage());
+        }
+        return info;
+    }
 
 }
