@@ -23,7 +23,7 @@
     <select id="query" resultMap="cdfactIqaBatchTraceabilityCcMap">
         select id from cdm_fact_iqa_batch_traceability_cc where
         <trim suffixOverrides="and" >
-            1=1 and
+            1=1 and slc_code_cc is not null and
             <if test="supplierJdecode !=null and supplierJdecode !=''">
                 supplier_jdecode = #{supplierJdecode} and
             </if>
@@ -64,7 +64,7 @@
         </if>
         where
         <trim suffixOverrides="and" >
-            1=1 and
+            1=1 and  a.slc_code_cc is not null and
             <if test="supplierJdecode !=null and supplierJdecode !=''">
                 a.supplier_jdecode = #{supplierJdecode} and
             </if>
@@ -109,7 +109,7 @@
         </if>
         where
         <trim suffixOverrides="and" >
-            1=1 and
+            1=1 and a.slc_code_cc is not null  and
             <if test="cdfactIqaBatchTraceabilityCc.supplierJdecode !=null">
                 a.supplier_jdecode = #{cdfactIqaBatchTraceabilityCc.supplierJdecode} and
             </if>
@@ -122,7 +122,6 @@
             <if test="cdfactIqaBatchTraceabilityCc.productionDate !=null">
                 a.production_date = #{cdfactIqaBatchTraceabilityCc.productionDate} and
             </if>
-
         </trim>
         order by a.id desc limit #{startIndex},#{limit}
     </select>
@@ -136,7 +135,7 @@
         </if>
         where
         <trim suffixOverrides="and" >
-            1=1 and
+            1=1 and a.slc_code_cc is not null  and
             <if test="supplierJdecode !=null">
                 a.supplier_jdecode = #{supplierJdecode} and
             </if>

@@ -32,15 +32,52 @@
 
     <select id="query" resultMap="cdfactIqaBatchTraceabilityMasterDataMap">
         SELECT
-        DISTINCT
-        a.manufacturer_rmi_code,
-        a.manufacturer_rmi_name,
-        a.rmi_sku_code,
-        a.rmi_sku_name,
-        a.rmi_batch_no,
+        DateKey,
+        supplier_eqacode,
+        supplier_jdecode,
+        supplier_name,
+        manufacturer_eqa_code,
+        manufacturer_name,
+        sku_eqacode,
+        sku_jdecode,
+        sku_name,
+        production_date,
+        sum(production_qty) AS production_qty,
+        UOM,
+        supplier_shipment_qty,
+        received_qty,
+        shipment_qty,
+        inventories_qty,
+        (
+        shipment_qty + inventories_qty
+        ) / supplier_shipment_qty AS trace_ratio
+        FROM
+        (
+        SELECT
+        DateKey,
+        supplier_eqacode,
+        supplier_jdecode,
+        supplier_name,
+        manufacturer_eqa_code,
+        manufacturer_name,
+        sku_eqacode,
+        sku_jdecode,
+        sku_name,
+        production_date,
+        production_qty,
+        UOM,
+        supplier_shipment_qty,
+        received_qty,
+        sum(shipment_qty) AS shipment_qty,
+        inventories_qty
+        FROM
+        (
+        SELECT
+        a.DateKey,
         a.supplier_eqacode,
         a.supplier_jdecode,
         a.supplier_name,
+        a.manufacturer_eqa_code,
         a.manufacturer_name,
         a.sku_eqacode,
         a.sku_jdecode,
@@ -51,16 +88,11 @@
         a.supplier_shipment_qty,
         a.received_qty,
         a.shipment_qty,
-        a.inventories_qty,
-        a.trace_ratio,
-        a.store_code,
-        a.rest_brand_code,
-        a.rest_brand,
-        a.manufacturer_eqa_code
+        a.inventories_qty
         FROM
         cdm_fact_iqa_batch_traceability_master_data a
         INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
-        INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
+        INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE (ourm.rolename, ' ', '') = eskr.sqa_group_name
         <if test="cdfactIqaBatchTraceabilityMasterData.psid !=null and cdfactIqaBatchTraceabilityMasterData.psid !=''">
             AND ourm.adpid = #{cdfactIqaBatchTraceabilityMasterData.psid}
         </if>
@@ -80,7 +112,7 @@
                 a.rmi_sku_name = #{cdfactIqaBatchTraceabilityMasterData.rmiSkuName}  and
             </if>
             <if test="cdfactIqaBatchTraceabilityMasterData.manufacturerRmiName !=null and cdfactIqaBatchTraceabilityMasterData.manufacturerRmiName !=''">
-                a.manufacturer_rmi_name = #{cdfactIqaBatchTraceabilityMasterData.manufacturerRmiName} and
+                a.manufacturer_rmi_name = #{cdfactIqaBatchTraceabilityMasterData.manufacturerRmiName}  and
             </if>
             <if test="cdfactIqaBatchTraceabilityMasterData.rmiBatchNo !=null and cdfactIqaBatchTraceabilityMasterData.rmiBatchNo !=''">
                 a.rmi_batch_no = #{cdfactIqaBatchTraceabilityMasterData.rmiBatchNo} and
@@ -98,7 +130,59 @@
                 a.production_date &lt;= #{cdfactIqaBatchTraceabilityMasterData.endTime} and
             </if>
         </trim>
-        order by a.production_date desc
+        GROUP BY
+        DateKey,
+        supplier_eqacode,
+        supplier_jdecode,
+        supplier_name,
+        manufacturer_eqa_code,
+        manufacturer_name,
+        sku_eqacode,
+        sku_jdecode,
+        sku_name,
+        production_date,
+        production_qty,
+        UOM,
+        supplier_shipment_qty,
+        received_qty,
+        shipment_qty,
+        inventories_qty
+        ) shipment_qty
+        GROUP BY
+        DateKey,
+        supplier_eqacode,
+        supplier_jdecode,
+        supplier_name,
+        manufacturer_eqa_code,
+        manufacturer_name,
+        sku_eqacode,
+        sku_jdecode,
+        sku_name,
+        production_date,
+        UOM,
+        supplier_shipment_qty,
+        received_qty,
+        inventories_qty,
+        production_qty
+        ) production_qty
+        GROUP BY
+        DateKey,
+        supplier_eqacode,
+        supplier_jdecode,
+        supplier_name,
+        manufacturer_eqa_code,
+        manufacturer_name,
+        sku_eqacode,
+        sku_jdecode,
+        sku_name,
+        production_date,
+        UOM,
+        supplier_shipment_qty,
+        received_qty,
+        shipment_qty,
+        inventories_qty
+        ORDER BY
+        production_date DESC
     </select>
 
     <!-- 分页查询 -->
@@ -231,7 +315,8 @@
             a.supplier_shipment_qty,
             a.received_qty,
             a.shipment_qty,
-            a.inventories_qty
+            a.inventories_qty,
+            a.store_code
         FROM
         cdm_fact_iqa_batch_traceability_master_data a
         INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
@@ -289,7 +374,8 @@
         supplier_shipment_qty,
         received_qty,
         shipment_qty,
-        inventories_qty
+        inventories_qty,
+        store_code
         ) shipment_qty
         GROUP BY
         DateKey,
@@ -389,7 +475,8 @@
         a.supplier_shipment_qty,
         a.received_qty,
         a.shipment_qty,
-        a.inventories_qty
+        a.inventories_qty,
+        a.store_code
         FROM
         cdm_fact_iqa_batch_traceability_master_data a
         INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
@@ -447,7 +534,8 @@
         supplier_shipment_qty,
         received_qty,
         shipment_qty,
-        inventories_qty
+        inventories_qty,
+        store_code
         ) shipment_qty
         GROUP BY
         DateKey,

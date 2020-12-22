@@ -180,7 +180,7 @@ public class BatchTraceablilityBaseController extends BaseController {
             title.add("在货数量");
             title.add("追溯率");
             title.add("品项JDEcode");
-            title.add("供货商DEcode");
+            title.add("供货商JDEcode");
             fileName = "批次追溯主档"+System.currentTimeMillis()+".xls";
             sheetName = "批次追溯主档";
             HSSFWorkbook wb= ExcelUtil.getHSSFWorkbook(sheetName, title, list, null,"reportLog");

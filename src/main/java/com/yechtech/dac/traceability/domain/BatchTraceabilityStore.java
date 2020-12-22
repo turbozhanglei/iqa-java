@@ -45,9 +45,9 @@ public class BatchTraceabilityStore extends Model<BatchTraceabilityStore> implem
     @ApiModelProperty(notes = "品牌")
     private String brandNameCn;
     @ApiModelProperty(notes = "FQA市场编码")
-    private String fqaMarketCode;
+    private String fqaMarketcode;
     @ApiModelProperty(notes = "FQA市场名称")
-    private String fqaMarketName;
+    private String fqaMarketname;
     @ApiModelProperty(notes = "来源物流中心编码")
     private String slcCodeLc;
     @ApiModelProperty(notes = "来源物流中心名称")

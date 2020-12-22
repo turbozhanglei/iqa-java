@@ -25,7 +25,8 @@ public class IqaExcelUtil {
      * @param resList
      * @return
      */
-    public static HSSFWorkbook getHSSFWorkbook(List<DetailedSummary> sumList, List<BatchTraceabilityRmi> materialList,
+    public static HSSFWorkbook getHSSFWorkbook(List<DetailedSummary> sumList,
+                                               List<BatchTraceabilityRmi> materialList,
                                                List<BatchTraceabilityManufacturer> productList,
                                                List<BatchTraceabilityCc> integrationList,
                                                List<BatchTraceabilityLc> logisticsList,
@@ -45,10 +46,10 @@ public class IqaExcelUtil {
         sumTitle.add("物流中心个数");
         sumTitle.add("物流中心到货数量");
         sumTitle.add("物流中心库存数量");
-        sumTitle.add("品项JDEcode");
-        sumTitle.add("供应商JDEcode");
         sumTitle.add("FQA市场个数");
         sumTitle.add("餐厅个数");
+        sumTitle.add("品项JDEcode");
+        sumTitle.add("供应商JDEcode");
         sumTitle.add("追溯率");
 
         List<String> materialTitle=new ArrayList<>();
@@ -190,7 +191,7 @@ public class IqaExcelUtil {
                 DetailedSummary data = sumList.get(i);
                 row.createCell(0).setCellValue(data.getSkuName());
                 row.createCell(1).setCellValue(data.getSupplierName());
-                row.createCell(2).setCellValue(manufacturerName);//缺一个生产商名称
+                row.createCell(2).setCellValue(data.getManufacturerName());//缺一个生产商名称
                 if (null !=data.getProductionDate()){
                     row.createCell(3).setCellValue(sdf.format(data.getProductionDate()));
                 }
@@ -215,16 +216,16 @@ public class IqaExcelUtil {
                     row.createCell(11).setCellValue(data.getLcReceivedQty());
                 }
                 if (null !=data.getCcInventoriesQty()){
-                    row.createCell(12).setCellValue(data.getCcInventoriesQty());
+                    row.createCell(12).setCellValue(data.getLcInventoriesQty());
                 }
                 if (null !=data.getFqaNum()){
                     row.createCell(13).setCellValue(data.getFqaNum());
                 }
-                row.createCell(14).setCellValue(data.getSkuJdecode());
-                row.createCell(15).setCellValue(data.getSupplierJdecode());
                 if (null !=data.getStorNum()){
-                    row.createCell(16).setCellValue(data.getStorNum());
+                    row.createCell(14).setCellValue(data.getStorNum());
                 }
+                row.createCell(15).setCellValue(data.getSkuJdecode());
+                row.createCell(16).setCellValue(data.getSupplierJdecode());
                 if (null !=data.getTraceRatio()){
                     row.createCell(17).setCellValue(data.getTraceRatio().toString());
                 }
@@ -261,7 +262,10 @@ public class IqaExcelUtil {
                 if (null !=data.getShipDate()){
                     row.createCell(1).setCellValue(sdf.format(data.getShipDate()));
                 }
-                row.createCell(2).setCellValue(data.getReceiver());
+                if (null !=data.getShipmentQuantity()){
+                    row.createCell(2).setCellValue(data.getShipmentQuantity());
+                }
+                row.createCell(3).setCellValue(data.getReceiver());
             }
         }
 
@@ -292,15 +296,15 @@ public class IqaExcelUtil {
         if (CollectionUtils.isNotEmpty(logisticsList)){
             //创建内容-物流中心
             for (int i = 0; i < logisticsList.size(); i++) {
-                HSSFRow row = integrationSheet.createRow(i + 1);
+                HSSFRow row = logisticsSheet.createRow(i + 1);
                 //将内容按顺序赋给对应的列对象
                 BatchTraceabilityLc data = logisticsList.get(i);
                 row.createCell(0).setCellValue(data.getSlcCodeCc());
                 row.createCell(1).setCellValue(data.getSlcNameCc());
                 row.createCell(2).setCellValue(data.getSlcCodeLc());
                 row.createCell(3).setCellValue(data.getSlcNameLc());
-                if (null !=data.getEarliestdelvDate()){
-                    row.createCell(4).setCellValue(sdf.format(data.getEarliestdelvDate()));
+                if (null !=data.getEarliestdelvdate()){
+                    row.createCell(4).setCellValue(sdf.format(data.getEarliestdelvdate()));
                 }
                 if (null !=data.getReceivedQty()){
                     row.createCell(5).setCellValue(data.getReceivedQty());
@@ -308,8 +312,8 @@ public class IqaExcelUtil {
                 if (null !=data.getInventoriesQty()){
                     row.createCell(6).setCellValue(data.getInventoriesQty());
                 }
-                if (null !=data.getLatestshipDate()){
-                    row.createCell(7).setCellValue(sdf.format(data.getLatestshipDate()));
+                if (null !=data.getLatestshipdate()){
+                    row.createCell(7).setCellValue(sdf.format(data.getLatestshipdate()));
                 }
                 if (null !=data.getShipmentQty()){
                     row.createCell(8).setCellValue(data.getShipmentQty());
@@ -327,7 +331,7 @@ public class IqaExcelUtil {
                 row.createCell(0).setCellValue(data.getStoreCode());
                 row.createCell(1).setCellValue(data.getStoreName());
                 row.createCell(2).setCellValue(data.getBrandNameCn());
-                row.createCell(3).setCellValue(data.getFqaMarketCode());
+                row.createCell(3).setCellValue(data.getFqaMarketcode());
                 if (null !=data.getEarliestdelvdate()){
                     row.createCell(4).setCellValue(sdf.format(data.getEarliestdelvdate()));
                 }

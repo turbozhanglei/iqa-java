@@ -213,6 +213,7 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         queryWrapper.eq("supplier_jdecode",batchDto.getSupplierJdecode());
         queryWrapper.eq("sku_jdecode",batchDto.getSkuJdecode());
         queryWrapper.eq("production_date",batchDto.getProductionDate());
+        queryWrapper.eq("manufacturer_eqacode",batchDto.getManufacturerEqaCode());
 
         List<DetailedSummary> detailedSummaries = detailedSummaryMapper.selectList(queryWrapper);
 

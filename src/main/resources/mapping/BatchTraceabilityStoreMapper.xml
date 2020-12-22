@@ -13,8 +13,8 @@
         <result property="storeCode" column="store_code"/>
         <result property="storeName" column="store_name"/>
         <result property="brandNameCn" column="brand_name_cn"/>
-        <result property="fqaMarketCode" column="fqa_market_code"/>
-        <result property="fqaMarketName" column="fqa_market_name"/>
+        <result property="fqaMarketcode" column="fqa_marketcode"/>
+        <result property="fqaMarketname" column="fqa_marketname"/>
         <result property="slcCodeLc" column="slc_code_lc"/>
         <result property="slcNameLc" column="slc_name_lc"/>
         <result property="earliestdelvdate" column="earliestdelvdate"/>

@@ -117,8 +117,14 @@ public class ExcelServiceImpl implements ExcelService {
         traceabilityStore.setPsid(psid);
         List<BatchTraceabilityStore> batchTraceabilityStores = storeMapper.queryList(traceabilityStore);
 
-        HSSFWorkbook wb = IqaExcelUtil.getHSSFWorkbook(detailedSummaries,batchTraceabilityRmis,batchTraceabilityManufacturer
-        ,batchTraceabilityCc,batchTraceabilityLc,batchTraceabilityStores,manufacturerName);
+        HSSFWorkbook wb = IqaExcelUtil.getHSSFWorkbook(
+                detailedSummaries,
+                batchTraceabilityRmis,
+                batchTraceabilityManufacturer,
+                batchTraceabilityCc,
+                batchTraceabilityLc,
+                batchTraceabilityStores,
+                manufacturerName);
         return wb;
     }
 

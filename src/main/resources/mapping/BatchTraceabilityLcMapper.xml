@@ -14,8 +14,8 @@
         <result property="slcNameLc" column="slc_name_lc"/>
         <result property="slcCodeCc" column="slc_code_cc"/>
         <result property="slcNameCc" column="slc_name_cc"/>
-        <result property="earliestdelvDate" column="earliestdelv_date"/>
-        <result property="latestshipDate" column="latestship_date"/>
+        <result property="earliestdelvdate" column="earliestdelvdate"/>
+        <result property="latestshipdate" column="latestshipdate"/>
         <result property="receivedQty" column="received_qty"/>
         <result property="shipmentQty" column="shipment_qty"/>
         <result property="inventoriesQty" column="inventories_qty"/>
@@ -49,7 +49,7 @@
         SELECT
         a.id
         FROM
-        cdm_fact_iqa_batch_traceability_store a
+        cdm_fact_iqa_batch_traceability_lc a
         INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
         INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
         <if test="psid !=null and psid !=''">
@@ -82,7 +82,7 @@
             SELECT
              a.id
             FROM
-            cdm_fact_iqa_batch_traceability_store a
+          cdm_fact_iqa_batch_traceability_lc a
         INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
         INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
         <if test="cdfactIqaBatchTraceabilityLc.psid !=null">

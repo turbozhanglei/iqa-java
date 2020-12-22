@@ -47,9 +47,9 @@ public class BatchTraceabilityLc extends Model<BatchTraceabilityLc> implements S
     @ApiModelProperty(notes = "整合中心名称")
     private String slcNameCc;
     @ApiModelProperty(notes = "最早到货日期")
-    private Date earliestdelvDate;
+    private Date earliestdelvdate;
     @ApiModelProperty(notes = "最晚出货时间")
-    private Date latestshipDate;
+    private Date latestshipdate;
     @ApiModelProperty(notes = "到货数量")
     private Integer receivedQty;
     @ApiModelProperty(notes = "出货数量")
