@@ -21,11 +21,15 @@
 
 
     <select id="query" resultMap="cdfactIqaBatchTraceabilityRmiMap">
-        select a.* from cdm_fact_iqa_batch_traceability_rmi a
-        INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
-        INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
-        <if test="psid !=null">
-            AND ourm.adpid = #{psid}
+        select
+        a.*
+        from cdm_fact_iqa_batch_traceability_rmi a
+        <if test="roleCode !='' and roleCode != 'BATCH_TRACE_ALL_DATA'.toString()">
+            INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
+            INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
+            <if test="psid !=null">
+                AND ourm.adpid = #{psid}
+            </if>
         </if>
         where
         <trim suffixOverrides="and" >
@@ -68,10 +72,12 @@
         a.quantity
         FROM
         cdm_fact_iqa_batch_traceability_rmi a
-        INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
-        INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
-        <if test="psid !=null and psid !=''">
-            AND ourm.adpid = #{psid}
+        <if test="roleCode !='' and roleCode != 'BATCH_TRACE_ALL_DATA'.toString()">
+            INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
+            INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
+            <if test="psid !=null and psid !=''">
+                AND ourm.adpid = #{psid}
+            </if>
         </if>
         where
         <trim suffixOverrides="and" >
@@ -116,11 +122,14 @@
         a.quantity
         FROM
         cdm_fact_iqa_batch_traceability_rmi a
-        INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
-        INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
-        <if test="cdfactIqaBatchTraceabilityRmi.psid !=null and cdfactIqaBatchTraceabilityRmi.psid !=''">
-            AND ourm.adpid = #{cdfactIqaBatchTraceabilityRmi.psid}
+        <if test="cdfactIqaBatchTraceabilityRmi.roleCode !='' and cdfactIqaBatchTraceabilityRmi.roleCode != 'BATCH_TRACE_ALL_DATA'.toString()">
+            INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
+            INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
+            <if test="cdfactIqaBatchTraceabilityRmi.psid !=null and cdfactIqaBatchTraceabilityRmi.psid !=''">
+                AND ourm.adpid = #{cdfactIqaBatchTraceabilityRmi.psid}
+            </if>
         </if>
+
         where
         <trim suffixOverrides="and" >
             1=1 and
@@ -165,11 +174,16 @@
     </select>
 
     <select id="queryPageCount" resultType="java.lang.Long">
-        select count(*) from cdm_fact_iqa_batch_traceability_rmi a
-        INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
-        INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
-        <if test="psid !=null and psid !=''">
-            AND ourm.adpid = #{psid}
+        select
+        count(*)
+        from
+        cdm_fact_iqa_batch_traceability_rmi a
+        <if test="roleCode !='' and roleCode != 'BATCH_TRACE_ALL_DATA'.toString()">
+            INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
+            INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
+            <if test="psid !=null and psid !=''">
+                AND ourm.adpid = #{psid}
+            </if>
         </if>
         where
         <trim suffixOverrides="and" >

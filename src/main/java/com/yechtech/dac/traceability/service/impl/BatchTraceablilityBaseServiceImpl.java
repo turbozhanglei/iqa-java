@@ -1,5 +1,6 @@
 package com.yechtech.dac.traceability.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
@@ -84,8 +85,10 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         BeanUtils.copyProperties(batchDto,batchTraceabilityMasterData);
         if (env.equals("prd") || env.equals("uat")){
             String bloo = checkToken(batchDto.getTokenIqa());
+            Map map = JSONObject.parseObject(bloo,Map.class);
             if (StringUtils.isNotBlank(bloo)){
-                batchTraceabilityMasterData.setPsid(bloo);
+                batchTraceabilityMasterData.setPsid(map.get("psid").toString());
+                batchTraceabilityMasterData.setRoleCode(map.get("roleCode").toString());
             }else{
                 return new DacResponse().message("用户信息已失效");
             }
@@ -102,13 +105,20 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
 
     @Override
     public DacResponse selectInputList(FilterConditionDto batchDto){
+        log.info("获取批次追溯下拉列表入参batchDto=========》,{}", batchDto.toString());
         String psid="";
+        String roleCode="";
         if (env.equals("prd") || env.equals("uat")){
             String bloo = checkToken(batchDto.getTokenIqa());
+            log.info("获取批次追溯下拉列表bloo=========》,{}",bloo);
+            Map map = JSONObject.parseObject(bloo,Map.class);
             if (StringUtils.isEmpty(bloo)){
                 return new DacResponse().message("用户信息已失效");
             }
-            psid = bloo;
+            if(null != map){
+                psid = map.get("psid").toString();
+                roleCode = map.get("roleCode").toString();
+            }
         }
         List<FilterConditionData> responseList  = new ArrayList<>();
         switch (batchDto.getType()){
@@ -117,6 +127,7 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
                 EdwDisku edwDisku =new EdwDisku();
                 edwDisku.setSkuName(batchDto.getSkuName());
                 edwDisku.setPsid(psid);
+                edwDisku.setRoleCode(roleCode);
                 List<EdwDisku> resultList = edwDiskuMapper.query(edwDisku);
                 resultList.forEach(item->{
                     FilterConditionData filterConditionData = new FilterConditionData();
@@ -168,6 +179,7 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
                 EdwDisku edwDiskuPro =new EdwDisku();
                 edwDiskuPro.setSkuName(batchDto.getProductName());
                 edwDiskuPro.setPsid(psid);
+                edwDiskuPro.setRoleCode(roleCode);
                 List<EdwDisku> resultPro = edwDiskuMapper.query(edwDiskuPro);
                 resultPro.forEach(item->{
                     FilterConditionData filterConditionData = new FilterConditionData();
@@ -292,10 +304,12 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         BatchTraceabilityRmi batchTraceabilityRmi =new BatchTraceabilityRmi();
         if (env.equals("prd") || env.equals("uat")){
             String bloo = checkToken(batchDto.getTokenIqa());
+            Map map = JSONObject.parseObject(bloo,Map.class);
             if (StringUtils.isEmpty(bloo)){
                 return new DacResponse().message("用户信息已失效");
             }
-            batchTraceabilityRmi.setPsid(bloo);
+            batchTraceabilityRmi.setPsid(map.get("psid").toString());
+            batchTraceabilityRmi.setRoleCode(map.get("roleCode").toString());
         }
         batchTraceabilityRmi.setManufacturerEqaCode(batchDto.getManufacturerEqaCode());
         batchTraceabilityRmi.setSkuJdecode(batchDto.getSkuJdecode());
@@ -317,10 +331,13 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         BatchTraceabilityManufacturer batchTraceabilityManufacturer=new BatchTraceabilityManufacturer();
         if (env.equals("prd") || env.equals("uat")){
             String bloo = checkToken(batchDto.getTokenIqa());
+            Map map = JSONObject.parseObject(bloo,Map.class);
             if (StringUtils.isEmpty(bloo)){
                 return new DacResponse().message("用户信息已失效");
             }
-            batchTraceabilityManufacturer.setPsid(bloo);
+//            batchTraceabilityManufacturer.setPsid(bloo);
+            batchTraceabilityManufacturer.setPsid(map.get("psid").toString());
+            batchTraceabilityManufacturer.setRoleCode(map.get("roleCode").toString());
         }
 
         batchTraceabilityManufacturer.setManufacturerEqacode(batchDto.getManufacturerEqaCode());
@@ -342,10 +359,13 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         BatchTraceabilityCc batchTraceabilityCc =new BatchTraceabilityCc();
         if (env.equals("prd") || env.equals("uat")){
             String bloo = checkToken(batchDto.getTokenIqa());
+            Map map = JSONObject.parseObject(bloo,Map.class);
             if (StringUtils.isEmpty(bloo)){
                 return new DacResponse().message("用户信息已失效");
             }
-            batchTraceabilityCc.setPsid(bloo);
+//            batchTraceabilityCc.setPsid(bloo);
+            batchTraceabilityCc.setPsid(map.get("psid").toString());
+            batchTraceabilityCc.setRoleCode(map.get("roleCode").toString());
         }
         batchTraceabilityCc.setSupplierJdecode(batchDto.getSupplierJdecode());
         batchTraceabilityCc.setSkuJdecode(batchDto.getSkuJdecode());
@@ -366,10 +386,13 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         BatchTraceabilityLc batchTraceabilityLc =new BatchTraceabilityLc();
         if (env.equals("prd") || env.equals("uat")){
             String bloo = checkToken(batchDto.getTokenIqa());
+            Map map = JSONObject.parseObject(bloo,Map.class);
             if (StringUtils.isEmpty(bloo)){
                 return new DacResponse().message("用户信息已失效");
             }
-            batchTraceabilityLc.setPsid(bloo);
+//            batchTraceabilityLc.setPsid(bloo);
+            batchTraceabilityLc.setPsid(map.get("psid").toString());
+            batchTraceabilityLc.setRoleCode(map.get("roleCode").toString());
         }
         batchTraceabilityLc.setSupplierJdecode(batchDto.getSupplierJdecode());
         batchTraceabilityLc.setSkuJdecode(batchDto.getSkuJdecode());
@@ -390,10 +413,13 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         BatchTraceabilityStore batchTraceabilityStore =new BatchTraceabilityStore();
         if (env.equals("prd") || env.equals("uat")){
             String bloo = checkToken(batchDto.getTokenIqa());
+            Map map = JSONObject.parseObject(bloo,Map.class);
             if (StringUtils.isEmpty(bloo)){
                 return new DacResponse().message("用户信息已失效");
             }
-            batchTraceabilityStore.setPsid(bloo);
+//            batchTraceabilityStore.setPsid(bloo);
+            batchTraceabilityStore.setPsid(map.get("psid").toString());
+            batchTraceabilityStore.setRoleCode(map.get("roleCode").toString());
         }
         batchTraceabilityStore.setSupplierJdecode(batchDto.getSupplierJdecode());
         batchTraceabilityStore.setSkuJdecode(batchDto.getSkuJdecode());
@@ -425,7 +451,20 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
             log.info("调用SCID返回参数=========》,{}", JSONObject.toJSONString(str));
             Map map1 = JSONObject.parseObject(str, Map.class);
             Map data = JSONObject.parseObject(JSONObject.toJSONString(map1.get("data")), Map.class);
+            JSONArray rolearr = (JSONArray) data.get("role");
+            String roleCode="";
+            for (int i=0;i<rolearr.size();i++){
+                Map role = JSONObject.parseObject(JSONObject.toJSONString(rolearr.get(i)), Map.class);
+                if (role.get("roleCode").toString().equals("BATCH_TRACE_ALL_DATA")){
+                     roleCode = role.get("roleCode").toString();
+                }
+            }
             String psid = data.get("psid").toString();
+            //将psid 和roleCode放入redis
+            JSONObject jsonObj=new JSONObject();
+            jsonObj.put("psid",psid);
+            jsonObj.put("roleCode",roleCode);
+            String jsonStr = JSONObject.toJSONString(jsonObj);
             //如果返回了用户psid，生成tokeniqa 放入redis 返回前端
             String tokenIqa = UUID.randomUUID().toString();
             resp.setTokenIqa(tokenIqa);
@@ -434,7 +473,7 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
                 queryWrapper.eq("iqakey","redis_time");
                 Config config = configMapper.selectOne(queryWrapper);
                 if (null != config){
-                    redisService.set(tokenIqa,psid,Long.parseLong(config.getIqavalue()));
+                    redisService.set(tokenIqa,jsonStr,Long.parseLong(config.getIqavalue()));
                 }
             }catch (Exception e){
                 log.error("调用redisService错误信息error=========》",e.getLocalizedMessage());
@@ -491,6 +530,8 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         }
         return qw;
     }
+
+
 
 
 }

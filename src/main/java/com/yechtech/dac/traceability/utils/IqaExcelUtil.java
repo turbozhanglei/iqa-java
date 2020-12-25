@@ -30,8 +30,8 @@ public class IqaExcelUtil {
                                                List<BatchTraceabilityManufacturer> productList,
                                                List<BatchTraceabilityCc> integrationList,
                                                List<BatchTraceabilityLc> logisticsList,
-                                               List<BatchTraceabilityStore> resList,
-                                               String manufacturerName) {
+                                               List<BatchTraceabilityStore> resList
+                                               ) {
         List<String> sumTitle=new ArrayList<>();
         sumTitle.add("品项名称");
         sumTitle.add("供应商名称");

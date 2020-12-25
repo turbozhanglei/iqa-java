@@ -62,6 +62,8 @@ public class BatchTraceabilityStore extends Model<BatchTraceabilityStore> implem
     private String uom;
     @ApiModelProperty(notes = "psid")
     private String psid;
+    @ApiModelProperty(notes = "roleCode")
+    private String roleCode;
 
 
 }

@@ -15,5 +15,5 @@ import java.util.List;
  */
 public interface ExcelService {
 
-    HSSFWorkbook getHSSFWorkbook(BatchTraceabilityDto queryRequest,String psid);
+    HSSFWorkbook getHSSFWorkbook(BatchTraceabilityDto queryRequest,String psid,String roleCode);
 }

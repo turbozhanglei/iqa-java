@@ -1,5 +1,6 @@
 package com.yechtech.dac.traceability.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.yechtech.dac.common.controller.BaseController;
@@ -29,6 +30,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @description : 批次追溯主档数据Controller
@@ -160,8 +162,10 @@ public class BatchTraceablilityBaseController extends BaseController {
         String sheetName = null;
         if (env.equals("prd") || env.equals("uat")){
             String bloo = checkToken(queryRequest.getTokenIqa());
+            Map map = JSONObject.parseObject(bloo,Map.class);
             if (StringUtils.isNotBlank(bloo)){
-                queryRequest.setPsid(bloo);
+                queryRequest.setPsid(map.get("psid").toString());
+                queryRequest.setRoleCode(map.get("roleCode").toString());
             }else {
                 return  new DacResponse().data(fileName).message("用户信息已失效");
             }
@@ -198,17 +202,20 @@ public class BatchTraceablilityBaseController extends BaseController {
         String fileName = null;
         String sheetName = null;
         String psid="";
+        String roleCode="";
         if (env.equals("prd") || env.equals("uat")){
             String bloo = checkToken(queryRequest.getTokenIqa());
+            Map map = JSONObject.parseObject(bloo,Map.class);
             if (StringUtils.isNotBlank(bloo)){
-                psid = bloo;
+                psid = map.get("psid").toString();
+                roleCode = map.get("roleCode").toString();
             }else {
                 return new DacResponse().data(fileName).message("用户信息已失效");
             }
         }
         fileName = "批次追溯详情"+System.currentTimeMillis()+".xls";
         sheetName = "批次追溯详情";
-        HSSFWorkbook wb= excelService.getHSSFWorkbook(queryRequest,psid);
+        HSSFWorkbook wb= excelService.getHSSFWorkbook(queryRequest,psid,roleCode);
 //        HSSFWorkbook wb= IqaExcelUtil.getHSSFWorkbook(sheetName,queryRequest);
         this.setResponseHeader(response, fileName);
         OutputStream os=response.getOutputStream();

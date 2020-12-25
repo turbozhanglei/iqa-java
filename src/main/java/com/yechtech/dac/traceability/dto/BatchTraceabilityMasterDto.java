@@ -67,5 +67,7 @@ public class BatchTraceabilityMasterDto implements Serializable {
     @ApiModelProperty(notes = "生产日期")
     private String endTime;
     private String psid;
+    @ApiModelProperty(notes = "roleCode")
+    private String roleCode;
 
 }

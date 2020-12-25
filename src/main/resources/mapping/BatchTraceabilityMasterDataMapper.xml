@@ -91,10 +91,12 @@
         a.inventories_qty
         FROM
         cdm_fact_iqa_batch_traceability_master_data a
-        INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
-        INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE (ourm.rolename, ' ', '') = eskr.sqa_group_name
-        <if test="cdfactIqaBatchTraceabilityMasterData.psid !=null and cdfactIqaBatchTraceabilityMasterData.psid !=''">
-            AND ourm.adpid = #{cdfactIqaBatchTraceabilityMasterData.psid}
+        <if test="cdfactIqaBatchTraceabilityMasterData.roleCode !='' and cdfactIqaBatchTraceabilityMasterData.roleCode != 'BATCH_TRACE_ALL_DATA'.toString()">
+            INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
+            INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE (ourm.rolename, ' ', '') = eskr.sqa_group_name
+            <if test="cdfactIqaBatchTraceabilityMasterData.psid !=null and cdfactIqaBatchTraceabilityMasterData.psid !=''">
+                AND ourm.adpid = #{cdfactIqaBatchTraceabilityMasterData.psid}
+            </if>
         </if>
         where
         <trim suffixOverrides="and" >
@@ -296,7 +298,8 @@
             supplier_shipment_qty,
             received_qty,
             sum(shipment_qty) AS shipment_qty,
-            inventories_qty
+            inventories_qty,
+            batch_no
         FROM
         (
             SELECT
@@ -316,13 +319,16 @@
             a.received_qty,
             a.shipment_qty,
             a.inventories_qty,
-            a.store_code
+            a.store_code,
+            a.batch_no
         FROM
         cdm_fact_iqa_batch_traceability_master_data a
-        INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
-        INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE (ourm.rolename, ' ', '') = eskr.sqa_group_name
-        <if test="cdfactIqaBatchTraceabilityMasterData.psid !=null and cdfactIqaBatchTraceabilityMasterData.psid !=''">
-            AND ourm.adpid = #{cdfactIqaBatchTraceabilityMasterData.psid}
+        <if test="cdfactIqaBatchTraceabilityMasterData.roleCode !='' and cdfactIqaBatchTraceabilityMasterData.roleCode != 'BATCH_TRACE_ALL_DATA'.toString()">
+            INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
+            INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE (ourm.rolename, ' ', '') = eskr.sqa_group_name
+            <if test="cdfactIqaBatchTraceabilityMasterData.psid !=null and cdfactIqaBatchTraceabilityMasterData.psid !=''">
+                AND ourm.adpid = #{cdfactIqaBatchTraceabilityMasterData.psid}
+            </if>
         </if>
         where
         <trim suffixOverrides="and" >
@@ -359,57 +365,59 @@
             </if>
         </trim>
         GROUP BY
-        DateKey,
-        supplier_eqacode,
-        supplier_jdecode,
-        supplier_name,
-        manufacturer_eqa_code,
-        manufacturer_name,
-        sku_eqacode,
-        sku_jdecode,
-        sku_name,
-        production_date,
-        production_qty,
-        UOM,
-        supplier_shipment_qty,
-        received_qty,
-        shipment_qty,
-        inventories_qty,
-        store_code
+            DateKey,
+            supplier_eqacode,
+            supplier_jdecode,
+            supplier_name,
+            manufacturer_eqa_code,
+            manufacturer_name,
+            sku_eqacode,
+            sku_jdecode,
+            sku_name,
+            production_date,
+            production_qty,
+            UOM,
+            supplier_shipment_qty,
+            received_qty,
+            shipment_qty,
+            inventories_qty,
+            store_code,
+            batch_no
         ) shipment_qty
         GROUP BY
-        DateKey,
-        supplier_eqacode,
-        supplier_jdecode,
-        supplier_name,
-        manufacturer_eqa_code,
-        manufacturer_name,
-        sku_eqacode,
-        sku_jdecode,
-        sku_name,
-        production_date,
-        UOM,
-        supplier_shipment_qty,
-        received_qty,
-        inventories_qty,
-        production_qty
+            DateKey,
+            supplier_eqacode,
+            supplier_jdecode,
+            supplier_name,
+            manufacturer_eqa_code,
+            manufacturer_name,
+            sku_eqacode,
+            sku_jdecode,
+            sku_name,
+            production_date,
+            UOM,
+            supplier_shipment_qty,
+            received_qty,
+            inventories_qty,
+            production_qty,
+            batch_no
         ) production_qty
         GROUP BY
-        DateKey,
-        supplier_eqacode,
-        supplier_jdecode,
-        supplier_name,
-        manufacturer_eqa_code,
-        manufacturer_name,
-        sku_eqacode,
-        sku_jdecode,
-        sku_name,
-        production_date,
-        UOM,
-        supplier_shipment_qty,
-        received_qty,
-        shipment_qty,
-        inventories_qty
+            DateKey,
+            supplier_eqacode,
+            supplier_jdecode,
+            supplier_name,
+            manufacturer_eqa_code,
+            manufacturer_name,
+            sku_eqacode,
+            sku_jdecode,
+            sku_name,
+            production_date,
+            UOM,
+            supplier_shipment_qty,
+            received_qty,
+            shipment_qty,
+            inventories_qty
         ORDER BY
         production_date DESC
         limit #{startIndex},#{limit}
@@ -456,7 +464,8 @@
         supplier_shipment_qty,
         received_qty,
         sum(shipment_qty) AS shipment_qty,
-        inventories_qty
+        inventories_qty,
+        batch_no
         FROM
         (
         SELECT
@@ -476,13 +485,16 @@
         a.received_qty,
         a.shipment_qty,
         a.inventories_qty,
-        a.store_code
+        a.store_code,
+        a.batch_no
         FROM
         cdm_fact_iqa_batch_traceability_master_data a
-        INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
-        INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
-        <if test="psid !=null">
-            AND ourm.adpid = #{psid}
+        <if test="roleCode !='' and roleCode != 'BATCH_TRACE_ALL_DATA'.toString()">
+            INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_jdecode
+            INNER JOIN edw_eqa_user_role_mapping ourm ON REPLACE(ourm.rolename,' ','') = eskr.sqa_group_name
+            <if test="psid !=null">
+                AND ourm.adpid = #{psid}
+            </if>
         </if>
         where
         <trim suffixOverrides="and" >
@@ -535,7 +547,8 @@
         received_qty,
         shipment_qty,
         inventories_qty,
-        store_code
+        store_code,
+        batch_no
         ) shipment_qty
         GROUP BY
         DateKey,
@@ -552,7 +565,8 @@
         supplier_shipment_qty,
         received_qty,
         inventories_qty,
-        production_qty
+        production_qty,
+        batch_no
         ) production_qty
         GROUP BY
         DateKey,

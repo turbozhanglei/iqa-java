@@ -235,5 +235,7 @@ public class EdwDisku extends Model<EdwDisku> implements Serializable {
     private Long id;
     @ApiModelProperty(notes = "psid")
     private String psid;
+    @ApiModelProperty(notes = "roleCode")
+    private String roleCode;
 
 }

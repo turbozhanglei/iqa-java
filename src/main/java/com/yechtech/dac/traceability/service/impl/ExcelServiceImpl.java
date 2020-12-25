@@ -57,7 +57,7 @@ public class ExcelServiceImpl implements ExcelService {
     private String env;
 
     @Override
-    public HSSFWorkbook getHSSFWorkbook(BatchTraceabilityDto batchDto ,String psid) {
+    public HSSFWorkbook getHSSFWorkbook(BatchTraceabilityDto batchDto ,String psid,String roleCode) {
         String manufacturerName ="";
         QueryWrapper<DetailedSummary> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("supplier_jdecode",batchDto.getSupplierJdecode());
@@ -68,12 +68,6 @@ public class ExcelServiceImpl implements ExcelService {
         query.setSupplierJdecode(batchDto.getSupplierJdecode());
         query.setSkuJdecode(batchDto.getSkuJdecode());
         query.setProductionDate(batchDto.getProductionDate());
-        //查询生产商名称
-        List<BatchTraceabilityMasterData> result = masterDataMapper.query(query);
-        if(CollectionUtils.isNotEmpty(result)){
-            manufacturerName =result.get(0).getManufacturerName();
-        }
-
 
         //获取详情页状态 -上游原料
         BatchTraceabilityRmi queryRmi = new BatchTraceabilityRmi();
@@ -81,6 +75,7 @@ public class ExcelServiceImpl implements ExcelService {
         queryRmi.setSkuJdecode(batchDto.getSkuJdecode());
         queryRmi.setProductionDate(batchDto.getProductionDate());
         queryRmi.setPsid(psid);
+        queryRmi.setRoleCode(roleCode);
 
         List<BatchTraceabilityRmi> batchTraceabilityRmis = rmiMapper.queryList(queryRmi);
         log.error("上游原料返回参数,batchTraceabilityRmis=========》",batchTraceabilityRmis.toString());
@@ -91,6 +86,7 @@ public class ExcelServiceImpl implements ExcelService {
         manufacturer.setSkuJdecode(batchDto.getSkuJdecode());
         manufacturer.setProductionDate(batchDto.getProductionDate());
         manufacturer.setPsid(psid);
+        manufacturer.setRoleCode(roleCode);
         List<BatchTraceabilityManufacturer> batchTraceabilityManufacturer = manufacturerMapper.queryList(manufacturer);
 
         //获取整合中心
@@ -99,6 +95,7 @@ public class ExcelServiceImpl implements ExcelService {
         bilityCc.setSkuJdecode(batchDto.getSkuJdecode());
         bilityCc.setProductionDate(batchDto.getProductionDate());
         bilityCc.setPsid(psid);
+        bilityCc.setRoleCode(roleCode);
         List<BatchTraceabilityCc> batchTraceabilityCc = ccMapper.queryList(bilityCc);
 
         //获取物流中心
@@ -107,6 +104,7 @@ public class ExcelServiceImpl implements ExcelService {
         traceabilityLc.setSkuJdecode(batchDto.getSkuJdecode());
         traceabilityLc.setProductionDate(batchDto.getProductionDate());
         traceabilityLc.setPsid(psid);
+        traceabilityLc.setRoleCode(roleCode);
         List<BatchTraceabilityLc> batchTraceabilityLc = batchTraceabilityLcMapper.queryList(traceabilityLc);
 
         //获取餐厅中心
@@ -115,6 +113,7 @@ public class ExcelServiceImpl implements ExcelService {
         traceabilityStore.setSkuJdecode(batchDto.getSkuJdecode());
         traceabilityStore.setProductionDate(batchDto.getProductionDate());
         traceabilityStore.setPsid(psid);
+        traceabilityStore.setRoleCode(roleCode);
         List<BatchTraceabilityStore> batchTraceabilityStores = storeMapper.queryList(traceabilityStore);
 
         HSSFWorkbook wb = IqaExcelUtil.getHSSFWorkbook(
@@ -123,8 +122,8 @@ public class ExcelServiceImpl implements ExcelService {
                 batchTraceabilityManufacturer,
                 batchTraceabilityCc,
                 batchTraceabilityLc,
-                batchTraceabilityStores,
-                manufacturerName);
+                batchTraceabilityStores
+                );
         return wb;
     }
 
