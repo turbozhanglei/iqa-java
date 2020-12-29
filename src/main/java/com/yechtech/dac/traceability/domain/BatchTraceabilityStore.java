@@ -1,6 +1,7 @@
 package com.yechtech.dac.traceability.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -57,7 +58,7 @@ public class BatchTraceabilityStore extends Model<BatchTraceabilityStore> implem
     @ApiModelProperty(notes = "最晚到货日期")
     private Date latestdelvdate;
     @ApiModelProperty(notes = "到货数量")
-    private Integer quantity;
+    private BigDecimal quantity;
     @ApiModelProperty(notes = "采购单位")
     private String uom;
     @ApiModelProperty(notes = "psid")

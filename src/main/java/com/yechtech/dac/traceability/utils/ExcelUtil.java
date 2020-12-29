@@ -48,9 +48,15 @@ public class ExcelUtil {
             row.createCell(4).setCellValue(data.getProductionQty());
             row.createCell(5).setCellValue(data.getUom());
             row.createCell(6).setCellValue(data.getSupplierShipmentQty());
-            row.createCell(7).setCellValue(data.getReceivedQty());
-            row.createCell(8).setCellValue(data.getShipmentQty());
-            row.createCell(9).setCellValue(data.getInventoriesQty());
+            if (null != data.getReceivedQty()){
+                row.createCell(7).setCellValue(data.getReceivedQty().toString());
+            }
+            if (null != data.getShipmentQty()){
+                row.createCell(8).setCellValue(data.getShipmentQty().toString());
+            }
+            if (null != data.getInventoriesQty()){
+                row.createCell(9).setCellValue(data.getInventoriesQty().toString());
+            }
             if(null != data.getTraceRatio()){
                 row.createCell(10).setCellValue(data.getTraceRatio().toString());
             }

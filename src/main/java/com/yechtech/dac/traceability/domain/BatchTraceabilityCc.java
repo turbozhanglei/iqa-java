@@ -1,6 +1,7 @@
 package com.yechtech.dac.traceability.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -46,11 +47,11 @@ public class BatchTraceabilityCc extends Model<BatchTraceabilityCc> implements S
     @ApiModelProperty(notes = "出货至")
     private String receiver;
     @ApiModelProperty(notes = "到货数量")
-    private Integer receivedQty;
+    private BigDecimal receivedQty;
     @ApiModelProperty(notes = "出货数量")
-    private Integer shipmentQty;
+    private BigDecimal shipmentQty;
     @ApiModelProperty(notes = "在库数量")
-    private Integer inventoriesQty;
+    private BigDecimal inventoriesQty;
     @ApiModelProperty(notes = "采购单位")
     private String uom;
     @ApiModelProperty(notes = "出货code")

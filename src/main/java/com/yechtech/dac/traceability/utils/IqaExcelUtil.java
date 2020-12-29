@@ -204,19 +204,19 @@ public class IqaExcelUtil {
                 }
                 row.createCell(7).setCellValue(data.getCcNum());
                 if (null !=data.getCcReceivedQty()){
-                    row.createCell(8).setCellValue(data.getCcReceivedQty());
+                    row.createCell(8).setCellValue(data.getCcReceivedQty().toString());
                 }
                 if (null !=data.getCcInventoriesQty()){
-                    row.createCell(9).setCellValue(data.getCcInventoriesQty());
+                    row.createCell(9).setCellValue(data.getCcInventoriesQty().toString());
                 }
                 if(null !=data.getLcNum()){
                     row.createCell(10).setCellValue(data.getLcNum());
                 }
                 if (null !=data.getLcReceivedQty()){
-                    row.createCell(11).setCellValue(data.getLcReceivedQty());
+                    row.createCell(11).setCellValue(data.getLcReceivedQty().toString());
                 }
                 if (null !=data.getCcInventoriesQty()){
-                    row.createCell(12).setCellValue(data.getLcInventoriesQty());
+                    row.createCell(12).setCellValue(data.getLcInventoriesQty().toString());
                 }
                 if (null !=data.getFqaNum()){
                     row.createCell(13).setCellValue(data.getFqaNum());
@@ -281,14 +281,14 @@ public class IqaExcelUtil {
                     row.createCell(2).setCellValue(sdf.format(data.getEarliestdelvDate()));
                 }
                 if (null !=data.getReceivedQty()){
-                    row.createCell(3).setCellValue(data.getReceivedQty());
+                    row.createCell(3).setCellValue(data.getReceivedQty().toString());
                 }
                 if (null !=data.getInventoriesQty()){
-                    row.createCell(4).setCellValue(data.getInventoriesQty());
+                    row.createCell(4).setCellValue(data.getInventoriesQty().toString());
                 }
                 row.createCell(5).setCellValue(data.getReceiver());
                 if (null !=data.getShipmentQty()){
-                    row.createCell(6).setCellValue(data.getShipmentQty());
+                    row.createCell(6).setCellValue(data.getShipmentQty().toString());
                 }
                 row.createCell(7).setCellValue(data.getUom());
             }
@@ -307,16 +307,16 @@ public class IqaExcelUtil {
                     row.createCell(4).setCellValue(sdf.format(data.getEarliestdelvdate()));
                 }
                 if (null !=data.getReceivedQty()){
-                    row.createCell(5).setCellValue(data.getReceivedQty());
+                    row.createCell(5).setCellValue(data.getReceivedQty().toString());
                 }
                 if (null !=data.getInventoriesQty()){
-                    row.createCell(6).setCellValue(data.getInventoriesQty());
+                    row.createCell(6).setCellValue(data.getInventoriesQty().toString());
                 }
                 if (null !=data.getLatestshipdate()){
                     row.createCell(7).setCellValue(sdf.format(data.getLatestshipdate()));
                 }
                 if (null !=data.getShipmentQty()){
-                    row.createCell(8).setCellValue(data.getShipmentQty());
+                    row.createCell(8).setCellValue(data.getShipmentQty().toString());
                 }
                 row.createCell(9).setCellValue(data.getUom());
             }
@@ -336,7 +336,7 @@ public class IqaExcelUtil {
                     row.createCell(4).setCellValue(sdf.format(data.getEarliestdelvdate()));
                 }
                 if (null !=data.getQuantity()){
-                    row.createCell(5).setCellValue(data.getQuantity());
+                    row.createCell(5).setCellValue(data.getQuantity().toString());
                 }
                 if (null !=data.getLatestdelvdate()){
                     row.createCell(6).setCellValue(sdf.format(data.getLatestdelvdate()));

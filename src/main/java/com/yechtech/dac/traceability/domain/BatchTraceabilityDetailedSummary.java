@@ -48,15 +48,15 @@ public class BatchTraceabilityDetailedSummary extends Model<BatchTraceabilityDet
     @ApiModelProperty(notes = "整合中心个数")
     private Integer ccNum;
     @ApiModelProperty(notes = "整合中心到货数量")
-    private Integer ccReceivedQty;
+    private BigDecimal ccReceivedQty;
     @ApiModelProperty(notes = "整合中心库存数量")
-    private Integer ccInventoriesQty;
+    private BigDecimal ccInventoriesQty;
     @ApiModelProperty(notes = "物流中心个数")
     private Integer lcNum;
     @ApiModelProperty(notes = "物流中心到货数量")
-    private Integer lcReceivedQty;
+    private BigDecimal lcReceivedQty;
     @ApiModelProperty(notes = "物流中心库存数量")
-    private Integer lcInventoriesQty;
+    private BigDecimal lcInventoriesQty;
     @ApiModelProperty(notes = "FQA市场个数")
     private Integer fqaNum;
     @ApiModelProperty(notes = "餐厅个数")

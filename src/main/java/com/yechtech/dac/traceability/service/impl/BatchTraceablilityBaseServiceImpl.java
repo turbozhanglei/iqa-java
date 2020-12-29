@@ -194,7 +194,6 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
                 List<EdwDistore> resultBrand = edwDistoreMapper.query(edwDistore);
                 resultBrand.forEach(item->{
                     FilterConditionData filterConditionData = new FilterConditionData();
-//                    filterConditionData.setLable(item.getId().toString());
                     if (null != item){
                         if (StringUtils.isNotBlank(item.getBrandNameCn())){
                             filterConditionData.setValue(item.getBrandNameCn());
@@ -221,7 +220,6 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         BatchTraceabilityDetailedSummary batchTraceabilityDetailedSummary =new BatchTraceabilityDetailedSummary();
         SimpleDateFormat format =new SimpleDateFormat();
         QueryWrapper<DetailedSummary> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.eq("id",batchDto.getId());
         queryWrapper.eq("supplier_jdecode",batchDto.getSupplierJdecode());
         queryWrapper.eq("sku_jdecode",batchDto.getSkuJdecode());
         queryWrapper.eq("production_date",batchDto.getProductionDate());
@@ -335,7 +333,6 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
             if (StringUtils.isEmpty(bloo)){
                 return new DacResponse().message("用户信息已失效");
             }
-//            batchTraceabilityManufacturer.setPsid(bloo);
             batchTraceabilityManufacturer.setPsid(map.get("psid").toString());
             batchTraceabilityManufacturer.setRoleCode(map.get("roleCode").toString());
         }
@@ -363,7 +360,6 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
             if (StringUtils.isEmpty(bloo)){
                 return new DacResponse().message("用户信息已失效");
             }
-//            batchTraceabilityCc.setPsid(bloo);
             batchTraceabilityCc.setPsid(map.get("psid").toString());
             batchTraceabilityCc.setRoleCode(map.get("roleCode").toString());
         }
@@ -390,7 +386,6 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
             if (StringUtils.isEmpty(bloo)){
                 return new DacResponse().message("用户信息已失效");
             }
-//            batchTraceabilityLc.setPsid(bloo);
             batchTraceabilityLc.setPsid(map.get("psid").toString());
             batchTraceabilityLc.setRoleCode(map.get("roleCode").toString());
         }
@@ -417,7 +412,6 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
             if (StringUtils.isEmpty(bloo)){
                 return new DacResponse().message("用户信息已失效");
             }
-//            batchTraceabilityStore.setPsid(bloo);
             batchTraceabilityStore.setPsid(map.get("psid").toString());
             batchTraceabilityStore.setRoleCode(map.get("roleCode").toString());
         }
@@ -500,38 +494,6 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         }
         return info;
     }
-
-    private QueryWrapper<BatchTraceabilityMasterData> getMyApplyDtoQueryWrapper(BatchTraceabilityMasterDto queryRequest) {
-        QueryWrapper<BatchTraceabilityMasterData> qw = new QueryWrapper<>();
-
-        if (ObjectUtils.isNotNull(queryRequest.getSkuName())) {
-            qw.like("sku_name", queryRequest.getSkuName());
-        }
-        if (ObjectUtils.isNotNull(queryRequest.getManufacturerRmiName())) {
-            qw.like("manufacturer_name", queryRequest.getManufacturerName());
-        }
-        if (ObjectUtils.isNotNull(queryRequest.getProductionDate())) {
-            qw.like("production_date", queryRequest.getProductionDate());
-        }
-        if (ObjectUtils.isNotNull(queryRequest.getRmiSkuName())) {
-            qw.like("rmi_sku_name", queryRequest.getRmiSkuName());
-        }
-        if (ObjectUtils.isNotNull(queryRequest.getManufacturerRmiName())) {
-            qw.like("manufacturer_rmi_name",queryRequest.getManufacturerRmiName());
-        }
-        if (ObjectUtils.isNotNull(queryRequest.getRmiBatchNo())) {
-            qw.eq("rmi_batch_no",queryRequest.getRmiBatchNo());
-        }
-        if (ObjectUtils.isNotNull(queryRequest.getProductName())) {
-            qw.eq("sku_name",queryRequest.getProductName());
-        }
-        if (ObjectUtils.isNotNull(queryRequest.getRestBrand())) {
-            qw.like("rest_brand",queryRequest.getRestBrand());
-        }
-        return qw;
-    }
-
-
 
 
 }

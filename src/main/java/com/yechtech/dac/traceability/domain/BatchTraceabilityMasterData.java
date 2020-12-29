@@ -62,11 +62,11 @@ public class BatchTraceabilityMasterData extends Model<BatchTraceabilityMasterDa
     @ApiModelProperty(notes = "供应商发货数量")
     private Integer supplierShipmentQty;
     @ApiModelProperty(notes = "到货数量")
-    private Integer receivedQty;
+    private BigDecimal receivedQty;
     @ApiModelProperty(notes = "出货数量")
-    private Integer shipmentQty;
+    private BigDecimal shipmentQty;
     @ApiModelProperty(notes = "在库数量")
-    private Integer inventoriesQty;
+    private BigDecimal inventoriesQty;
     @ApiModelProperty(notes = "追溯率")
     private BigDecimal traceRatio;
     @ApiModelProperty(notes = "餐厅代码")
