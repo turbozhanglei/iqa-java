@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -173,7 +174,7 @@ public class BatchTraceablilityBaseController extends BaseController {
         List<BatchTraceabilityMasterData> list = batchTraceablilityBaseService.queryList(queryRequest);
         if(CollectionUtils.isNotEmpty(list)){
             title.add("品项名称");
-            title.add("供货商名称");
+            title.add("供应商名称");
             title.add("生产商名称");
             title.add("生产日期");
             title.add("生产量");
@@ -184,7 +185,8 @@ public class BatchTraceablilityBaseController extends BaseController {
             title.add("在货数量");
             title.add("追溯率");
             title.add("品项JDEcode");
-            title.add("供货商JDEcode");
+            title.add("供应商JDEcode");
+            title.add("生产商EQA编码");
             fileName = "批次追溯主档"+System.currentTimeMillis()+".xls";
             sheetName = "批次追溯主档";
             HSSFWorkbook wb= ExcelUtil.getHSSFWorkbook(sheetName, title, list, null,"reportLog");
@@ -257,5 +259,6 @@ public class BatchTraceablilityBaseController extends BaseController {
         }
         return info;
     }
+
 
 }

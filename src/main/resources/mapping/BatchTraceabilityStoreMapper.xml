@@ -55,6 +55,9 @@
             <if test="brandNameCn !=null and brandNameCn !=''">
                 a.brand_name_cn like Concat(#{brandNameCn},'%')  and
             </if>
+            <if test="manufacturerEqacode !=null">
+                a.manufacturer_eqacode = #{manufacturerEqacode} and
+            </if>
         </trim>
         limit 0,10
     </select>
@@ -87,6 +90,9 @@
             </if>
             <if test="productionDate !=null">
                 a.production_date = #{productionDate} and
+            </if>
+            <if test="manufacturerEqacode !=null">
+                a.manufacturer_eqacode = #{manufacturerEqacode} and
             </if>
         </trim>
         order by a.id desc
@@ -123,6 +129,9 @@
             <if test="BatchTraceabilityStore.productionDate !=null">
                 a.production_date = #{BatchTraceabilityStore.productionDate} and
             </if>
+            <if test="BatchTraceabilityStore.manufacturerEqacode !=null">
+                a.manufacturer_eqacode = #{BatchTraceabilityStore.manufacturerEqacode} and
+            </if>
         </trim>
         order by a.id desc limit #{startIndex},#{limit}
         ) b ON a.id = b.id
@@ -150,6 +159,9 @@
             </if>
             <if test="productionDate !=null">
                 a.production_date = #{productionDate} and
+            </if>
+            <if test="manufacturerEqacode !=null">
+                a.manufacturer_eqacode = #{manufacturerEqacode} and
             </if>
         </trim>
     </select>

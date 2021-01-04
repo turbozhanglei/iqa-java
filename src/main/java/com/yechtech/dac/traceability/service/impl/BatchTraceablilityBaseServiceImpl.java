@@ -236,6 +236,7 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         queryRmi.setManufacturerEqaCode(batchDto.getManufacturerEqaCode());
         queryRmi.setSkuJdecode(batchDto.getSkuJdecode());
         queryRmi.setProductionDate(batchDto.getProductionDate());
+        queryRmi.setSupplierJdecode(batchDto.getSupplierJdecode());
 
         List<BatchTraceabilityRmi> batchTraceabilityRmis = rmiMapper.query(queryRmi);
         if (CollectionUtils.isEmpty(batchTraceabilityRmis)){
@@ -249,6 +250,7 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         manufacturer.setManufacturerEqacode(batchDto.getManufacturerEqaCode());
         manufacturer.setSkuJdecode(batchDto.getSkuJdecode());
         manufacturer.setProductionDate(batchDto.getProductionDate());
+        manufacturer.setSupplierJdecode(batchDto.getSupplierJdecode());
         List<BatchTraceabilityManufacturer> batchTraceabilityManufacturer = manufacturerMapper.query(manufacturer);
         if (CollectionUtils.isEmpty(batchTraceabilityManufacturer)){
             batchTraceabilityDetailedSummary.setProductStauts(StatusType.Zero.getCode());
@@ -262,6 +264,7 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         bilityCc.setSupplierJdecode(batchDto.getSupplierJdecode());
         bilityCc.setSkuJdecode(batchDto.getSkuJdecode());
         bilityCc.setProductionDate(batchDto.getProductionDate());
+        bilityCc.setManufacturerEqacode(batchDto.getManufacturerEqaCode());
         List<BatchTraceabilityCc> batchTraceabilityCc = ccMapper.query(bilityCc);
         if (CollectionUtils.isEmpty(batchTraceabilityCc)){
             batchTraceabilityDetailedSummary.setIntegrationStauts(StatusType.Zero.getCode());
@@ -274,6 +277,7 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         traceabilityLc.setSupplierJdecode(batchDto.getSupplierJdecode());
         traceabilityLc.setSkuJdecode(batchDto.getSkuJdecode());
         traceabilityLc.setProductionDate(batchDto.getProductionDate());
+        traceabilityLc.setManufacturerEqacode(batchDto.getManufacturerEqaCode());
         List<BatchTraceabilityLc> batchTraceabilityLc = batchTraceabilityLcMapper.query(traceabilityLc);
         if (CollectionUtils.isEmpty(batchTraceabilityLc)){
             batchTraceabilityDetailedSummary.setLogisticsStauts(StatusType.Zero.getCode());
@@ -286,6 +290,7 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         traceabilityStore.setSupplierJdecode(batchDto.getSupplierJdecode());
         traceabilityStore.setSkuJdecode(batchDto.getSkuJdecode());
         traceabilityStore.setProductionDate(batchDto.getProductionDate());
+        traceabilityStore.setManufacturerEqacode(batchDto.getManufacturerEqaCode());
         List<BatchTraceabilityStore> batchTraceabilityStores = storeMapper.query(traceabilityStore);
         if (CollectionUtils.isEmpty(batchTraceabilityStores)){
             batchTraceabilityDetailedSummary.setRestaurantStatus(StatusType.Zero.getCode());
@@ -312,6 +317,7 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         batchTraceabilityRmi.setManufacturerEqaCode(batchDto.getManufacturerEqaCode());
         batchTraceabilityRmi.setSkuJdecode(batchDto.getSkuJdecode());
         batchTraceabilityRmi.setProductionDate(batchDto.getProductionDate());
+        batchTraceabilityRmi.setSupplierJdecode(batchDto.getSupplierJdecode());
 
         int startIndex = (batchDto.getPageNum() - 1) * batchDto.getPageSize();
         List<BatchTraceabilityRmi> list = rmiMapper.queryPage(startIndex, batchDto.getPageSize(), batchTraceabilityRmi);
@@ -340,6 +346,7 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         batchTraceabilityManufacturer.setManufacturerEqacode(batchDto.getManufacturerEqaCode());
         batchTraceabilityManufacturer.setSkuJdecode(batchDto.getSkuJdecode());
         batchTraceabilityManufacturer.setProductionDate(batchDto.getProductionDate());
+        batchTraceabilityManufacturer.setSupplierJdecode(batchDto.getSupplierJdecode());
         int startIndex = (batchDto.getPageNum() - 1) * batchDto.getPageSize();
         List<BatchTraceabilityManufacturer> list = manufacturerMapper.queryPage(startIndex, batchDto.getPageSize(), batchTraceabilityManufacturer);
         long count = manufacturerMapper.queryPageCount(batchTraceabilityManufacturer);
@@ -366,6 +373,7 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         batchTraceabilityCc.setSupplierJdecode(batchDto.getSupplierJdecode());
         batchTraceabilityCc.setSkuJdecode(batchDto.getSkuJdecode());
         batchTraceabilityCc.setProductionDate(batchDto.getProductionDate());
+        batchTraceabilityCc.setManufacturerEqacode(batchDto.getManufacturerEqaCode());
         int startIndex = (batchDto.getPageNum() - 1) * batchDto.getPageSize();
         List<BatchTraceabilityCc> list = ccMapper.queryPage(startIndex, batchDto.getPageSize(), batchTraceabilityCc);
         long count = ccMapper.queryPageCount(batchTraceabilityCc);
@@ -392,6 +400,7 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         batchTraceabilityLc.setSupplierJdecode(batchDto.getSupplierJdecode());
         batchTraceabilityLc.setSkuJdecode(batchDto.getSkuJdecode());
         batchTraceabilityLc.setProductionDate(batchDto.getProductionDate());
+        batchTraceabilityLc.setManufacturerEqacode(batchDto.getManufacturerEqaCode());
         int startIndex = (batchDto.getPageNum() - 1) * batchDto.getPageSize();
         List<BatchTraceabilityLc> list = batchTraceabilityLcMapper.queryPage(startIndex, batchDto.getPageSize(), batchTraceabilityLc);
         long count = batchTraceabilityLcMapper.queryPageCount(batchTraceabilityLc);
@@ -418,6 +427,7 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         batchTraceabilityStore.setSupplierJdecode(batchDto.getSupplierJdecode());
         batchTraceabilityStore.setSkuJdecode(batchDto.getSkuJdecode());
         batchTraceabilityStore.setProductionDate(batchDto.getProductionDate());
+        batchTraceabilityStore.setManufacturerEqacode(batchDto.getManufacturerEqaCode());
         int startIndex = (batchDto.getPageNum() - 1) * batchDto.getPageSize();
         List<BatchTraceabilityStore> list = storeMapper.queryPage(startIndex, batchDto.getPageSize(), batchTraceabilityStore);
         long count = storeMapper.queryPageCount(batchTraceabilityStore);

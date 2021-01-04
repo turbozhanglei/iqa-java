@@ -46,12 +46,16 @@
             <if test="skuJdecode != null and skuJdecode !=''">
                 a.sku_jdecode = #{skuJdecode} and
             </if>
+            <if test="supplierJdecode != null and supplierJdecode !=''">
+                a.supplier_jdecode = #{supplierJdecode} and
+            </if>
             <if test="manufacturerName != null and manufacturerName !=''">
                 a.manufacturer_name like Concat('%',#{manufacturerName},'%')  and
             </if>
             <if test="manufacturerRmiName != null and manufacturerRmiName !=''">
                 a.manufacturer_rmi_name like Concat('%',#{manufacturerRmiName},'%')  and
             </if>
+
         </trim>
         limit 0,10
     </select>
@@ -99,6 +103,9 @@
             </if>
             <if test="productionDate !=null">
                 a.production_date = #{productionDate} and
+            </if>
+            <if test="supplierJdecode != null and supplierJdecode !=''">
+                a.supplier_jdecode = #{supplierJdecode} and
             </if>
         </trim>
         order by a.id desc
@@ -166,8 +173,8 @@
             <if test="cdfactIqaBatchTraceabilityRmi.productionDate !=null">
                 a.production_date = #{cdfactIqaBatchTraceabilityRmi.productionDate} and
             </if>
-            <if test="cdfactIqaBatchTraceabilityRmi.quantity !=null">
-                a.quantity = #{cdfactIqaBatchTraceabilityRmi.quantity} and
+            <if test="cdfactIqaBatchTraceabilityRmi.supplierJdecode !=null and cdfactIqaBatchTraceabilityRmi.supplierJdecode !=''">
+                a.supplier_jdecode = #{cdfactIqaBatchTraceabilityRmi.supplierJdecode} and
             </if>
         </trim>
         order by a.id desc limit #{startIndex},#{limit}
@@ -220,6 +227,9 @@
             </if>
             <if test="productionDate !=null">
                 a.production_date = #{productionDate} and
+            </if>
+            <if test="supplierJdecode !=null and supplierJdecode !=''">
+                a.supplier_jdecode = #{supplierJdecode} and
             </if>
         </trim>
     </select>

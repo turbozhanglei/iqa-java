@@ -60,5 +60,7 @@ public class BatchTraceabilityCc extends Model<BatchTraceabilityCc> implements S
     private String psid;
     @ApiModelProperty(notes = "psid")
     private String roleCode;
+
+    private String manufacturerEqacode;
     
 }

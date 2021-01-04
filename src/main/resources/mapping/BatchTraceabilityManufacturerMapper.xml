@@ -125,6 +125,9 @@
             <if test="cdfactIqaBatchTraceabilityManufacturer.productionDate !=null">
                 a.production_date = #{cdfactIqaBatchTraceabilityManufacturer.productionDate} and
             </if>
+            <if test="cdfactIqaBatchTraceabilityManufacturer.supplierJdecode !=null">
+                a.supplier_jdecode = #{cdfactIqaBatchTraceabilityManufacturer.supplierJdecode} and
+            </if>
         </trim>
         order by a.id desc limit #{startIndex},#{limit}
     </select>
@@ -155,6 +158,9 @@
             </if>
             <if test="productionDate !=null">
                 a.production_date = #{productionDate} and
+            </if>
+            <if test="supplierJdecode !=null">
+                a.supplier_jdecode = #{supplierJdecode} and
             </if>
         </trim>
     </select>

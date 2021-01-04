@@ -50,6 +50,8 @@ public class BatchTraceabilityManufacturer extends Model<BatchTraceabilityManufa
     private String psid;
     @ApiModelProperty(notes = "psid")
     private String roleCode;
+    @ApiModelProperty(notes = "psid")
+    private String supplierJdecode;
 
     
 }

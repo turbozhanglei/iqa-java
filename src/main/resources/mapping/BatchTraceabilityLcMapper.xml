@@ -36,6 +36,9 @@
             <if test="productionDate !=null">
                 production_date = #{productionDate} and
             </if>
+            <if test="manufacturerEqacode !=null">
+                manufacturer_eqacode = #{manufacturerEqacode} and
+            </if>
         </trim>
         limit 0,10
     </select>
@@ -68,6 +71,9 @@
             </if>
             <if test="productionDate !=null">
                 a.production_date = #{productionDate} and
+            </if>
+            <if test="manufacturerEqacode !=null">
+                a.manufacturer_eqacode = #{manufacturerEqacode} and
             </if>
         </trim>
         order by a.id desc
@@ -104,6 +110,9 @@
             <if test="cdfactIqaBatchTraceabilityLc.productionDate !=null">
                 a.production_date = #{cdfactIqaBatchTraceabilityLc.productionDate} and
             </if>
+            <if test="cdfactIqaBatchTraceabilityLc.manufacturerEqacode !=null">
+                a.manufacturer_eqacode = #{cdfactIqaBatchTraceabilityLc.manufacturerEqacode} and
+            </if>
         </trim>
         order by a.id desc limit #{startIndex},#{limit}
         ) b ON a.id = b.id
@@ -131,6 +140,9 @@
             </if>
             <if test="productionDate !=null">
                 a.production_date = #{productionDate} and
+            </if>
+            <if test="manufacturerEqacode !=null">
+                a.manufacturer_eqacode = #{manufacturerEqacode} and
             </if>
         </trim>
     </select>

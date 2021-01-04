@@ -74,6 +74,7 @@ public class ExcelServiceImpl implements ExcelService {
         queryRmi.setManufacturerEqaCode(batchDto.getManufacturerEqaCode());
         queryRmi.setSkuJdecode(batchDto.getSkuJdecode());
         queryRmi.setProductionDate(batchDto.getProductionDate());
+        queryRmi.setSupplierJdecode(batchDto.getSupplierJdecode());
         queryRmi.setPsid(psid);
         queryRmi.setRoleCode(roleCode);
 
@@ -85,6 +86,7 @@ public class ExcelServiceImpl implements ExcelService {
         manufacturer.setManufacturerEqacode(batchDto.getManufacturerEqaCode());
         manufacturer.setSkuJdecode(batchDto.getSkuJdecode());
         manufacturer.setProductionDate(batchDto.getProductionDate());
+        manufacturer.setSupplierJdecode(batchDto.getSupplierJdecode());
         manufacturer.setPsid(psid);
         manufacturer.setRoleCode(roleCode);
         List<BatchTraceabilityManufacturer> batchTraceabilityManufacturer = manufacturerMapper.queryList(manufacturer);
@@ -94,6 +96,7 @@ public class ExcelServiceImpl implements ExcelService {
         bilityCc.setSupplierJdecode(batchDto.getSupplierJdecode());
         bilityCc.setSkuJdecode(batchDto.getSkuJdecode());
         bilityCc.setProductionDate(batchDto.getProductionDate());
+        bilityCc.setManufacturerEqacode(batchDto.getManufacturerEqaCode());
         bilityCc.setPsid(psid);
         bilityCc.setRoleCode(roleCode);
         List<BatchTraceabilityCc> batchTraceabilityCc = ccMapper.queryList(bilityCc);
@@ -103,6 +106,7 @@ public class ExcelServiceImpl implements ExcelService {
         traceabilityLc.setSupplierJdecode(batchDto.getSupplierJdecode());
         traceabilityLc.setSkuJdecode(batchDto.getSkuJdecode());
         traceabilityLc.setProductionDate(batchDto.getProductionDate());
+        traceabilityLc.setManufacturerEqacode(batchDto.getManufacturerEqaCode());
         traceabilityLc.setPsid(psid);
         traceabilityLc.setRoleCode(roleCode);
         List<BatchTraceabilityLc> batchTraceabilityLc = batchTraceabilityLcMapper.queryList(traceabilityLc);
@@ -112,6 +116,7 @@ public class ExcelServiceImpl implements ExcelService {
         traceabilityStore.setSupplierJdecode(batchDto.getSupplierJdecode());
         traceabilityStore.setSkuJdecode(batchDto.getSkuJdecode());
         traceabilityStore.setProductionDate(batchDto.getProductionDate());
+        traceabilityStore.setManufacturerEqacode(batchDto.getManufacturerEqaCode());
         traceabilityStore.setPsid(psid);
         traceabilityStore.setRoleCode(roleCode);
         List<BatchTraceabilityStore> batchTraceabilityStores = storeMapper.queryList(traceabilityStore);

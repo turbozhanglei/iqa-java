@@ -58,11 +58,13 @@ public class ExcelUtil {
                 row.createCell(9).setCellValue(data.getInventoriesQty().toString());
             }
             if(null != data.getTraceRatio()){
-                row.createCell(10).setCellValue(data.getTraceRatio().toString());
+                row.createCell(10).setCellValue(data.getTraceRatio().toPlainString());
             }
             row.createCell(11).setCellValue(data.getSkuJdecode());
             row.createCell(12).setCellValue(data.getSupplierJdecode());
+            row.createCell(13).setCellValue(data.getManufacturerEqaCode());
         }
         return workbook;
     }
+
 }

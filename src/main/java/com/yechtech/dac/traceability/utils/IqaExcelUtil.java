@@ -97,7 +97,8 @@ public class IqaExcelUtil {
         resTitle.add("最早到货日期");
         resTitle.add("出货数量");
         resTitle.add("最晚到货日期");
-        resTitle.add("来源LC");
+        resTitle.add("来源LC编码");
+        resTitle.add("来源LC名称");
         resTitle.add("采购单位");
 
 
@@ -227,7 +228,7 @@ public class IqaExcelUtil {
                 row.createCell(15).setCellValue(data.getSkuJdecode());
                 row.createCell(16).setCellValue(data.getSupplierJdecode());
                 if (null !=data.getTraceRatio()){
-                    row.createCell(17).setCellValue(data.getTraceRatio().toString());
+                    row.createCell(17).setCellValue(data.getTraceRatio().toPlainString());
                 }
 
             }
@@ -341,8 +342,9 @@ public class IqaExcelUtil {
                 if (null !=data.getLatestdelvdate()){
                     row.createCell(6).setCellValue(sdf.format(data.getLatestdelvdate()));
                 }
-                row.createCell(7).setCellValue(data.getSlcNameLc());
-                row.createCell(8).setCellValue(data.getUom());
+                row.createCell(7).setCellValue(data.getSlcCodeLc());
+                row.createCell(8).setCellValue(data.getSlcNameLc());
+                row.createCell(9).setCellValue(data.getUom());
             }
         }
         return workbook;
