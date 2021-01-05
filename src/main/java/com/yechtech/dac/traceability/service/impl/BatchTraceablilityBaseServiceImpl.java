@@ -77,6 +77,9 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
     @Resource
     EdwDistoreMapper edwDistoreMapper;
 
+    @Resource
+    OdsIqaManuSkuRelMapper odsIqaManuSkuRelMapper;
+
 
     @Override
     public DacResponse
@@ -120,7 +123,9 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
                 roleCode = map.get("roleCode").toString();
             }
         }
+
         List<FilterConditionData> responseList  = new ArrayList<>();
+        List<FilterConditionData> linkList  = new ArrayList<>();
         switch (batchDto.getType()){
             case 1:
                 //品项名称
@@ -131,22 +136,36 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
                 List<EdwDisku> resultList = edwDiskuMapper.query(edwDisku);
                 resultList.forEach(item->{
                     FilterConditionData filterConditionData = new FilterConditionData();
-                    filterConditionData.setLable(item.getId().toString());
+                    filterConditionData.setLable(item.getSkuCode());
                     filterConditionData.setValue(item.getSkuName());
                     responseList.add(filterConditionData);
                 });
                 break;
             case 2:
-                //生产商名称
-                EdwDimanufacturer edwDimanufacturer =new EdwDimanufacturer();
-                edwDimanufacturer.setManufacturerCnName(batchDto.getManufacturerName());
-                List<EdwDimanufacturer> resultManufacturerList = edwDimanufacturerMapper.query(edwDimanufacturer);
-                resultManufacturerList.forEach(item->{
-                    FilterConditionData filterConditionData = new FilterConditionData();
-                    filterConditionData.setLable(item.getId().toString());
-                    filterConditionData.setValue(item.getManufacturerCnName());
-                    responseList.add(filterConditionData);
-                });
+                //联调
+                if (StringUtils.isNotBlank(batchDto.getSkuJdeCode())){
+                    OdsIqaManuSkuRel odsIqaManuSkuRel=new OdsIqaManuSkuRel();
+                    odsIqaManuSkuRel.setSkuJdecode(batchDto.getSkuJdeCode());
+                    odsIqaManuSkuRel.setStatus("ENABLE");
+                    List<OdsIqaManuSkuRel> relList = odsIqaManuSkuRelMapper.query(odsIqaManuSkuRel);
+                    relList.forEach(item->{
+                        FilterConditionData filterConditionData = new FilterConditionData();
+                        filterConditionData.setLable(item.getId());
+                        filterConditionData.setValue(item.getManufacturerCnName());
+                        responseList.add(filterConditionData);
+                    });
+                }else {
+                    //生产商名称
+                    EdwDimanufacturer edwDimanufacturer =new EdwDimanufacturer();
+                    edwDimanufacturer.setManufacturerCnName(batchDto.getManufacturerName());
+                    List<EdwDimanufacturer> resultManufacturerList = edwDimanufacturerMapper.query(edwDimanufacturer);
+                    resultManufacturerList.forEach(item->{
+                        FilterConditionData filterConditionData = new FilterConditionData();
+                        filterConditionData.setLable(item.getId().toString());
+                        filterConditionData.setValue(item.getManufacturerCnName());
+                        responseList.add(filterConditionData);
+                    });
+                }
                 break;
             case 3:
                 //原料名称

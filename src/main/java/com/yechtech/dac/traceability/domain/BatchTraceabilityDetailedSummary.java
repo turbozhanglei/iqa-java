@@ -73,5 +73,7 @@ public class BatchTraceabilityDetailedSummary extends Model<BatchTraceabilityDet
     private Integer logisticsStauts;
     @ApiModelProperty(notes = "餐厅中心status")
     private Integer restaurantStatus;
+    private String manufacturerEqacode;
+    private String manufacturerName;
     
 }

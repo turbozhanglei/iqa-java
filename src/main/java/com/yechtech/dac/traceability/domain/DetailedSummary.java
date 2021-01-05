@@ -64,6 +64,7 @@ public class DetailedSummary extends Model<DetailedSummary> implements Serializa
     @ApiModelProperty(notes = "追溯率")
     private BigDecimal traceRatio;
     private String manufacturerName;
+    private String manufacturerEqacode;
 
     
 }

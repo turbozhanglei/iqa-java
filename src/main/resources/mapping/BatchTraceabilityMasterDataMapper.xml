@@ -69,7 +69,8 @@
         supplier_shipment_qty,
         received_qty,
         sum(shipment_qty) AS shipment_qty,
-        inventories_qty
+        inventories_qty,
+        batch_no
         FROM
         (
         SELECT
@@ -88,7 +89,8 @@
         a.supplier_shipment_qty,
         a.received_qty,
         a.shipment_qty,
-        a.inventories_qty
+        a.inventories_qty,
+        a.batch_no
         FROM
         cdm_fact_iqa_batch_traceability_master_data a
         <if test="cdfactIqaBatchTraceabilityMasterData.roleCode !='' and cdfactIqaBatchTraceabilityMasterData.roleCode != 'BATCH_TRACE_ALL_DATA'.toString()">
@@ -148,7 +150,9 @@
         supplier_shipment_qty,
         received_qty,
         shipment_qty,
-        inventories_qty
+        inventories_qty,
+        store_code,
+        batch_no
         ) shipment_qty
         GROUP BY
         DateKey,
@@ -165,7 +169,8 @@
         supplier_shipment_qty,
         received_qty,
         inventories_qty,
-        production_qty
+        production_qty,
+        batch_no
         ) production_qty
         GROUP BY
         DateKey,

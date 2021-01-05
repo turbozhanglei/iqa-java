@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://Mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yechtech.dac.traceability.dao.OdsIqaManuSkuRelMapper">
+    <resultMap id="odsIqaManuSkuRelMap" type="com.yechtech.dac.traceability.domain.OdsIqaManuSkuRel">
+        <result property="id" column="id"/>
+        <result property="manufacturerId" column="manufacturer_id"/>
+        <result property="manufacturerEqacode" column="manufacturer_eqacode"/>
+        <result property="skuId" column="sku_id"/>
+        <result property="skuJdecode" column="sku_jdecode"/>
+        <result property="status" column="status"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updator" column="updator"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+
+    <select id="queryByPrimaryKey" resultMap="odsIqaManuSkuRelMap">
+        select * from ods_iqa_manu_sku_rel where id = #{id}
+    </select>
+
+    <select id="query" resultMap="odsIqaManuSkuRelMap">
+        SELECT
+        a.manufacturer_eqacode,b.manufacturer_cn_name,b.id
+        FROM
+        ods_iqa_manu_sku_rel a
+        LEFT JOIN edw_dim_manufacturer b on a.manufacturer_eqacode =b.manufacturer_eqa_code
+        where
+        <trim suffixOverrides="and" >
+            1=1 and
+            <if test="manufacturerEqacode !=null and manufacturerEqacode !=''">
+                a.manufacturer_eqacode = #{manufacturerEqacode} and
+            </if>
+            <if test="skuId !=null and skuId !=''">
+                a.sku_id = #{skuId} and
+            </if>
+            <if test="skuJdecode !=null and skuJdecode !=''">
+                a.sku_jdecode = #{skuJdecode} and
+            </if>
+            <if test="status !=null and status !=''">
+                a.status = #{status} and
+            </if>
+        </trim>
+    </select>
+
+    <!-- 分页查询 -->
+    <select id="queryPage" resultMap="odsIqaManuSkuRelMap">
+        select * from ods_iqa_manu_sku_rel
+        where
+        <trim suffixOverrides="and" >
+            1=1 and
+            <if test="odsIqaManuSkuRel.manufacturerId">
+                manufacturer_id = #{odsIqaManuSkuRel.manufacturerId} and
+            </if>
+            <if test="odsIqaManuSkuRel.manufacturerEqacode">
+                manufacturer_eqacode = #{odsIqaManuSkuRel.manufacturerEqacode} and
+            </if>
+            <if test="odsIqaManuSkuRel.skuId">
+                sku_id = #{odsIqaManuSkuRel.skuId} and
+            </if>
+            <if test="odsIqaManuSkuRel.skuJdecode">
+                sku_jdecode = #{odsIqaManuSkuRel.skuJdecode} and
+            </if>
+            <if test="odsIqaManuSkuRel.status">
+                status = #{odsIqaManuSkuRel.status} and
+            </if>
+            <if test="odsIqaManuSkuRel.creator">
+                creator = #{odsIqaManuSkuRel.creator} and
+            </if>
+            <if test="odsIqaManuSkuRel.createTime">
+                create_time = #{odsIqaManuSkuRel.createTime} and
+            </if>
+            <if test="odsIqaManuSkuRel.updator">
+                updator = #{odsIqaManuSkuRel.updator} and
+            </if>
+            <if test="odsIqaManuSkuRel.updateTime">
+                update_time = #{odsIqaManuSkuRel.updateTime} and
+            </if>
+            </trim>
+        order by id desc limit #{startIndex},#{limit}
+    </select>
+
+    <select id="queryPageCount" resultType="java.lang.Long">
+        select count(*) from ods_iqa_manu_sku_rel
+        where
+        <trim suffixOverrides="and" >
+            1=1 and
+            <if test="manufacturerId">
+                manufacturer_id = #{manufacturerId} and
+            </if>
+            <if test="manufacturerEqacode">
+                manufacturer_eqacode = #{manufacturerEqacode} and
+            </if>
+            <if test="skuId">
+                sku_id = #{skuId} and
+            </if>
+            <if test="skuJdecode">
+                sku_jdecode = #{skuJdecode} and
+            </if>
+            <if test="status">
+                status = #{status} and
+            </if>
+            <if test="creator">
+                creator = #{creator} and
+            </if>
+            <if test="createTime">
+                create_time = #{createTime} and
+            </if>
+            <if test="updator">
+                updator = #{updator} and
+            </if>
+            <if test="updateTime">
+                update_time = #{updateTime} and
+            </if>
+            </trim>
+    </select>
+
+</mapper>

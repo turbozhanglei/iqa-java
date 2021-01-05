@@ -7,6 +7,8 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.poi.hssf.usermodel.*;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,8 @@ public class IqaExcelUtil {
                                                List<BatchTraceabilityLc> logisticsList,
                                                List<BatchTraceabilityStore> resList
                                                ) {
+        NumberFormat percent = NumberFormat.getPercentInstance();
+        percent.setMaximumFractionDigits(2);
         List<String> sumTitle=new ArrayList<>();
         sumTitle.add("品项名称");
         sumTitle.add("供应商名称");
@@ -227,8 +231,12 @@ public class IqaExcelUtil {
                 }
                 row.createCell(15).setCellValue(data.getSkuJdecode());
                 row.createCell(16).setCellValue(data.getSupplierJdecode());
+                row.createCell(17).setCellValue(data.getManufacturerEqacode());
                 if (null !=data.getTraceRatio()){
-                    row.createCell(17).setCellValue(data.getTraceRatio().toPlainString());
+//                    row.createCell(17).setCellValue(data.getTraceRatio().toPlainString());
+                    row.createCell(18).setCellValue(percent.format(data.getTraceRatio().setScale(4, BigDecimal.ROUND_DOWN)));
+                }else {
+                    row.createCell(18).setCellValue("0.00%");
                 }
 
             }

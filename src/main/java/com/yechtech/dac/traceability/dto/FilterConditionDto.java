@@ -36,6 +36,8 @@ public class FilterConditionDto implements Serializable {
     private Integer type;
     @ApiModelProperty(notes = "用户token")
     private String tokenIqa;
+    @ApiModelProperty(notes = "品牌名称")
+    private String skuJdeCode;
 
 
 }

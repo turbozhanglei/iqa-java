@@ -179,7 +179,7 @@ public class BatchTraceablilityBaseController extends BaseController {
             title.add("生产日期");
             title.add("生产量");
             title.add("采购单位");
-            title.add("供货商发货数量");
+            title.add("供应商发货数量");
             title.add("到货数量");
             title.add("出货数量");
             title.add("在货数量");

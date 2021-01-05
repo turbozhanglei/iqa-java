@@ -118,7 +118,7 @@
 
     <select id="query" resultMap="edwDiskuMap">
         select
-        a.SKU_Name,a.id
+        a.SKU_Name,a.id,a.Sku_Code
         from edw_dim_sku a
         <if test="roleCode !='' and roleCode != 'BATCH_TRACE_ALL_DATA'.toString()">
             INNER JOIN edw_iqa_sqa_sku_relation eskr ON eskr.sku_jdecode = a.sku_code

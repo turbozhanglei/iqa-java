@@ -3,6 +3,9 @@ package com.yechtech.dac.traceability.utils;
 import com.yechtech.dac.traceability.domain.BatchTraceabilityMasterData;
 import org.apache.poi.hssf.usermodel.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -16,6 +19,8 @@ public class ExcelUtil {
      */
     public static HSSFWorkbook getHSSFWorkbook(String sheetName, List<String> title, List list, HSSFWorkbook wb, String type) {
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        NumberFormat percent = NumberFormat.getPercentInstance();
+        percent.setMaximumFractionDigits(2);
         // 第一步，创建一个HSSFWorkbook，对应一个Excel文件
         //声明一个工作簿
         HSSFWorkbook workbook = new HSSFWorkbook();
@@ -58,13 +63,24 @@ public class ExcelUtil {
                 row.createCell(9).setCellValue(data.getInventoriesQty().toString());
             }
             if(null != data.getTraceRatio()){
-                row.createCell(10).setCellValue(data.getTraceRatio().toPlainString());
+//                row.createCell(10).setCellValue(data.getTraceRatio().setScale(2, RoundingMode.HALF_UP).toPlainString());
+                row.createCell(10).setCellValue(percent.format(data.getTraceRatio().setScale(4, BigDecimal.ROUND_DOWN)));
+            }else {
+                row.createCell(10).setCellValue("0.00%");
             }
             row.createCell(11).setCellValue(data.getSkuJdecode());
             row.createCell(12).setCellValue(data.getSupplierJdecode());
             row.createCell(13).setCellValue(data.getManufacturerEqaCode());
         }
         return workbook;
+    }
+
+    public static void main(String[] args) {
+        BigDecimal bigDecimal=new BigDecimal("1.12345678952");
+        NumberFormat percent = NumberFormat.getPercentInstance();
+        percent.setMaximumFractionDigits(2);
+//        System.out.println(bigDecimal.setScale(4,BigDecimal.ROUND_DOWN));
+        System.out.println(percent.format(bigDecimal.setScale(4, BigDecimal.ROUND_DOWN)));
     }
 
 }
