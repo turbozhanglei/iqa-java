@@ -20,6 +20,7 @@
         <result property="shipmentQty" column="shipment_qty"/>
         <result property="inventoriesQty" column="inventories_qty"/>
         <result property="uom" column="UOM"/>
+        <result property="warehouseCategory" column="warehouse_category"/>
     </resultMap>
 
 

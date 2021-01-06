@@ -79,6 +79,7 @@ public class IqaExcelUtil {
         integrationTitle.add("出货至");
         integrationTitle.add("出货数量");
         integrationTitle.add("采购单位");
+        integrationTitle.add("仓库类型");
 
         List<String> logisticsTitle=new ArrayList<>();
         logisticsTitle.add("整合中心Code");
@@ -91,6 +92,7 @@ public class IqaExcelUtil {
         logisticsTitle.add("最晚出货日期");
         logisticsTitle.add("出货数量");
         logisticsTitle.add("采购单位");
+        logisticsTitle.add("仓库类型");
 
 
         List<String> resTitle=new ArrayList<>();
@@ -233,7 +235,6 @@ public class IqaExcelUtil {
                 row.createCell(16).setCellValue(data.getSupplierJdecode());
                 row.createCell(17).setCellValue(data.getManufacturerEqacode());
                 if (null !=data.getTraceRatio()){
-//                    row.createCell(17).setCellValue(data.getTraceRatio().toPlainString());
                     row.createCell(18).setCellValue(percent.format(data.getTraceRatio().setScale(4, BigDecimal.ROUND_DOWN)));
                 }else {
                     row.createCell(18).setCellValue("0.00%");
@@ -300,6 +301,7 @@ public class IqaExcelUtil {
                     row.createCell(6).setCellValue(data.getShipmentQty().toString());
                 }
                 row.createCell(7).setCellValue(data.getUom());
+                row.createCell(8).setCellValue(data.getWarehouseCategory());
             }
         }
         if (CollectionUtils.isNotEmpty(logisticsList)){
@@ -328,6 +330,7 @@ public class IqaExcelUtil {
                     row.createCell(8).setCellValue(data.getShipmentQty().toString());
                 }
                 row.createCell(9).setCellValue(data.getUom());
+                row.createCell(10).setCellValue(data.getWarehouseCategory());
             }
         }
 

@@ -18,6 +18,7 @@
         <result property="shipmentQty" column="shipment_qty"/>
         <result property="inventoriesQty" column="inventories_qty"/>
         <result property="uom" column="UOM"/>
+        <result property="warehouseCategory" column="warehouse_category"/>
     </resultMap>
 
     <select id="query" resultMap="cdfactIqaBatchTraceabilityCcMap">
@@ -57,7 +58,8 @@
         a.received_qty,
         a.shipment_qty,
         a.inventories_qty,
-        a.UOM
+        a.UOM,
+        a.warehouse_category
         FROM
         cdm_fact_iqa_batch_traceability_cc a
         <if test="roleCode !='' and roleCode != 'BATCH_TRACE_ALL_DATA'.toString()">
@@ -107,7 +109,8 @@
         a.received_qty,
         a.shipment_qty,
         a.inventories_qty,
-        a.UOM
+        a.UOM,
+        a.warehouse_category
         FROM
         cdm_fact_iqa_batch_traceability_cc a
         <if test="cdfactIqaBatchTraceabilityCc.roleCode !='' and  cdfactIqaBatchTraceabilityCc.roleCode != 'BATCH_TRACE_ALL_DATA'.toString()">
