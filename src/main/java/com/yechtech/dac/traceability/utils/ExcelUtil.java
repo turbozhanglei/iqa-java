@@ -65,7 +65,7 @@ public class ExcelUtil {
             if(null != data.getTraceRatio()){
                 row.createCell(10).setCellValue(percent.format(data.getTraceRatio().setScale(4, BigDecimal.ROUND_HALF_UP)));
             }else {
-                row.createCell(10).setCellValue("0.00%");
+                row.createCell(10).setCellValue("0%");
             }
             row.createCell(11).setCellValue(data.getSkuJdecode());
             row.createCell(12).setCellValue(data.getSupplierJdecode());

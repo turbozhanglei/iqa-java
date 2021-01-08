@@ -107,7 +107,7 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
             if (null !=data.getTraceRatio()){
                 data.setRetrospective(percent.format(data.getTraceRatio().setScale(4, BigDecimal.ROUND_HALF_UP)));
             }else {
-                data.setRetrospective("0.00%");
+                data.setRetrospective("0%");
             }
         });
         PageResult pageResult = new PageResult();
@@ -265,7 +265,7 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
             if (null !=batchTraceabilityDetailedSummary.getTraceRatio()){
                 batchTraceabilityDetailedSummary.setRetrospective(percent.format(batchTraceabilityDetailedSummary.getTraceRatio().setScale(4, BigDecimal.ROUND_HALF_UP)));
             }else {
-                batchTraceabilityDetailedSummary.setRetrospective("0.00%");
+                batchTraceabilityDetailedSummary.setRetrospective("0%");
             }
         }
 

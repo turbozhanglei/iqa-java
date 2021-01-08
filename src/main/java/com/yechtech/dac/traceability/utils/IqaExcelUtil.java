@@ -241,7 +241,7 @@ public class IqaExcelUtil {
                 if (null !=data.getTraceRatio()){
                     row.createCell(18).setCellValue(percent.format(data.getTraceRatio().setScale(4, BigDecimal.ROUND_HALF_UP)));
                 }else {
-                    row.createCell(18).setCellValue("0.00%");
+                    row.createCell(18).setCellValue("0%");
                 }
 
             }
