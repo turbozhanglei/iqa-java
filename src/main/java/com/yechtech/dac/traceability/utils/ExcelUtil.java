@@ -63,8 +63,7 @@ public class ExcelUtil {
                 row.createCell(9).setCellValue(data.getInventoriesQty().toString());
             }
             if(null != data.getTraceRatio()){
-//                row.createCell(10).setCellValue(data.getTraceRatio().setScale(2, RoundingMode.HALF_UP).toPlainString());
-                row.createCell(10).setCellValue(percent.format(data.getTraceRatio().setScale(4, BigDecimal.ROUND_DOWN)));
+                row.createCell(10).setCellValue(percent.format(data.getTraceRatio().setScale(4, BigDecimal.ROUND_HALF_UP)));
             }else {
                 row.createCell(10).setCellValue("0.00%");
             }
@@ -75,12 +74,5 @@ public class ExcelUtil {
         return workbook;
     }
 
-    public static void main(String[] args) {
-        BigDecimal bigDecimal=new BigDecimal("1.12345678952");
-        NumberFormat percent = NumberFormat.getPercentInstance();
-        percent.setMaximumFractionDigits(2);
-//        System.out.println(bigDecimal.setScale(4,BigDecimal.ROUND_DOWN));
-        System.out.println(percent.format(bigDecimal.setScale(4, BigDecimal.ROUND_DOWN)));
-    }
 
 }

@@ -182,11 +182,11 @@ public class BatchTraceablilityBaseController extends BaseController {
             title.add("供应商发货数量");
             title.add("到货数量");
             title.add("出货数量");
-            title.add("在货数量");
+            title.add("在库数量");
             title.add("追溯率");
-            title.add("品项JDEcode");
-            title.add("供应商JDEcode");
-            title.add("生产商EQA编码");
+            title.add("品项JDE Code");
+            title.add("供应商JDE Code");
+            title.add("生产商EQA Code");
             fileName = "批次追溯主档"+System.currentTimeMillis()+".xls";
             sheetName = "批次追溯主档";
             HSSFWorkbook wb= ExcelUtil.getHSSFWorkbook(sheetName, title, list, null,"reportLog");

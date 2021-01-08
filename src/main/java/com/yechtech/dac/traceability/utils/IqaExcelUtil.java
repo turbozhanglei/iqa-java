@@ -52,8 +52,9 @@ public class IqaExcelUtil {
         sumTitle.add("物流中心库存数量");
         sumTitle.add("FQA市场个数");
         sumTitle.add("餐厅个数");
-        sumTitle.add("品项JDEcode");
-        sumTitle.add("供应商JDEcode");
+        sumTitle.add("品项JDE Code");
+        sumTitle.add("供应商JDE Code");
+        sumTitle.add("生产商EQA Code");
         sumTitle.add("追溯率");
 
         List<String> materialTitle=new ArrayList<>();
@@ -73,26 +74,28 @@ public class IqaExcelUtil {
         List<String> integrationTitle=new ArrayList<>();
         integrationTitle.add("整合中心Code");
         integrationTitle.add("整合中心名称");
+        integrationTitle.add("仓库类型");
         integrationTitle.add("最早到货日期");
         integrationTitle.add("到货数量");
         integrationTitle.add("库存数量");
         integrationTitle.add("出货至");
         integrationTitle.add("出货数量");
         integrationTitle.add("采购单位");
-        integrationTitle.add("仓库类型");
+
 
         List<String> logisticsTitle=new ArrayList<>();
         logisticsTitle.add("整合中心Code");
         logisticsTitle.add("整合中心名称");
         logisticsTitle.add("物流中心Code");
         logisticsTitle.add("物流中心名称");
+        logisticsTitle.add("仓库类型");
         logisticsTitle.add("最早到货日期");
         logisticsTitle.add("到货数量");
         logisticsTitle.add("库存数量");
         logisticsTitle.add("最晚出货日期");
         logisticsTitle.add("出货数量");
         logisticsTitle.add("采购单位");
-        logisticsTitle.add("仓库类型");
+
 
 
         List<String> resTitle=new ArrayList<>();
@@ -100,8 +103,9 @@ public class IqaExcelUtil {
         resTitle.add("餐厅名称");
         resTitle.add("品牌");
         resTitle.add("FQA市场");
+        resTitle.add("FQA市场Code");
         resTitle.add("最早到货日期");
-        resTitle.add("出货数量");
+        resTitle.add("到货数量");
         resTitle.add("最晚到货日期");
         resTitle.add("来源LC编码");
         resTitle.add("来源LC名称");
@@ -235,7 +239,7 @@ public class IqaExcelUtil {
                 row.createCell(16).setCellValue(data.getSupplierJdecode());
                 row.createCell(17).setCellValue(data.getManufacturerEqacode());
                 if (null !=data.getTraceRatio()){
-                    row.createCell(18).setCellValue(percent.format(data.getTraceRatio().setScale(4, BigDecimal.ROUND_DOWN)));
+                    row.createCell(18).setCellValue(percent.format(data.getTraceRatio().setScale(4, BigDecimal.ROUND_HALF_UP)));
                 }else {
                     row.createCell(18).setCellValue("0.00%");
                 }
@@ -287,21 +291,21 @@ public class IqaExcelUtil {
                 BatchTraceabilityCc data = integrationList.get(i);
                 row.createCell(0).setCellValue(data.getSlcCodeCc());
                 row.createCell(1).setCellValue(data.getSlcNameCc());
+                row.createCell(2).setCellValue(data.getWarehouseCategory());
                 if (null !=data.getEarliestdelvDate()){
-                    row.createCell(2).setCellValue(sdf.format(data.getEarliestdelvDate()));
+                    row.createCell(3).setCellValue(sdf.format(data.getEarliestdelvDate()));
                 }
                 if (null !=data.getReceivedQty()){
-                    row.createCell(3).setCellValue(data.getReceivedQty().toString());
+                    row.createCell(4).setCellValue(data.getReceivedQty().toString());
                 }
                 if (null !=data.getInventoriesQty()){
-                    row.createCell(4).setCellValue(data.getInventoriesQty().toString());
+                    row.createCell(5).setCellValue(data.getInventoriesQty().toString());
                 }
-                row.createCell(5).setCellValue(data.getReceiver());
+                row.createCell(6).setCellValue(data.getReceiver());
                 if (null !=data.getShipmentQty()){
-                    row.createCell(6).setCellValue(data.getShipmentQty().toString());
+                    row.createCell(7).setCellValue(data.getShipmentQty().toString());
                 }
-                row.createCell(7).setCellValue(data.getUom());
-                row.createCell(8).setCellValue(data.getWarehouseCategory());
+                row.createCell(8).setCellValue(data.getUom());
             }
         }
         if (CollectionUtils.isNotEmpty(logisticsList)){
@@ -314,23 +318,25 @@ public class IqaExcelUtil {
                 row.createCell(1).setCellValue(data.getSlcNameCc());
                 row.createCell(2).setCellValue(data.getSlcCodeLc());
                 row.createCell(3).setCellValue(data.getSlcNameLc());
+                row.createCell(4).setCellValue(data.getWarehouseCategory());
                 if (null !=data.getEarliestdelvdate()){
-                    row.createCell(4).setCellValue(sdf.format(data.getEarliestdelvdate()));
+                    row.createCell(5).setCellValue(sdf.format(data.getEarliestdelvdate()));
                 }
+
                 if (null !=data.getReceivedQty()){
-                    row.createCell(5).setCellValue(data.getReceivedQty().toString());
+                    row.createCell(6).setCellValue(data.getReceivedQty().toString());
                 }
                 if (null !=data.getInventoriesQty()){
-                    row.createCell(6).setCellValue(data.getInventoriesQty().toString());
+                    row.createCell(7).setCellValue(data.getInventoriesQty().toString());
                 }
                 if (null !=data.getLatestshipdate()){
-                    row.createCell(7).setCellValue(sdf.format(data.getLatestshipdate()));
+                    row.createCell(8).setCellValue(sdf.format(data.getLatestshipdate()));
                 }
                 if (null !=data.getShipmentQty()){
-                    row.createCell(8).setCellValue(data.getShipmentQty().toString());
+                    row.createCell(9).setCellValue(data.getShipmentQty().toString());
                 }
-                row.createCell(9).setCellValue(data.getUom());
-                row.createCell(10).setCellValue(data.getWarehouseCategory());
+                row.createCell(10).setCellValue(data.getUom());
+
             }
         }
 
@@ -343,19 +349,20 @@ public class IqaExcelUtil {
                 row.createCell(0).setCellValue(data.getStoreCode());
                 row.createCell(1).setCellValue(data.getStoreName());
                 row.createCell(2).setCellValue(data.getBrandNameCn());
-                row.createCell(3).setCellValue(data.getFqaMarketcode());
+                row.createCell(3).setCellValue(data.getFqaMarketname());
+                row.createCell(4).setCellValue(data.getFqaMarketcode());
                 if (null !=data.getEarliestdelvdate()){
-                    row.createCell(4).setCellValue(sdf.format(data.getEarliestdelvdate()));
+                    row.createCell(5).setCellValue(sdf.format(data.getEarliestdelvdate()));
                 }
                 if (null !=data.getQuantity()){
-                    row.createCell(5).setCellValue(data.getQuantity().toString());
+                    row.createCell(6).setCellValue(data.getQuantity().toString());
                 }
                 if (null !=data.getLatestdelvdate()){
-                    row.createCell(6).setCellValue(sdf.format(data.getLatestdelvdate()));
+                    row.createCell(7).setCellValue(sdf.format(data.getLatestdelvdate()));
                 }
-                row.createCell(7).setCellValue(data.getSlcCodeLc());
-                row.createCell(8).setCellValue(data.getSlcNameLc());
-                row.createCell(9).setCellValue(data.getUom());
+                row.createCell(8).setCellValue(data.getSlcCodeLc());
+                row.createCell(9).setCellValue(data.getSlcNameLc());
+                row.createCell(10).setCellValue(data.getUom());
             }
         }
         return workbook;

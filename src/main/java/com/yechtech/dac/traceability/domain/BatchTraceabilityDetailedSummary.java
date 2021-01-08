@@ -75,5 +75,6 @@ public class BatchTraceabilityDetailedSummary extends Model<BatchTraceabilityDet
     private Integer restaurantStatus;
     private String manufacturerEqacode;
     private String manufacturerName;
+    private String retrospective;
     
 }

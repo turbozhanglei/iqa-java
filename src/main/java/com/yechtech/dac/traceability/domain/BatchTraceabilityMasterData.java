@@ -85,6 +85,8 @@ public class BatchTraceabilityMasterData extends Model<BatchTraceabilityMasterDa
     private String endTime;
     @ApiModelProperty(notes = "roleCode")
     private String roleCode;
+    @ApiModelProperty(notes = "追溯率返回")
+    private String retrospective;
 
     
 }

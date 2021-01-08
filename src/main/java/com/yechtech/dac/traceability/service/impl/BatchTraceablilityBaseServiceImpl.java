@@ -22,6 +22,8 @@ import org.springframework.beans.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -84,6 +86,8 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
     @Override
     public DacResponse
     selectPage(BatchTraceabilityMasterDto batchDto) {
+        NumberFormat percent = NumberFormat.getPercentInstance();
+        percent.setMaximumFractionDigits(2);
         BatchTraceabilityMasterData batchTraceabilityMasterData=new BatchTraceabilityMasterData();
         BeanUtils.copyProperties(batchDto,batchTraceabilityMasterData);
         if (env.equals("prd") || env.equals("uat")){
@@ -99,12 +103,20 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
         int startIndex = (batchDto.getPageNum() - 1) * batchDto.getPageSize();
         List<BatchTraceabilityMasterData> list = masterDataMapper.queryPage(startIndex, batchDto.getPageSize(), batchTraceabilityMasterData);
         long count = masterDataMapper.queryPageCount(batchTraceabilityMasterData);
+        list.forEach(data->{
+            if (null !=data.getTraceRatio()){
+                data.setRetrospective(percent.format(data.getTraceRatio().setScale(4, BigDecimal.ROUND_HALF_UP)));
+            }else {
+                data.setRetrospective("0.00%");
+            }
+        });
         PageResult pageResult = new PageResult();
         pageResult.setData(list);
         pageResult.setTotal(count);
         pageResult.setMessage("Success");
         return new DacResponse().data(pageResult);
     }
+
 
     @Override
     public DacResponse selectInputList(FilterConditionDto batchDto){
@@ -236,6 +248,8 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
                 return new DacResponse().message("用户信息已失效");
             }
         }
+        NumberFormat percent = NumberFormat.getPercentInstance();
+        percent.setMaximumFractionDigits(2);
         BatchTraceabilityDetailedSummary batchTraceabilityDetailedSummary =new BatchTraceabilityDetailedSummary();
         SimpleDateFormat format =new SimpleDateFormat();
         QueryWrapper<DetailedSummary> queryWrapper = new QueryWrapper<>();
@@ -248,6 +262,11 @@ public class BatchTraceablilityBaseServiceImpl implements BatchTraceablilityBase
 
         if (CollectionUtils.isNotEmpty(detailedSummaries)){
             BeanUtils.copyProperties(detailedSummaries.get(0),batchTraceabilityDetailedSummary);
+            if (null !=batchTraceabilityDetailedSummary.getTraceRatio()){
+                batchTraceabilityDetailedSummary.setRetrospective(percent.format(batchTraceabilityDetailedSummary.getTraceRatio().setScale(4, BigDecimal.ROUND_HALF_UP)));
+            }else {
+                batchTraceabilityDetailedSummary.setRetrospective("0.00%");
+            }
         }
 
         //获取详情页状态 -上游原料
